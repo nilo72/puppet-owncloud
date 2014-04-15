@@ -27,7 +27,7 @@ describe 'owncloud::dbnode' do
     )
 	end
   end
-    context 'with extra db params' do
+  context 'with extra db params' do
     let(:params)  { {
       :root_db_password    => 'test',
       :owncloud_db_password  => 'test',
@@ -35,7 +35,8 @@ describe 'owncloud::dbnode' do
       :owncloud_db_user => 'frugnul',
       :owncloud_db_name => 'frugnulDB'
      }}
-    it should contain_mysql__db('frugnulDB').with(
+    
+    should contain_mysql__db('frugnulDB').with(
     	'password' => 'test',
     	'user' => 'frugnul',
     )
