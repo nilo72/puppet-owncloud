@@ -1,6 +1,8 @@
 fixtures:
   repositories:
     mysql: "git://github.com/puppetlabs/puppetlabs-mysql"
+    nagios: 
+      repo: "git://github.com/haw-hh-ai-lab/puppet-nagios"
     apt:
       repo: "git://github.com/puppetlabs/puppetlabs-apt"
       ref: "1.4.2"
