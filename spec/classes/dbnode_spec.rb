@@ -5,14 +5,19 @@ describe 'owncloud' do
   let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
 
   context 'with default settngs' do
+    let(:params)  { {
+      :root_db_password    => 'test',
+      :owncloud_db_password  => 'test',
+      :db_monitor_host => 'testhost.example.com',
+     }}
     it do
       
     should compile
-    #should contain_package('galera')
+    should contain_package('galera')
     #should contain_class('mysql__server')
     #should contain_class('mysql__server__monitor')
     #should contain_resource('nagios__service')
-    #should contain_resource('mysql__db')
+    should contain_resource('mysql__db').with({password => 'test', user => 'owncloud'})
 end
   end
 end
