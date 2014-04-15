@@ -6,3 +6,6 @@ license 'Apache 2.0'
 summary 'Owncloud environment db and app servers'
 description "Owncloud environment db and app servers"
 project_page 'https://github.com/haw-hh-ai-lab/puppet-owncloud'
+dependency 'pupetlabs/apt', '>= 1.4.2'
+dependency 'pupetlabs/stdlib', '>= 4.2.0'
+dependency 'pupetlabs/mysql', '>= 1.0'

@@ -4,7 +4,9 @@ describe 'owncloud::dbnode' do
   let(:node) { 'testhost.example.org' }
   let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
   let(:facts) { { :osfamily => 'Debian',
-                   :operatingsystem => 'Ubuntu' } }
+                   :operatingsystem => 'Debian',
+                   :lsbdistid => 'Debian',
+			  } }
   
   context 'with default settngs' do
     let(:params)  { {
