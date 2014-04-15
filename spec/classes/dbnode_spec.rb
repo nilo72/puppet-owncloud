@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'owncloud' do
+describe 'owncloud::dbnode' do
   let(:node) { 'testhost.example.org' }
   let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
 
@@ -8,7 +8,7 @@ describe 'owncloud' do
     let(:params)  { {
       :root_db_password    => 'test',
       :owncloud_db_password  => 'test',
-      :db_monitor_host => 'testhost.example.com',
+      :db_monitor_host => 'monitor.example.com',
      }}
     it do
       
