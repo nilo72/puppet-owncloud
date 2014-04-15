@@ -35,10 +35,11 @@ describe 'owncloud::dbnode' do
       :owncloud_db_user => 'frugnul',
       :owncloud_db_name => 'frugnulDB'
      }}
-    
-    should contain_mysql__db('frugnulDB').with(
-    	'password' => 'test',
-    	'user' => 'frugnul',
-    )
+    it do
+    	should contain_mysql__db('frugnulDB').with(
+    		'password' => 'test',
+    		'user' => 'frugnul',
+    	)
+	end
   end
 end
