@@ -21,7 +21,7 @@ describe 'owncloud::dbnode' do
     #should contain_class('mysql__server')
     #should contain_class('mysql__server__monitor')
     #should contain_resource('nagios__service')
-    should contain_resource('mysql__db')#.with({password => 'test', user => 'owncloud'})
+    should contain_mysql__db('ownclouddb').with({password => 'test', user => 'owncloud'})
 end
   end
 end
