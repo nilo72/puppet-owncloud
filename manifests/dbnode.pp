@@ -12,10 +12,9 @@ class owncloud::dbnode(
 )
 {
   include apt
-  if ! $::osfamily {
-    case $osfamily {
-    'ubuntu'{
-        apt::source { 'mariadb':
+  case $::operatingsystem {
+    'ubuntu': {
+      apt::source { 'mariadb':
         location   => 'http://mirror.netcologne.de/mariadb/repo/5.5/ubuntu',
         release    => 'saucy',
         repos      => 'main',
@@ -23,7 +22,7 @@ class owncloud::dbnode(
         key_server => 'hkp://keyserver.ubuntu.com:80',
       }
     }
-    'debian'{
+    'debian': {
         apt::source { 'mariadb':
           location   => 'http://mirror2.hs-esslingen.de/mariadb/repo/5.5/debian',
           release    => 'wheezy',
@@ -33,7 +32,7 @@ class owncloud::dbnode(
       }
     }
   }
-}
+
   package { 'galera':
     ensure  => latest,
     require  => Apt::Source['mariadb'],
