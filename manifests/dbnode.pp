@@ -70,5 +70,22 @@ class owncloud::dbnode(
     contact_groups => 'ail-admins',
   }
   
+  file { '/etc/mysql/conf.d/cluster.cnf':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
+    #notify  => Service[$owncloud::dbnode]
+  }
+  
+  file { '/etc/mysql/debian.cnf':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/site/ocgalera/debian.cnf'
+  }
+  
   include ldap::params
 }
