@@ -9,6 +9,8 @@ class owncloud::dbnode(
   $owncloud_db_user='owncloud',
   $db_monitor_user='nagios',
   $db_monitor_password='nagios',
+  $node_ip=$::ipaddress,
+  $node_name=$::fqdn,
 )
 {
   include apt
@@ -67,4 +69,6 @@ class owncloud::dbnode(
     check_command => 'check_mysql_cmdlinecred!nagios!nagios',
     contact_groups => 'ail-admins',
   }
+  
+  include ldap::params
 }
