@@ -40,6 +40,10 @@ class owncloud::dbnode(
     ensure  => latest,
     require  => Apt::Source['mariadb'],
   }
+  
+  package { 'rsync':
+    ensure  => latest,
+  }
 
   class { 'mysql::server':
     root_password => $root_db_password,
