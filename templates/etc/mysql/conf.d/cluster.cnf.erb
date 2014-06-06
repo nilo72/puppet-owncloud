@@ -12,7 +12,7 @@ wsrep_provider=/usr/lib/galera/libgalera_smm.so
 
 # Galera Cluster Configuration
 wsrep_cluster_name="oc_cluster"
-wsrep_cluster_address="gcomm://141.22.30.111,141.22.30.112,141.22.30.113"
+wsrep_cluster_address="gcomm://<%= scope.lookupvar('owncloud::dbnode::node_ips') %>"
 
 # Galera Synchronization Congifuration
 wsrep_sst_method=rsync

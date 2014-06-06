@@ -11,6 +11,7 @@ class owncloud::dbnode(
   $db_monitor_password='nagios',
   $node_ip=$::ipaddress,
   $node_name=$::fqdn,
+  $node_ips,
 )
 {
   include apt
@@ -86,6 +87,4 @@ class owncloud::dbnode(
     mode    => '0644',
     source  => 'puppet:///modules/site/ocgalera/debian.cnf'
   }
-  
-  include ldap::params
 }
