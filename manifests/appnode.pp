@@ -5,6 +5,7 @@ class owncloud::appnode()
 {
   include apt
   include apache
+  include apache::mod::prefork
   include apache::mod::php
   
   nagios::service{ 'apache_web_node':
