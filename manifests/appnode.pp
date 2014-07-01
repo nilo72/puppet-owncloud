@@ -14,6 +14,7 @@ class owncloud::appnode()
   
   file { "/tmp/owncloud-6.0.3.tar.bz2":
     ensure => "/tmp/owncloud-6.0.3.tar.bz2",
+    source => "puppet:///modules/owncloud/tmp/owncloud-6.0.3.tar.bz2",
   }
   
 #  exec { "tar -xfvj /tmp/owncloud-6.0.3.tar.bz2":
