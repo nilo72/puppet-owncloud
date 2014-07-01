@@ -5,6 +5,7 @@ class owncloud::appnode()
 {
   include apt
   include apache
+  include apache::mod::worker
   include apache::mod::prefork
   include apache::mod::php
   
