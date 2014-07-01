@@ -5,6 +5,7 @@ class owncloud::appnode()
 {
   include apt
   include apache
+  include apache::mod::php
   
   nagios::service{ 'apache_web_node':
     service_description => 'OwnCloud Apache App-Server',
