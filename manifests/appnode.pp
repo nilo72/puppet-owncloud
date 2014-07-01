@@ -21,6 +21,6 @@ class owncloud::appnode()
     require  => File["/tmp/owncloud-6.0.3.tar.bz2"],
     cwd     => "/tmp",
     creates => "/var/www/owncloud",
-    path    => ["/usr/bin", "/usr/sbin"]
+    path    => ["/bin", "/usr/bin", "/usr/sbin"]
   }
 }
