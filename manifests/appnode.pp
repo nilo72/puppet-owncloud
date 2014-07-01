@@ -16,9 +16,16 @@ class owncloud::appnode()
     ensure => present,
     source => "puppet:///modules/owncloud/tmp/owncloud-6.0.3.tar.bz2",
   }
-  
-  exec { "tar -xfvj /tmp/owncloud-6.0.3.tar.bz2":
+
+  exec { "bunzip2 owncloud-6.0.3.tar.bz2":
     require  => File["/tmp/owncloud-6.0.3.tar.bz2"],
+    cwd     => "/tmp",
+    creates => "/var/www/owncloud",
+    path    => ["/bin", "/usr/bin", "/usr/sbin"]
+  }
+  
+  exec { "tar -xfvj /tmp/owncloud-6.0.3.tar":
+    require  => Exec["bunzip2 owncloud-6.0.3.tar.bz2"],
     cwd     => "/tmp",
     creates => "/var/www/owncloud",
     path    => ["/bin", "/usr/bin", "/usr/sbin"]
