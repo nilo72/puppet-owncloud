@@ -15,11 +15,11 @@ class owncloud::appnode()
   file { "/tmp/owncloud-6.0.3.tar.bz2":
     ensure => "/tmp/owncloud-6.0.3.tar.bz2",
   }
-
-  exec { "tar -xfvj /tmp/owncloud-6.0.3.tar.bz2":
-    ensure  => File["/tmp/owncloud-6.0.3.tar.bz2"],
-    cwd     => "/tmp",
-    creates => "/var/www/owncloud",
-    path    => ["/usr/bin", "/usr/sbin"]
-  }
+  
+#  exec { "tar -xfvj /tmp/owncloud-6.0.3.tar.bz2":
+#    ensure  => File["/tmp/owncloud-6.0.3.tar.bz2"],
+#    cwd     => "/tmp",
+#    creates => "/var/www/owncloud",
+#    path    => ["/usr/bin", "/usr/sbin"]
+#  }
 }
