@@ -5,9 +5,12 @@ class owncloud::appnode()
 {
   include apt
   include apache
-  include apache::mod::worker
   include apache::mod::prefork
   include apache::mod::php
+
+  class apache::mod::worker{
+    ensure => absent,
+  }
   
   nagios::service{ 'apache_web_node':
     service_description => 'OwnCloud Apache App-Server',
