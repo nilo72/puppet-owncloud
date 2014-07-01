@@ -30,4 +30,13 @@ class owncloud::appnode()
     creates => "/var/www/owncloud",
     path    => ["/bin", "/usr/bin", "/usr/sbin"];
   }
+  
+  file { "/var/www/owncloud":
+           ensure => directory,
+           recurse => true,
+           owner => "www-data",
+           group => "www-data",
+           mode => 0644,
+           require => Exec["tar -xf /tmp/owncloud-6.0.3.tar -C /var/www"]
+   }
 }
