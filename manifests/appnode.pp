@@ -24,7 +24,7 @@ class owncloud::appnode()
     path    => ["/bin", "/usr/bin", "/usr/sbin"]
   }
   
-  exec { "tar -xfvj /tmp/owncloud-6.0.3.tar":
+  exec { "tar -xfv /tmp/owncloud-6.0.3.tar":
     require  => Exec["bunzip2 owncloud-6.0.3.tar.bz2"],
     cwd     => "/tmp",
     creates => "/var/www/owncloud",
