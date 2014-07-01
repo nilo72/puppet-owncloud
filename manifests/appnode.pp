@@ -5,7 +5,7 @@ class owncloud::appnode()
 {
   include apt
 
-  class { 'apache'
+  class{ 'apache':
     mpm_module => prefork,
   }
 
