@@ -21,6 +21,10 @@ class owncloud::appnode(
     ensure  => latest,
     require  => [Apt::Source['owncloud_enterprise']],
   }
+  
+  package { 'php5-ldap':
+    ensure  => latest,
+  }
       
   class{ 'apache':
     mpm_module => prefork,
