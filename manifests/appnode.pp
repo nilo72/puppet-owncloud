@@ -22,7 +22,11 @@ class owncloud::appnode(
       }
       }
     }
-  
+
+  package { 'apt-transport-https':
+    ensure  => latest,
+  }
+
   package { 'owncloud-enterprise':
     ensure  => latest,
     require  => [Apt::Source['owncloud enterprise']],
