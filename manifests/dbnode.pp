@@ -65,7 +65,7 @@ class owncloud::dbnode(
   mysql::db { $owncloud_db_name:
     user     => $owncloud_db_user,
     password => $owncloud_db_password,
-    host     => 'localhost',
+    host     => '141.22.30.%',
     grant    => ['all'],
   }
   
