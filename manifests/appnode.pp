@@ -11,7 +11,7 @@ class owncloud::appnode(
     'debian': {
       apt::source { 'owncloud_enterprise':
         location   => $apt_url,
-        release    => '',
+        release    => '/',
         repos      => '',
       }
       }
