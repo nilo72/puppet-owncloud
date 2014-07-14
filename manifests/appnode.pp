@@ -19,7 +19,7 @@ class owncloud::appnode(
 
   package { 'owncloud-enterprise':
     ensure  => latest,
-    require  => [Apt::Source['owncloud enterprise']],
+    require  => [Apt::Source['owncloud_enterprise']],
   }
       
   class{ 'apache':
