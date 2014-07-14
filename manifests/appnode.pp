@@ -9,17 +9,9 @@ class owncloud::appnode(
   
   case $::operatingsystem {
     'Debian': {
-      apt::source { 'owncloud enterprise':
-        ensure  => absent,
-        location   => $apt_url,
-        release    => 'wheezy',
-        repos      => 'main',
-      }
       apt::source { 'owncloud_enterprise':
         location   => $apt_url,
-        release    => 'wheezy',
-        repos      => 'main',
-      }
+        }
       }
     }
 
