@@ -8,7 +8,7 @@ class owncloud::appnode(
   include apt
   
   case $::operatingsystem {
-    'Debian': {
+    'debian': {
       apt::source { 'owncloud_enterprise':
         location   => $apt_url,
         release    => '',
@@ -16,10 +16,6 @@ class owncloud::appnode(
       }
       }
     }
-
-  package { 'apt-transport-https':
-    ensure  => latest,
-  }
 
   package { 'owncloud-enterprise':
     ensure  => latest,
