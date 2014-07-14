@@ -1,10 +1,30 @@
 # OwnCloud DB-Node
 #
 
-class owncloud::appnode()
+class owncloud::appnode( 
+  $apt_url,
+  $node_ip=$::ipaddress,
+  $node_name=$::fqdn,
+  $node_ips,
+  )
 {
   include apt
-
+  
+  case $::operatingsystem {
+    'debian': {
+        apt::source { 'owncloud enterprise':
+          location   => $apt_url,
+          release    => 'wheezy',
+          repos      => 'main',
+      }
+    }
+  }
+  
+  package { 'owncloud-enterprise':
+    ensure  => latest,
+    require  => [Apt::Source['owncloud enterprise']],
+  }
+      
   class{ 'apache':
     mpm_module => prefork,
   }
@@ -16,32 +36,4 @@ class owncloud::appnode()
     check_command => 'check_http',
     contact_groups => 'ail-admins',
   }
-  
-  file { "/tmp/owncloud-6.0.3.tar.bz2":
-    ensure => present,
-    source => "puppet:///modules/owncloud/tmp/owncloud-6.0.3.tar.bz2",
-  }
-
-  exec { 
-    "bunzip2 owncloud-6.0.3.tar.bz2":
-    require  => File["/tmp/owncloud-6.0.3.tar.bz2"],
-    cwd     => "/tmp",
-    creates => "/var/www/owncloud",
-    path    => ["/bin", "/usr/bin", "/usr/sbin"];
-
-    "tar -xf /tmp/owncloud-6.0.3.tar -C /var/www":
-    require  => Exec["bunzip2 owncloud-6.0.3.tar.bz2"],
-    cwd     => "/tmp",
-    creates => "/var/www/owncloud",
-    path    => ["/bin", "/usr/bin", "/usr/sbin"];
-  }
-  
-  file { "/var/www/owncloud":
-           ensure => directory,
-           recurse => true,
-           owner => "www-data",
-           group => "www-data",
-           mode => 0644,
-           require => Exec["tar -xf /tmp/owncloud-6.0.3.tar -C /var/www"]
-   }
 }
