@@ -3,10 +3,7 @@
 
 class owncloud::appnode( 
   $apt_url,
-  $node_ip=$::ipaddress,
-  $node_name=$::fqdn,
-  $node_ips,
-  )
+)
 {
   include apt
   
