@@ -21,6 +21,11 @@ class owncloud::appnode(
     ensure  => latest,
     require  => [Apt::Source['owncloud_enterprise']],
   }
+
+  package { 'owncloud-enterprise-ldaphome':
+    ensure  => latest,
+    require  => [Apt::Source['owncloud_enterprise']],
+  }
   
   package { 'php5-ldap':
     ensure  => latest,
