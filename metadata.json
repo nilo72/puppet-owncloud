@@ -1,0 +1,52 @@
+{
+  "author": "Oliver Neumann",
+  "checksums": {
+    "manifests\\init.pp": "6a40847654812ba3236f2803e35cd74a",
+    "Rakefile": "9b0889decdd0884155684846f795c274",
+    "Gemfile": "c82651a0886a95cb2ed6ff29fae7479f",
+    "files\\tmp\\owncloud-6.0.3.tar.bz2": "007d6025cca1e46abd52bc6700149bc9",
+    "spec\\classes\\dbnode_spec.rb": "6336ccdcbd228468733c7f48b2f1371b",
+    "spec\\fixtures\\hiera\\test.yaml": "3712df32c4ef31630ca1297d07e9cb79",
+    "Modulefile": "19d8ad283805b45e3819090c48387794",
+    ".fixtures.yml": "26f207bcd939332294da9af414ec6731",
+    "spec\\classes\\owncloud_spec.rb": "1e0ec58ebdc649ea2fa6053d1e7451c1",
+    "LICENSE": "99219472697a01561e7630d63aaecdc1",
+    "spec\\spec_helper.rb": "2b77b100a835d5b20f7f0bd3bfa1440c",
+    "manifests\\appnode.pp": "6093b922f76ff36d441758eb846d70cf",
+    "manifests\\dbnode.pp": "82e5d8e2ad3475557335452f30b46588",
+    "spec\\fixtures\\hiera\\hiera.yaml": "67b96b66d1af7403a33293dc4c9e496d",
+    "ChangeLog": "a8065554c54ac31dce7123426dff7c7b",
+    "templates\\etc\\mysql\\conf.d\\cluster.cnf.erb": "20b916f4a23bd83933d5e521a9cb31d8",
+    "README.md": "4ecf794022894b7c837121485a78040c"
+  },
+  "dependencies": [
+    {
+      "name": "puppetlabs/apt",
+      "version_requirement": "1.4.1"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": "4.2.1"
+    },
+    {
+      "name": "puppetlabs/mysql",
+      "version_requirement": "2.2.1"
+    },
+    {
+      "name": "cypherfox/nagios",
+      "version_requirement": "0.1.0"
+    },
+    {
+      "name": "puppetlabs/apache",
+      "version_requirement": "1.0.1"
+    }
+  ],
+  "description": "Owncloud environment db and app servers",
+  "license": "Apache 2.0",
+  "name": "nilo72-owncloud",
+  "project_page": "https://github.com/haw-hh-ai-lab/puppet-owncloud",
+  "source": "git://github.com/haw-hh-ai-lab/puppet-owncloud",
+  "summary": "Owncloud environment db and app servers",
+  "types": [],
+  "version": "0.0.1"
+}
