@@ -1,12 +1,12 @@
 # OwnCloud DB-Node
 #
 
-class owncloud::appnode( 
+class owncloud::appnode(
   $apt_url,
 )
 {
   include apt
-  
+
   case $::operatingsystem {
     'debian': {
       apt::source { 'owncloud_enterprise':
@@ -43,7 +43,7 @@ class owncloud::appnode(
   package { 'php5-ldap':
     ensure  => latest,
   }
-      
+
   class{ 'apache':
     mpm_module => prefork,
   }
