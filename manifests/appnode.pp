@@ -26,6 +26,19 @@ class owncloud::appnode(
     ensure  => latest,
     require  => [Apt::Source['owncloud_enterprise']],
   }
+
+  package { 'cifs-utils':
+    ensure  => latest,
+  }
+  
+  file{ 'credentials':
+    ensure => present,
+    chmod 600
+  }
+  
+  file{ 'fstab' :
+    ensure => present,
+  }
   
   package { 'php5-ldap':
     ensure  => latest,
