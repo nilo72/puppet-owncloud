@@ -12,17 +12,17 @@ class owncloud::appnode(
   case $::operatingsystem {
     'debian': {
       apt::source { 'owncloud_enterprise':
-        location   => $apt_url,
+        location   => $apt_url_enterprise,
         release    => '/',
         repos      => '',
       }
       apt::source { 'owncloud_community':
-        location   => $apt_url,
+        location   => $apt_url_community,
         release    => '/',
         repos      => '',
       }
       }
-    }
+  }
 
   case $enterprise_community {
     #Options if enterprise is selected
@@ -43,7 +43,7 @@ class owncloud::appnode(
   
         file{ 'credentials':
           ensure => present,
-          chmod 600
+          chmod 600,
         }
     }
     'false':{
