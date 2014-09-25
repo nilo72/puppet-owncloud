@@ -3,8 +3,8 @@
 
 class owncloud::appnode(
   $enterprise_cummunity='false',
-  $apt_url_enterpise,
-  $apt_url_cummunity,
+  $apt_url_enterprise,
+  $apt_url_community,
 )
 {
   include apt
