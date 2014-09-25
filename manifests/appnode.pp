@@ -2,7 +2,9 @@
 #
 
 class owncloud::appnode(
-  $apt_url,
+  $enterprise_cummunity='false',
+  $apt_url_enterpise,
+  $apt_url_cummunity,
 )
 {
   include apt
@@ -14,26 +16,42 @@ class owncloud::appnode(
         release    => '/',
         repos      => '',
       }
+      apt::source { 'owncloud_community':
+        location   => $apt_url,
+        release    => '/',
+        repos      => '',
+      }
       }
     }
 
-  package { 'owncloud-enterprise':
-    ensure  => latest,
-    require  => [Apt::Source['owncloud_enterprise']],
-  }
+  case $enterprise_community {
+    #Options if enterprise is selected
+    'true':{
+        package { 'owncloud-enterprise':
+          ensure  => latest,
+          require  => [Apt::Source['owncloud_enterprise']],
+        }
 
-  package { 'owncloud-enterprise-ldaphome':
-    ensure  => latest,
-    require  => [Apt::Source['owncloud_enterprise']],
-  }
+        package { 'owncloud-enterprise-ldaphome':
+          ensure  => latest,
+          require  => [Apt::Source['owncloud_enterprise']],
+        }
 
-  package { 'cifs-utils':
-    ensure  => latest,
-  }
+        package { 'cifs-utils':
+          ensure  => latest,
+        }
   
-  file{ 'credentials':
-    ensure => present,
-    chmod 600
+        file{ 'credentials':
+          ensure => present,
+          chmod 600
+        }
+    }
+    'false':{
+      package { 'owncloud':
+        ensure  => latest,
+        require  => [Apt::Source['owncloud_community']],
+      }
+    }
   }
   
   file{ 'fstab' :
