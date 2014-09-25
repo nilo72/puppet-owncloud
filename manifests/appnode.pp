@@ -2,7 +2,7 @@
 #
 
 class owncloud::appnode(
-  $enterprise_cummunity='false',
+  $enterprise_community='false',
   $apt_url_enterprise,
   $apt_url_community,
 )
