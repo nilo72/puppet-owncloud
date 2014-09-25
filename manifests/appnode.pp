@@ -9,6 +9,11 @@ class owncloud::appnode(
 {
   include apt
 
+  apt::key { 'owncloud':
+    key        => 'BA684223',
+    key_source => 'http://download.opensuse.org/repositories/isv:ownCloud:community/Debian_7.0/Release.key',
+  }
+
   case $::operatingsystem {
     'debian': {
       apt::source { 'owncloud_enterprise':

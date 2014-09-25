@@ -15,6 +15,7 @@ class owncloud::dbnode(
 )
 {
   include apt
+
   case $::operatingsystem {
     'ubuntu': {
       apt::source { 'mariadb':
