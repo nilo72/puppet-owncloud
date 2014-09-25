@@ -41,10 +41,10 @@ class owncloud::appnode(
           ensure  => latest,
         }
   
-        file{ 'credentials':
-          ensure => present,
-          chmod 600,
-        }
+        #file{ 'credentials':
+        #  ensure => present,
+        #  chmod 600,
+        #}
     }
     'false':{
       package { 'owncloud':
@@ -54,9 +54,9 @@ class owncloud::appnode(
     }
   }
   
-  file{ 'fstab' :
-    ensure => present,
-  }
+  #file{ 'fstab' :
+  #  ensure => present,
+  #}
   
   package { 'php5-ldap':
     ensure  => latest,
