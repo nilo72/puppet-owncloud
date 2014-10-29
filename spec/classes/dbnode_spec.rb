@@ -13,6 +13,7 @@ describe 'owncloud::dbnode' do
       :root_db_password    => 'test',
       :owncloud_db_password  => 'test',
       :db_monitor_host => 'monitor.example.com',
+      :node_ips => '192.168.10.1,192.168.10.2'
      }}
     it do
       
@@ -33,7 +34,8 @@ describe 'owncloud::dbnode' do
       :owncloud_db_password  => 'test',
       :db_monitor_host => 'monitor.example.com',
       :owncloud_db_user => 'frugnul',
-      :owncloud_db_name => 'frugnulDB'
+      :owncloud_db_name => 'frugnulDB',
+      :node_ips => '192.168.10.1,192.168.10.2'
      }}
     it do
     	should contain_mysql__db('frugnulDB').with(
