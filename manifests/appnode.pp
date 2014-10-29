@@ -74,6 +74,7 @@ class owncloud::appnode(
 
   class{ 'apache':
     mpm_module => prefork,
+    docroot => '/var/www/owncloud',
   }
 
   include apache::mod::php
