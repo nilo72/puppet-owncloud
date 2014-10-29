@@ -79,6 +79,11 @@ class owncloud::appnode(
   apache::vhost { 'cloud.informatik.haw-hamburg.de':
        port          => '80',
        docroot => '/var/www/owncloud',
+       directories  => [ 
+               { path           => '/var/www/owncloud', 
+                 allow_override => ['All'], 
+               }, 
+             ],
   }
 
   include apache::mod::php
