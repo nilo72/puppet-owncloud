@@ -54,7 +54,7 @@ class owncloud::appnode(
     'false':{
       package { 'owncloud':
         ensure  => '7.0.2',
-        require  => [Apt::Source['owncloud_community'],Exec['apt-get update']],
+        require  => Exec['apt-get update'],
       }
     }
   }
