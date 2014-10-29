@@ -74,7 +74,11 @@ class owncloud::appnode(
 
   class{ 'apache':
     mpm_module => prefork,
-    docroot => '/var/www/owncloud',
+  }
+  
+  apache::vhost { 'cloud.informatik.haw-hamburg.de':
+       port          => '80',
+       docroot => '/var/www/owncloud',
   }
 
   include apache::mod::php
