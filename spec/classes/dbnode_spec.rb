@@ -15,18 +15,16 @@ describe 'owncloud::dbnode' do
       :db_monitor_host => 'monitor.example.com',
       :node_ips => '192.168.10.1,192.168.10.2'
      }}
-    it do
-      
-    should compile
-    should contain_package('galera')
-    #should contain_class('mysql__server')
-    #should contain_class('mysql__server__monitor')
-    #should contain_resource('nagios__service')
-    should contain_mysql__db('ownclouddb').with(
+     
+    it { should compile }
+    it { should contain_package('galera') }
+#   it { should contain_class('mysql__server')}
+#   it { should contain_class('mysql__server__monitor')}
+#   it { should contain_resource('nagios__service')}
+    it { should contain_mysql__db('ownclouddb').with(
     	'password' => 'test',
-    	'user' => 'owncloud',
-    )
-	end
+    	'user' => 'owncloud'
+      ) }
   end
   context 'with extra db params' do
     let(:params)  { {
@@ -37,11 +35,9 @@ describe 'owncloud::dbnode' do
       :owncloud_db_name => 'frugnulDB',
       :node_ips => '192.168.10.1,192.168.10.2'
      }}
-    it do
-    	should contain_mysql__db('frugnulDB').with(
+    it { should contain_mysql__db('frugnulDB').with(
     		'password' => 'test',
-    		'user' => 'frugnul',
-    	)
-	end
+    		'user' => 'frugnul'
+       ) }
   end
 end
