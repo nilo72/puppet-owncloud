@@ -1,12 +1,29 @@
-source 'https://rubygems.org'
+source ENV['GEM_SOURCE'] || "https://rubygems.org"
 
-gem 'rake'
-gem 'puppet-lint'
-gem 'rspec-puppet', :github => 'rodjek/rspec-puppet'
-gem 'rspec-system-puppet'
-gem 'puppetlabs_spec_helper'
-gem 'travis'
-gem 'travis-lint'
-gem 'puppet-syntax'
-gem 'puppet'
-gem 'vagrant-wrapper'
+group :development, :test do
+  gem 'rake',                    :require => false
+  gem 'puppet-lint',             :require => false
+  gem 'rspec-puppet', :github => 'rodjek/rspec-puppet'
+  gem 'puppetlabs_spec_helper',  :require => false
+  gem 'travis',                  :require => false
+  gem 'travis-lint',             :require => false
+  gem 'serverspec',              :require => false
+  gem 'beaker',                  :require => false
+  gem 'beaker-rspec',            :require => false
+  gem 'pry',                     :require => false
+  gem 'simplecov',               :require => false
+end
+
+if facterversion = ENV['FACTER_GEM_VERSION']
+  gem 'facter', facterversion, :require => false
+else
+  gem 'facter', :require => false
+end
+
+if puppetversion = ENV['PUPPET_GEM_VERSION']
+  gem 'puppet', puppetversion, :require => false
+else
+  gem 'puppet', :require => false
+end
+
+# vim:ft=ruby
