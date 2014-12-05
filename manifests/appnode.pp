@@ -9,6 +9,9 @@ class owncloud::appnode(
 {
   include apt
 
+  mounts {'Temp in RAM': source => 'none', dest => '/tmp', type => 'tmpfs,size=6G', opts => 'defaults' }
+
+
   apt::key { 'owncloud':
     key        => 'BA684223',
     key_source => 'http://download.opensuse.org/repositories/isv:ownCloud:community/Debian_7.0/Release.key',
