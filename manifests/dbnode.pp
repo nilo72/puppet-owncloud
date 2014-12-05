@@ -16,6 +16,8 @@ class owncloud::dbnode(
 {
   include apt
 
+  mounts {'OC DB-Files': source => '/dev/sdb1', dest => '/ocdbfiles', type => 'btrfs', opts => 'rw,relatime,space_cache' }
+
   case $::operatingsystem {
     'ubuntu': {
       apt::source { 'mariadb':
@@ -49,10 +51,11 @@ class owncloud::dbnode(
   class { 'mysql::server':
     root_password => $root_db_password,
     package_name  => 'mariadb-galera-server',
-    require      => Package['galera'],
+    require      => [Package['galera'],Mounts['OC DB-Files']],
     override_options => {
       'mysqld' => {
         'bind_address' => $::ipaddress,
+        'datadir' => '/ocdbfiles',
       },},
   }
 
