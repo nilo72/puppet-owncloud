@@ -56,6 +56,13 @@ class owncloud::dbnode(
       'mysqld' => {
         'bind_address' => $::ipaddress,
         'datadir' => '/ocdbfiles',
+        'key_buffer_size' => '512M',
+        'innodb_buffer_pool_size' => '512M',
+        'query_cache_type' => '1',
+        'query_cache_limit' => '512M',
+        'query_cache_size' => '512M',
+        'table_open_cache' => '512',
+#        '' => '',
       },},
   }
 
