@@ -51,7 +51,7 @@ class owncloud::dbnode(
   class { 'mysql::server':
     root_password => $root_db_password,
     package_name  => 'mariadb-galera-server',
-    require      => [Package['galera'],Mounts['OC DB-Files'],File['/etc/mysql/conf.d/cluster.cnf'],File['/etc/mysql/debian.cnf']],
+    require      => [Package['galera'],Mounts['OC DB-Files'],File['/etc/mysql/debian.cnf']],
     override_options => {
       'mysqld' => {
         #'bind_address' => $::ipaddress,
