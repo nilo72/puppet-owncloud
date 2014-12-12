@@ -17,7 +17,11 @@ class owncloud::dbnode(
   include apt
 
   mounts {'OC DB-Files': source => '/dev/sdb1', dest => '/ocdbfiles', type => 'btrfs', opts => 'rw,relatime,space_cache' }
-
+	
+  service{'mysql':
+	  ensure: stopped,
+  }
+  
   case $::operatingsystem {
     'ubuntu': {
       apt::source { 'mariadb':
@@ -43,6 +47,11 @@ class owncloud::dbnode(
     ensure  => latest,
     require  => [Apt::Source['mariadb'],Package['rsync']],
   }
+
+  package { 'mariadb-galera-server':
+    ensure  => latest,
+    require  => [Package['galera']],
+  }
   
   package { 'rsync':
     ensure  => latest,
@@ -54,7 +63,7 @@ class owncloud::dbnode(
     require      => [Package['galera'],Mounts['OC DB-Files']],
     override_options => {
       'mysqld' => {
-        'bind_address' => $::ipaddress,
+        #'bind_address' => $::ipaddress,
         'datadir' => '/ocdbfiles',
         'key_buffer_size' => '512M',
         'innodb_buffer_pool_size' => '512M',
@@ -76,7 +85,7 @@ class owncloud::dbnode(
   mysql::db { $owncloud_db_name:
     user     => $owncloud_db_user,
     password => $owncloud_db_password,
-    host     => '141.22.30.%',
+    host     => '192.168.119.%',
     grant    => ['all'],
   }
   
