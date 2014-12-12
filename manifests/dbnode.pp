@@ -44,11 +44,6 @@ class owncloud::dbnode(
     require  => [Apt::Source['mariadb'],Package['rsync']],
   }
 
-  package { 'mariadb-galera-server':
-    ensure  => latest,
-    require  => Package['galera'],
-  }
-  
   package { 'rsync':
     ensure  => latest,
   }
