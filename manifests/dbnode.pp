@@ -51,10 +51,18 @@ class owncloud::dbnode(
   class { 'mysql::server':
     root_password => $root_db_password,
     package_name  => 'mariadb-galera-server',
-    require      => [Package['galera'],Mounts['OC DB-Files'],File['/etc/mysql/conf.d/cluster.cnf'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/my.cnf']],
+    require      => [Package['galera'],Mounts['OC DB-Files'],File['/etc/mysql/conf.d/cluster.cnf'],File['/etc/mysql/debian.cnf']],
     override_options => {
       'mysqld' => {
         #'bind_address' => $::ipaddress,
+        'datadir' => '/ocdbfiles',
+        'key_buffer_size' => '512M',
+        'innodb_buffer_pool_size' => '512M',
+        'query_cache_type' => '1',
+        'query_cache_limit' => '512M',
+        'query_cache_size' => '512M',
+        'table_open_cache' => '512',
+#       '' => '',  
       },},
   }
 
@@ -93,12 +101,5 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/site/ocgalera/debian.cnf'
-  }
-  file { '/etc/mysql/my.cnf':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    source  => 'puppet:///modules/site/ocgalera/my.cnf'
   }
 }
