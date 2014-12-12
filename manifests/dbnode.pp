@@ -66,11 +66,11 @@ class owncloud::dbnode(
       },},
   }
 
-  class { 'mysql::server::monitor':
-    mysql_monitor_username  => $db_monitor_user,
-    mysql_monitor_password  => $db_monitor_password,
-    mysql_monitor_hostname  => $db_monitor_host,
-  }
+#  class { 'mysql::server::monitor':
+#    mysql_monitor_username  => $db_monitor_user,
+#    mysql_monitor_password  => $db_monitor_password,
+#    mysql_monitor_hostname  => $db_monitor_host,
+#  }
 
   # Creates a database with a user and assign some privileges
   mysql::db { $owncloud_db_name:
