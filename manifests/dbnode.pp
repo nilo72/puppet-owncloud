@@ -18,10 +18,6 @@ class owncloud::dbnode(
 
   mounts {'OC DB-Files': source => '/dev/sdb1', dest => '/ocdbfiles', type => 'btrfs', opts => 'rw,relatime,space_cache' }
 	
-  service{'mysql':
-	  ensure: stopped,
-  }
-  
   case $::operatingsystem {
     'ubuntu': {
       apt::source { 'mariadb':
@@ -50,7 +46,7 @@ class owncloud::dbnode(
 
   package { 'mariadb-galera-server':
     ensure  => latest,
-    require  => [Package['galera']],
+    require  => Package['galera'],
   }
   
   package { 'rsync':
