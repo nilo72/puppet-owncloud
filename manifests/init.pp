@@ -1,6 +1,12 @@
 # Simple OwnCloud module.
 #
 class owncloud {
+	
+  package { 'apt-transport-https':
+    ensure  => latest,
+  }
+	
+	
   class { 'site':
     use_smarthost_mta => false,
     use_nfs => false,

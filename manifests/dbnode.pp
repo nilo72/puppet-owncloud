@@ -57,7 +57,7 @@ class owncloud::dbnode(
   class { 'mysql::server':
     root_password => $root_db_password,
     package_name  => 'mariadb-galera-server',
-    require      => [Package['galera'],Mounts['OC DB-Files'],File['/etc/mysql/debian.cnf']],
+    require      => [Package['galera'],Mounts['OC DB-Files']],
     override_options => {
       'mysqld' => {
         #'bind_address' => $::ipaddress,
@@ -114,7 +114,9 @@ class owncloud::dbnode(
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    source  => 'puppet:///modules/site/ocgalera/debian.cnf'
+    source  => 'puppet:///modules/site/ocgalera/debian.cnf',
+	require => Package['mariadb-galera-server'],
+	notify  => Service['mysql'],
   }
   
   #NOTE: uid und gid des mysql user sind debianspezifisch
