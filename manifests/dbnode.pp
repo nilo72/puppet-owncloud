@@ -123,7 +123,7 @@ class owncloud::dbnode(
     ensure => present,
     comment => 'MySQL Server',
     gid => 'mysql',
-	uid => 111
+	uid => 111,
     shell => '/bin/false',
     home => '/var/lib/mysql',
     require => Group['mysql'],
