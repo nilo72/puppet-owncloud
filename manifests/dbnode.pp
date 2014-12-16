@@ -115,8 +115,8 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/site/ocgalera/debian.cnf',
-	require => Package['mariadb-galera-server'],
-	notify  => Service['mysql'],
+	#require => Package['mariadb-galera-server'],
+	#notify  => Service['mysql'],
   }
   
   #NOTE: uid und gid des mysql user sind debianspezifisch
