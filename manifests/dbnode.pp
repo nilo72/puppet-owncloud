@@ -16,7 +16,13 @@ class owncloud::dbnode(
 {
   include apt
 
-  mounts {'OC DB-Files': source => '/dev/sdb1', dest => '/ocdbfiles', type => 'btrfs', opts => 'rw,relatime,space_cache' }
+  mounts {'OC DB-Files': 
+  	source => '/dev/sdb1',
+	dest => '/ocdbfiles',
+	type => 'btrfs',
+	opts => 'rw,relatime,space_cache',
+	require => File['/ocdbfiles'],
+  }
 	
   case $::operatingsystem {
     'ubuntu': {
@@ -94,12 +100,37 @@ class owncloud::dbnode(
     content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
     #notify  => Service[$owncloud::dbnode]
   }
-  
+
+  file { '/ocdbfiles':
+    ensure  => 'directory',
+    owner   => 'mysql',
+    group   => 'root',
+    mode    => 750,
+	require => User['mysql'],
+  }
+ 
   file { '/etc/mysql/debian.cnf':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/site/ocgalera/debian.cnf'
+  }
+  
+  #NOTE: uid und gid des mysql user sind debianspezifisch
+  
+  user { 'mysql':
+    ensure => present,
+    comment => 'MySQL Server',
+    gid => 'mysql',
+	uid => 111
+    shell => '/bin/false',
+    home => '/var/lib/mysql',
+    require => Group['mysql'],
+  }
+  
+  group {'mysql':
+	  ensure => present,
+	  gid => 115,
   }
 }
