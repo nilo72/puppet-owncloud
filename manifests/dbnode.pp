@@ -16,13 +16,22 @@ class owncloud::dbnode(
 {
   include apt
 
-  mounts {'OC DB-Files': 
-  	source => '/dev/sdb1',
-	dest => '/ocdbfiles',
-	type => 'btrfs',
-	opts => 'rw,relatime,space_cache',
-	require => File['/ocdbfiles'],
+  exec{ 'Disk Partition':
+  	command => 'sfdisk /dev/sdb < ~/sdb.in',
+  	require => File['/root/sdb.in'],
   }
+  
+  exec{ 'Format disk':
+    command => 'mkfs.btrfs /dev/sdb1',
+    require  => [Package['btrfs-tool'],Exec['Disk Partition']], 
+  }
+#  mounts {'OC DB-Files': 
+#  	source => '/dev/sdb1',
+#	dest => '/ocdbfiles',
+#	type => 'btrfs',
+#	opts => 'rw,relatime,space_cache',
+#	require => File['/ocdbfiles'],
+#  }
 	
   case $::operatingsystem {
     'ubuntu': {
@@ -45,32 +54,32 @@ class owncloud::dbnode(
     }
   }
 
-  package { 'galera':
-    ensure  => latest,
-    require  => [Apt::Source['mariadb'],Package['rsync']],
-  }
+#  package { 'galera':
+#    ensure  => latest,
+#    require  => [Apt::Source['mariadb'],Package['rsync']],
+#  }
 
-  package { 'rsync':
-    ensure  => latest,
-  }
+#  package { 'rsync':
+#    ensure  => latest,
+#  }
 
-  class { 'mysql::server':
-    root_password => $root_db_password,
-    package_name  => 'mariadb-galera-server',
-    require      => [Package['galera'],Mounts['OC DB-Files']],
-    override_options => {
-      'mysqld' => {
+#  class { 'mysql::server':
+#    root_password => $root_db_password,
+#    package_name  => 'mariadb-galera-server',
+#    require      => [Package['galera'],Mounts['OC DB-Files']],
+#    override_options => {
+#      'mysqld' => {
         #'bind_address' => $::ipaddress,
-        'datadir' => '/ocdbfiles',
-        'key_buffer_size' => '512M',
-        'innodb_buffer_pool_size' => '512M',
-        'query_cache_type' => '1',
-        'query_cache_limit' => '512M',
-        'query_cache_size' => '512M',
-        'table_open_cache' => '512',
-#       '' => '',  
-      },},
-  }
+#        'datadir' => '/ocdbfiles',
+#        'key_buffer_size' => '512M',
+#        'innodb_buffer_pool_size' => '512M',
+#        'query_cache_type' => '1',
+#        'query_cache_limit' => '512M',
+#        'query_cache_size' => '512M',
+#        'table_open_cache' => '512',
+		#'' => '',  
+#      },},
+#  }
 
 #  class { 'mysql::server::monitor':
 #    mysql_monitor_username  => $db_monitor_user,
@@ -79,60 +88,67 @@ class owncloud::dbnode(
 #  }
 
   # Creates a database with a user and assign some privileges
-  mysql::db { $owncloud_db_name:
-    user     => $owncloud_db_user,
-    password => $owncloud_db_password,
-    host     => '192.168.119.%',
-    grant    => ['all'],
-  }
+#  mysql::db { $owncloud_db_name:
+#    user     => $owncloud_db_user,
+#    password => $owncloud_db_password,
+#    host     => '192.168.119.%',
+#    grant    => ['all'],
+#  }
   
-  nagios::service{ 'galera_cluster_node':
-    service_description => 'OwnCloud galera cluster node DB',
-    check_command => 'check_mysql_cmdlinecred!nagios!nagios',
-    contact_groups => 'ail-admins',
-  }
+#  nagios::service{ 'galera_cluster_node':
+#    service_description => 'OwnCloud galera cluster node DB',
+#    check_command => 'check_mysql_cmdlinecred!nagios!nagios',
+#    contact_groups => 'ail-admins',
+#  }
   
-  file { '/etc/mysql/conf.d/cluster.cnf':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
+#  file { '/etc/mysql/conf.d/cluster.cnf':
+#    ensure  => present,
+#    owner   => 'root',
+#    group   => 'root',
+#    mode    => '0644',
+#    content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
     #notify  => Service[$owncloud::dbnode]
-  }
+#  }
 
-  file { '/ocdbfiles':
-    ensure  => 'directory',
-    owner   => 'mysql',
-    group   => 'root',
-    mode    => 750,
-	require => User['mysql'],
-  }
+#  file { '/ocdbfiles':
+#    ensure  => 'directory',
+#    owner   => 'mysql',
+#    group   => 'root',
+#    mode    => 750,
+#	require => User['mysql'],
+#  }
  
-  file { '/etc/mysql/debian.cnf':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    source  => 'puppet:///modules/site/ocgalera/debian.cnf',
+#  file { '/etc/mysql/debian.cnf':
+#    ensure  => present,
+#    owner   => 'root',
+#    group   => 'root',
+#    mode    => '0644',
+#    source  => 'puppet:///modules/site/ocgalera/debian.cnf',
 	#require => Package['mariadb-galera-server'],
 	#notify  => Service['mysql'],
+#  }
+  file{ '/root/sdb.in':
+	  ensure => present,
+	  owner	 => 'root',
+	  group  => 'root',
+	  mode   => '0644',
+	  source => 'puppet://modules/site/ocgalera/sdb.in'
   }
   
   #NOTE: uid und gid des mysql user sind debianspezifisch
   
-  user { 'mysql':
-    ensure => present,
-    comment => 'MySQL Server',
-    gid => 'mysql',
-	uid => 111,
-    shell => '/bin/false',
-    home => '/var/lib/mysql',
-    require => Group['mysql'],
-  }
+#  user { 'mysql':
+#    ensure => present,
+#    comment => 'MySQL Server',
+#    gid => 'mysql',
+#	uid => 111,
+#    shell => '/bin/false',
+#    home => '/var/lib/mysql',
+#    require => Group['mysql'],
+#  }
   
-  group {'mysql':
-	  ensure => present,
-	  gid => 115,
-  }
+#  group {'mysql':
+#	  ensure => present,
+#	  gid => 115,
+#  }
 }

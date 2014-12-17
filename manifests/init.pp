@@ -5,6 +5,10 @@ class owncloud {
   package { 'apt-transport-https':
     ensure  => latest,
   }
+  
+  package { 'btrfs-tools':
+	ensure => latest,
+  }
 	
 	
   class { 'site':
