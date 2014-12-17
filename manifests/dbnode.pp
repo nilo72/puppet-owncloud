@@ -18,11 +18,13 @@ class owncloud::dbnode(
 
   exec{ 'Disk Partition':
   	command => 'sfdisk /dev/sdb < ~/sdb.in',
+	path    => '/sbin'
   	require => File['/root/sdb.in'],
   }
   
   exec{ 'Format disk':
     command => 'mkfs.btrfs /dev/sdb1',
+	path  => '/sbin',
     require  => [Package['btrfs-tool'],Exec['Disk Partition']], 
   }
 #  mounts {'OC DB-Files': 
@@ -137,18 +139,18 @@ class owncloud::dbnode(
   
   #NOTE: uid und gid des mysql user sind debianspezifisch
   
-#  user { 'mysql':
-#    ensure => present,
-#    comment => 'MySQL Server',
-#    gid => 'mysql',
-#	uid => 111,
-#    shell => '/bin/false',
-#    home => '/var/lib/mysql',
-#    require => Group['mysql'],
-#  }
+  user { 'mysql':
+    ensure => present,
+    comment => 'MySQL Server',
+    gid => 'mysql',
+	 uid => 111,
+    shell => '/bin/false',
+    home => '/var/lib/mysql',
+    require => Group['mysql'],
+  }
   
-#  group {'mysql':
-#	  ensure => present,
-#	  gid => 115,
-#  }
+  group {'mysql':
+	  ensure => present,
+	  gid => 115,
+  }
 }
