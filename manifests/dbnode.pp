@@ -18,7 +18,7 @@ class owncloud::dbnode(
 
   exec{ 'Disk Partition':
   	command => 'sfdisk /dev/sdb < ~/sdb.in',
-	path    => '/sbin'
+	path    => '/sbin',
   	require => File['/root/sdb.in'],
   }
   
