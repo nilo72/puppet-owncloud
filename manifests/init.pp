@@ -7,7 +7,7 @@ class owncloud {
   }
   
   package { 'btrfs-tools':
-	ensure => latest,
+    ensure => latest,
   }
 	
 	

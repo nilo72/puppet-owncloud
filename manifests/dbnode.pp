@@ -25,7 +25,7 @@ class owncloud::dbnode(
   exec{ 'Format disk':
     command => 'mkfs.btrfs /dev/sdb1',
 	path  => '/sbin',
-    require  => [Package['btrfs-tool'],Exec['Disk Partition']], 
+    require  => [Exec['Disk Partition'],Package['btrfs-tool']], 
   }
 #  mounts {'OC DB-Files': 
 #  	source => '/dev/sdb1',
