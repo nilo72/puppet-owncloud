@@ -82,7 +82,6 @@ class owncloud::appnode(
 
   class{ 'apache':
     mpm_module => prefork,
-	,
   }
   
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
