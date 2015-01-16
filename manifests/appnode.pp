@@ -87,6 +87,8 @@ class owncloud::appnode(
                  allow_override => ['All'], 
                }, 
              ],
+	   docroot_owner => 'www-data',
+	   docroot_group => 'www-data',
   }
 
   include apache::mod::php
