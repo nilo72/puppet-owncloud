@@ -62,8 +62,13 @@ class owncloud::appnode(
       
       package { 'owncloud':
         ensure  => latest,
-        require  => [Apt::Source['owncloud_community'],Exec['apt-get update']],
+        require  => [Apt::Source['owncloud_community'],Exec['apt-get update'],Notify['Installing owncloud system']],
       }
+	  
+	  notify {"Installing owncloud system":
+	   withpath => true,
+	  }
+	  
     }
   }
   
@@ -77,6 +82,7 @@ class owncloud::appnode(
 
   class{ 'apache':
     mpm_module => prefork,
+	,
   }
   
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
