@@ -9,9 +9,6 @@ class owncloud {
   
   package { 'apt-transport-https':
     ensure  => latest,
-    notify {"Installing apt-transport-https":
-     withpath => true,
-    }
   }
   
   package { 'btrfs-tools':
