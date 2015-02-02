@@ -110,7 +110,7 @@ class owncloud::appnode(
 	   max_keepalive_requests => '4096',
        directories  => [ 
                { path           => '/var/www/owncloud', 
-				 options => ['Indexes','SymLinksIfOwnerMatch']
+				 options => ['Indexes','SymLinksIfOwnerMatch'],
                  allow_override => ['All'],
                }, 
              ],
