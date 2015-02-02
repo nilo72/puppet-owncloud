@@ -91,6 +91,7 @@ class owncloud::appnode(
 
   class{ 'apache':
     mpm_module => false,
+	keepalive => 'On',
   }
   
   class { 'apache::mod::prefork':
@@ -102,10 +103,6 @@ class owncloud::appnode(
 	  maxrequestsperchild => "4000",
   }
   
-  class { 'apache::params':
-	   keepalive => 'On',
-  }
-    
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
        port          => '80',
        docroot => '/var/www/owncloud',
