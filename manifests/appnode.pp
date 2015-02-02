@@ -102,10 +102,13 @@ class owncloud::appnode(
 	  maxrequestsperchild => "4000",
   }
   
+  apache::params {
+	   keepalive => 'On',
+  }
+    
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
        port          => '80',
        docroot => '/var/www/owncloud',
-	   keepalive => 'On',
 	   keepalive_timeout => '',
 	   max_keepalive_requests => '4096',
        directories  => [ 
