@@ -56,13 +56,9 @@ class owncloud::appnode(
     }
     'false':{
       # update your package list
-      exec { 'apt-get update':
-              command => '/usr/bin/apt-get update',
-      }
-      
       package { 'owncloud':
         ensure  => latest,
-        require  => [Apt::Source['owncloud_community'],Exec['apt-get update'],Notify['Installing owncloud system']],
+        require  => [Apt::Source['owncloud_community'],Notify['Installing owncloud system']],
       }
 	  
 	  notify {"Installing owncloud system":
