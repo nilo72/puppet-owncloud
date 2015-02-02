@@ -9,7 +9,7 @@ class owncloud::appnode(
 {
   include apt
 
-  mounts {'Temp in RAM': source => 'none', dest => '/tmp', type => 'tmpfs,size=6G', opts => 'defaults' }
+  #mounts {'Temp in RAM': source => 'none', dest => '/tmp', type => 'tmpfs,size=6G', opts => 'defaults' }
 
 
   apt::key { 'owncloud':
@@ -80,16 +80,38 @@ class owncloud::appnode(
     ensure  => latest,
   }
 
+  package { 'php5-apc':
+    ensure  => latest,
+  }
+
+  package { 'libapache2-mod-xsendfile':
+    ensure  => latest,
+  }
+
+
   class{ 'apache':
-    mpm_module => prefork,
+    mpm_module => false,
+  }
+  
+  class { 'apache::mod::prefork':
+      startservers    => "100",
+      minspareservers => "100",
+      maxspareservers => "2000",
+      serverlimit     => "6000",
+      maxclients      => "6000",
+	  maxrequestsperchild => "4000",
   }
   
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
        port          => '80',
        docroot => '/var/www/owncloud',
+	   keepalive => 'On',
+	   keepalive_timeout => '',
+	   max_keepalive_requests => '4096',
        directories  => [ 
                { path           => '/var/www/owncloud', 
-                 allow_override => ['All'], 
+				 options => ['Indexes','SymLinksIfOwnerMatch']
+                 allow_override => ['All'],
                }, 
              ],
 	   docroot_owner => 'www-data',
