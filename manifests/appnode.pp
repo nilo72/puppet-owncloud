@@ -2,7 +2,7 @@
 #
 
 class owncloud::appnode(
-  $enterprise_community='false',
+  $enterprise_community,
   $apt_url_enterprise,
   $apt_url_community,
 )
@@ -34,7 +34,7 @@ class owncloud::appnode(
 
   case $enterprise_community {
     #Options if enterprise is selected
-    'true':{
+    true:{
         package { 'owncloud-enterprise':
           ensure  => latest,
           require  => [Apt::Source['owncloud_enterprise']],
@@ -54,7 +54,7 @@ class owncloud::appnode(
         #  chmod 600,
         #}
     }
-    'false':{
+    false:{
       # update your package list
       package { 'owncloud':
         ensure  => latest,
@@ -64,7 +64,6 @@ class owncloud::appnode(
 	  notify {"Installing owncloud system":
 	   withpath => true,
 	  }
-	  
     }
   }
   
