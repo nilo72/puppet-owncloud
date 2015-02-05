@@ -102,7 +102,15 @@ class owncloud::appnode(
       maxclients      => "6000",
 	  maxrequestsperchild => "4000",
   }
-  
+
+  file { '/var/www/owncloud/config/config.php':
+    ensure  => present,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => '0640',
+    content => template('owncloud/var/www/owncloud/config/config.php.erb'),
+  }
+
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
        port          => '80',
        docroot => '/var/www/owncloud',
