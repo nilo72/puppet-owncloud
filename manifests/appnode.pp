@@ -111,6 +111,13 @@ class owncloud::appnode(
     content => template('owncloud/var/www/owncloud/config/config.php.erb'),
   }
 
+  file { '/ocdata':
+    ensure  => 'directory',
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => 750,
+  }
+
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
        port          => '80',
        docroot => '/var/www/owncloud',
