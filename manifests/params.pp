@@ -9,8 +9,7 @@ class owncloud::params(
 	$baseurl=undef,
 	$dbtype=undef,
 	$dbname=undef,
-	dbhost=undef,
+	$dbhost=undef,
 	$dbtableprefix='oc_',
-	$dbuser=undef
-) {
+	$dbuser=undef) {
 }
