@@ -7,7 +7,10 @@ class owncloud::appnode(
   $apt_url_community,
 )
 {
-  include apt
+  
+  class{'::apt':
+  	always_apt_update => true;
+  }
 
   #mounts {'Temp in RAM': source => 'none', dest => '/tmp', type => 'tmpfs,size=6G', opts => 'defaults' }
 
