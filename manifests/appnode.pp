@@ -8,7 +8,7 @@ class owncloud::appnode(
 )
 {
   
-  class{'::apt':
+  class{ 'apt':
   	always_apt_update => true;
   }
 
