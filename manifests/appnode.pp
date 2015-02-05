@@ -78,7 +78,7 @@ class owncloud::appnode(
     ensure  => latest,
   }
 
-  package { 'php5-apc':
+  package { 'php-apc':
     ensure  => latest,
   }
 
@@ -125,6 +125,15 @@ class owncloud::appnode(
     mode    => '0644',
     source  => 'puppet:///modules/owncloud/etc/sysctl.conf',
   }
+  
+  file { '/etc/php5/conf.d/apc.ini':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/owncloud/etc/php5/conf.d/apc.ini',
+  }
+  
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
        port          => '80',
        docroot => '/var/www/owncloud',
