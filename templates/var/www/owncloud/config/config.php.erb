@@ -5,13 +5,13 @@ $CONFIG = array (
   'trusted_domains' =>
   array (
     0 => '<%= scope.lookupvar('owncloud::params::trusted_domains')%>',
-	1 => '<%= scope.lookupvar('::ip_address')%>',
+	1 => '<%= scope.lookupvar('::ipaddress')%>',
   ),
   'datadirectory' => '<%= scope.lookupvar('owncloud::params::datadirectory')%>',
   'overwrite.cli.url' => '<%= scope.lookupvar('owncloud::params::base_url')%>',
   'dbtype' => '<%= scope.lookupvar('owncloud::params::dbtype') %>',
   'version' => '7.0.4.2',
-  'dbname' => '<%= scope.lookupvar('owncloud::params::dbanme') %>',
+  'dbname' => '<%= scope.lookupvar('owncloud::params::dbname') %>',
   'dbhost' => '<%= scope.lookupvar('owncloud::params::dbhost') %>',
   'dbtableprefix' => '<%= scope.lookupvar('owncloud::params::dbtableprefix') %>',
   'dbuser' => '<%= scope.lookupvar('owncloud::params::dbuser') %>',
