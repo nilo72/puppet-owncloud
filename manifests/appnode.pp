@@ -2,7 +2,7 @@
 #
 
 class owncloud::appnode(
-  $enterprise_community,
+  $enterprise_community=false,
   $apt_url_enterprise,
   $apt_url_community,
 )
@@ -118,6 +118,13 @@ class owncloud::appnode(
     mode    => 750,
   }
 
+  file { '/etc/sysctl.conf':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/owncloud/etc/sysctl.conf',
+  }
   apache::vhost { 'owncloud.informatik.haw-hamburg.de':
        port          => '80',
        docroot => '/var/www/owncloud',

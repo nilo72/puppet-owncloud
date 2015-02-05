@@ -6,6 +6,7 @@ $CONFIG = array (
   array (
     0 => '<%= scope.lookupvar('owncloud::params::trusted_domains')%>',
 	1 => '<%= scope.lookupvar('::ipaddress')%>',
+	2 => '<%= scope.lookupvar('owncloud::params::apphostip')%>',
   ),
   'datadirectory' => '<%= scope.lookupvar('owncloud::params::datadirectory')%>',
   'overwrite.cli.url' => '<%= scope.lookupvar('owncloud::params::base_url')%>',
