@@ -15,9 +15,10 @@ class owncloud::appnode(
   #mounts {'Temp in RAM': source => 'none', dest => '/tmp', type => 'tmpfs,size=6G', opts => 'defaults' }
 
   cron{ 'OC-Cron':
-    name => 'OC Cronjob',
+    name => 'OC cronjob for background activities',
     command => 'php -f /var/www/htdocs/owncloud/cron.php',
 	user  => 'www-data',
+	minute => '*/15',
   }
 
   apt::key { 'owncloud':
