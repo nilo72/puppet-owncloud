@@ -147,14 +147,28 @@ class owncloud::appnode(
                { path           => '/var/www/owncloud', 
 				 options => ['Indexes','SymLinksIfOwnerMatch'],
                  allow_override => ['All'],
+				 custom_fragment => '
+				     <IfModule mod_xsendfile.c>
+					 	SetEnv MOD_X_SENDFILE_ENABLED 1
+						XSendFile On
+						XSendFilePath /tmp/oc-noclean
+					 </IfModule>',
                }, 
              ],
 	   docroot_owner => 'www-data',
 	   docroot_group => 'www-data',
   }
 
+#  class{ 'apache::mod::xsendfile':
+#  options => {
+#      'SetEnv'  => 'MOD_X_SENDFILE_ENABLED 1',
+#      'XSendFile' => 'On',
+#      'XSendFilePath'   => '/tmp/oc-noclean',
+#    },
+#  }
   include apache::mod::php
-
+  include apache::mod::xsendfile
+  	
   nagios::service{ 'apache_web_node':
     service_description => 'OwnCloud Apache App-Server',
     check_command => 'check_http',
