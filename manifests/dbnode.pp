@@ -14,7 +14,9 @@ class owncloud::dbnode(
   $node_ips,
 )
 {
-  include apt
+  class{ 'apt':
+    always_apt_update => true;
+  }
 
   exec{ 'Disk Partition':
   	command => 'sfdisk /dev/sdb < ~/sdb.in',
