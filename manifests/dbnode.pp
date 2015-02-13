@@ -19,9 +19,9 @@ class owncloud::dbnode(
   }
 
   exec{ 'Disk Partition':
-  	command => 'sfdisk /dev/sdb < ~/sdb.in',
+  	command => 'sfdisk /dev/sdb < /tmp/sdb.in',
 	path    => '/sbin',
-  	require => File['/root/sdb.in'],
+  	require => File['/tmp/sdb.in'],
   }
   
   exec{ 'Format disk':
@@ -131,7 +131,7 @@ class owncloud::dbnode(
 	#require => Package['mariadb-galera-server'],
 	#notify  => Service['mysql'],
 #  }
-  file{ '/root/sdb.in':
+  file{ '/tmp/sdb.in':
 	  ensure => present,
 	  owner	 => 'root',
 	  group  => 'root',
