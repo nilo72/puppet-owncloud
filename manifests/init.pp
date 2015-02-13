@@ -2,7 +2,10 @@
 #
 class owncloud {
 	
-
+  class{ 'apt':
+   	always_apt_update => true;
+  }
+	
   notify {"Installing owncloud class":
    withpath => true,
   }
