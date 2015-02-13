@@ -66,7 +66,8 @@ class owncloud::dbnode(
 
   package { 'galera':
     ensure  => latest,
-    require  => [Apt::Source['mariadb'],Package['rsync'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/conf.d/cluster.cnf']],
+    #require  => [Apt::Source['mariadb'],Package['rsync'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/conf.d/cluster.cnf']],
+	require  => [Apt::Source['mariadb'],Package['rsync']],
   }
 
   package { 'rsync':
@@ -76,7 +77,7 @@ class owncloud::dbnode(
   class { 'mysql::server':
     root_password => $root_db_password,
     package_name  => 'mariadb-galera-server',
-    require      => [Package['galera'],Mounts['OC DB-Files']],
+    require      => [Package['galera'],Mounts['OC DB-Files'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/conf.d/cluster.cnf']],
     override_options => {
       'mysqld' => {
         #'bind_address' => $::ipaddress,
