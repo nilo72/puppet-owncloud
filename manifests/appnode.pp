@@ -127,7 +127,6 @@ class owncloud::appnode(
 	dest => '/ocdata',
 	type => 'nfs',
 	opts => 'rw,relatime,space_cache',
-	require => File['/ocdata'],
   }
 
   file { '/etc/sysctl.conf':

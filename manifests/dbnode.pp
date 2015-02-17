@@ -12,6 +12,7 @@ class owncloud::dbnode(
   $node_ip=$::ipaddress,
   $node_name=$::fqdn,
   $node_ips,
+  $nfs_dump_db_source,
 )
 {
 
@@ -36,7 +37,7 @@ class owncloud::dbnode(
   }
 
   mounts {'OC DB-Dump-Files': 
- 	source => 'nfs.nfs.haw-hamburg.de:/vol/nfsOwnCloudInf/ownclouddb',
+ 	source => $nfs_dump_db_source,
 	dest => '/ocdbdump',
 	type => 'nfs',
 	opts => 'rw,relatime,space_cache',
