@@ -26,16 +26,21 @@ class owncloud::appnode(
 
   case $::operatingsystem {
     'debian': {
-      apt::source { 'owncloud_enterprise':
-        location   => $apt_url_enterprise,
-        release    => '/',
-        repos      => '',
-      }
-      apt::source { 'owncloud_community':
-        location   => $apt_url_community,
-        release    => '/',
-        repos      => '',
-      }
+		case $enterprise_community{
+			true:{
+		        apt::source { 'owncloud_enterprise':
+		          location   => $apt_url_enterprise,
+		          release    => '/',
+		          repos      => '',
+		        }
+			}
+			false:{
+		        apt::source { 'owncloud_community':
+		          location   => $apt_url_community,
+		          release    => '/',
+		          repos      => '',
+		        }
+			}				
       }
   }
 
