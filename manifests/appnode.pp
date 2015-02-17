@@ -126,7 +126,7 @@ class owncloud::appnode(
  	source => $nfs_data_source,
 	dest => '/ocdata',
 	type => 'nfs',
-	opts => 'rw,relatime,space_cache',
+	opts => 'rsize=8192,wsize=8192,timeo=14,intr,nolock',
   }
 
   file { '/etc/sysctl.conf':
