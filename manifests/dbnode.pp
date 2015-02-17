@@ -40,7 +40,7 @@ class owncloud::dbnode(
  	source => $nfs_dump_db_source,
 	dest => '/ocdbdump',
 	type => 'nfs',
-	opts => 'rsize=8192,wsize=8192,timeo=14,intr,nolock',
+	opts => 'vers=3,rsize=8192,wsize=8192,timeo=14,intr,nolock',
 	require => File['/ocdbdump'],
   }
   
