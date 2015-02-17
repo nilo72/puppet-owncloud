@@ -5,13 +5,11 @@ class owncloud::appnode(
   $enterprise_community=false,
   $apt_url_enterprise,
   $apt_url_community,
+  $nfs_data_source,
+  $fqd_name,
 )
 {
   
-  class{ 'apt':
-  	always_apt_update => true;
-  }
-
   #mounts {'Temp in RAM': source => 'none', dest => '/tmp', type => 'tmpfs,size=6G', opts => 'defaults' }
 
   cron{ 'OC-Cron':
@@ -123,6 +121,14 @@ class owncloud::appnode(
     group   => 'www-data',
     mode    => 750,
   }
+  
+  mounts {'OC Data-Files': 
+ 	source => $nfs_data_source,
+	dest => '/ocdata',
+	type => 'nfs',
+	opts => 'rw,relatime,space_cache',
+	require => File['/ocdata'],
+  }
 
   file { '/etc/sysctl.conf':
     ensure  => present,
@@ -140,7 +146,7 @@ class owncloud::appnode(
     source  => 'puppet:///modules/owncloud/etc/php5/conf.d/apc.ini',
   }
   
-  apache::vhost { 'owncloud.informatik.haw-hamburg.de':
+  apache::vhost { $fqd_name:
        port          => '80',
        docroot => '/var/www/owncloud',
        directories  => [ 

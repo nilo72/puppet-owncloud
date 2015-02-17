@@ -35,6 +35,21 @@ class owncloud::dbnode(
 	require => [File['/ocdbfiles'],Exec['Format disk']],
   }
 
+  mounts {'OC DB-Dump-Files': 
+ 	source => 'nfs.nfs.haw-hamburg.de:/vol/nfsOwnCloudInf/ownclouddb',
+	dest => '/ocdbdump',
+	type => 'nfs',
+	opts => 'rw,relatime,space_cache',
+	require => File['/ocdbdump'],
+  }
+  
+  file { '/ocdbdump':
+    ensure  => 'directory',
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => 750,
+  }
+
   file { '/ocdbfiles':
     ensure  => 'directory',
     owner   => 'mysql',
