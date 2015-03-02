@@ -135,7 +135,7 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => '0644',
     content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
-	before => Class['mysql::server'],
+	#before => Class['mysql::server'],
     #notify  => Service[$owncloud::dbnode]
   }
 
@@ -145,7 +145,7 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/site/ocgalera/debian.cnf',
-	before => Class['mysql::server'],
+	#before => Class['mysql::server'],
 	#notify  => Service['mysql'],
   }
 
