@@ -40,14 +40,14 @@ class owncloud::dbnode(
  	source => $nfs_dump_db_source,
 	dest => '/ocdbdump',
 	type => 'nfs',
-	opts => 'vers=3',
+	opts => 'vers=3,suid',
 	require => File['/ocdbdump'],
   }
   
   file { '/ocdbdump':
     ensure  => 'directory',
-    owner   => 'www-data',
-    group   => 'www-data',
+    owner   => 'mysql',
+    group   => 'root',
     mode    => 750,
   }
 
@@ -93,7 +93,8 @@ class owncloud::dbnode(
   class { 'mysql::server':
     root_password => $root_db_password,
     package_name  => 'mariadb-galera-server',
-    require      => [Package['galera'],Mounts['OC DB-Files'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/conf.d/cluster.cnf']],
+    require => [Package['galera'],Mounts['OC DB-Files']],
+    #require => [Package['galera'],Mounts['OC DB-Files']],
     override_options => {
       'mysqld' => {
         #'bind_address' => $::ipaddress,
@@ -134,6 +135,7 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => '0644',
     content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
+	before => Class['mysql::server'],
     #notify  => Service[$owncloud::dbnode]
   }
 
@@ -143,8 +145,8 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/site/ocgalera/debian.cnf',
-	#require => Package['mariadb-galera-server'],
-	#notify  => Service['mysql'],
+	before => Class['mysql::server'],
+	notify  => Service['mysql'],
   }
 
   file{ '/tmp/sdb.in':
