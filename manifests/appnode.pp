@@ -163,6 +163,7 @@ class owncloud::appnode(
 					 	SetEnv MOD_X_SENDFILE_ENABLED 1
 						XSendFile On
 						XSendFilePath /tmp/oc-noclean
+						XSendFilePath /ocdata
 					 </IfModule>',
                }, 
              ],
