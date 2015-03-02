@@ -49,7 +49,7 @@ class owncloud::dbnode(
 	dest => '/ocdbdump',
 	type => 'nfs',
 	opts => 'vers=3,suid',
-	require => File['/ocdbdump'],
+	#require => File['/ocdbdump'],
   }
   
   file { '/ocdbdump':
