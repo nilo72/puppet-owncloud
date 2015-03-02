@@ -28,12 +28,20 @@ class owncloud::dbnode(
     require  => [Class['owncloud'],Exec['Disk Partition']], 
   }
 
+  file { '/ocdbfiles':
+    ensure  => 'directory',
+    owner   => 'mysql',
+    group   => 'root',
+    mode    => 750,
+	require => User['mysql'],
+  }
+
   mounts {'OC DB-Files': 
  	source => '/dev/sdb1',
 	dest => '/ocdbfiles',
 	type => 'btrfs',
 	opts => 'rw,relatime,space_cache',
-	require => [File['/ocdbfiles'],Exec['Format disk']],
+	require => Exec['Format disk'],
   }
 
   mounts {'OC DB-Dump-Files': 
@@ -51,14 +59,6 @@ class owncloud::dbnode(
     mode    => 750,
   }
 
-  file { '/ocdbfiles':
-    ensure  => 'directory',
-    owner   => 'mysql',
-    group   => 'root',
-    mode    => 750,
-	require => User['mysql'],
-  }
-  	
   case $::operatingsystem {
     'ubuntu': {
       apt::source { 'mariadb':
@@ -146,7 +146,7 @@ class owncloud::dbnode(
     mode    => '0644',
     source  => 'puppet:///modules/site/ocgalera/debian.cnf',
 	before => Class['mysql::server'],
-	notify  => Service['mysql'],
+	#notify  => Service['mysql'],
   }
 
   file{ '/tmp/sdb.in':
