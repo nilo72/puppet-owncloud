@@ -57,6 +57,7 @@ class owncloud::dbnode(
     owner   => 'mysql',
     group   => 'root',
     mode    => 750,
+	require => User['mysql'],
   }
 
   case $::operatingsystem {
