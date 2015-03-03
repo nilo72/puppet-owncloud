@@ -49,7 +49,7 @@ class owncloud::dbnode(
 	dest => '/ocdbdump',
 	type => 'nfs',
 	opts => 'vers=3,suid',
-	#require => File['/ocdbdump'],
+	require => File['/ocdbdump'],
   }
   
   file { '/ocdbdump':
@@ -91,64 +91,64 @@ class owncloud::dbnode(
     ensure  => latest,
   }
 
-  class { 'mysql::server':
-    root_password => $root_db_password,
-    package_name  => 'mariadb-galera-server',
-    require => [Package['galera'],Mounts['OC DB-Files']],
-    #require => [Package['galera'],Mounts['OC DB-Files']],
-    override_options => {
-      'mysqld' => {
-        #'bind_address' => $::ipaddress,
-        'datadir' => '/ocdbfiles',
-        'key_buffer_size' => '512M',
-        'innodb_buffer_pool_size' => '512M',
-        'query_cache_type' => '1',
-        'query_cache_limit' => '512M',
-        'query_cache_size' => '512M',
-        'table_open_cache' => '512',
-		#'' => '',  
-      },},
-  }
+#  class { 'mysql::server':
+#    root_password => $root_db_password,
+#    package_name  => 'mariadb-galera-server',
+#    require => [Package['galera'],Mounts['OC DB-Files']],
+#    #require => [Package['galera'],Mounts['OC DB-Files']],
+#    override_options => {
+#      'mysqld' => {
+#        #'bind_address' => $::ipaddress,
+#        'datadir' => '/ocdbfiles',
+#        'key_buffer_size' => '512M',
+#        'innodb_buffer_pool_size' => '512M',
+#        'query_cache_type' => '1',
+#        'query_cache_limit' => '512M',
+#        'query_cache_size' => '512M',
+#        'table_open_cache' => '512',
+#		#'' => '',  
+#      },},
+#  }
 
-  class { 'mysql::server::monitor':
-    mysql_monitor_username  => $db_monitor_user,
-    mysql_monitor_password  => $db_monitor_password,
-    mysql_monitor_hostname  => $db_monitor_host,
-  }
+#  class { 'mysql::server::monitor':
+#    mysql_monitor_username  => $db_monitor_user,
+#    mysql_monitor_password  => $db_monitor_password,
+#    mysql_monitor_hostname  => $db_monitor_host,
+#  }
 
   # Creates a database with a user and assign some privileges
-  mysql::db { $owncloud_db_name:
-    user     => $owncloud_db_user,
-    password => $owncloud_db_password,
-    host     => '192.168.119.%',
-    grant    => ['all'],
-  }
+#  mysql::db { $owncloud_db_name:
+#    user     => $owncloud_db_user,
+#    password => $owncloud_db_password,
+#    host     => '192.168.119.%',
+#    grant    => ['all'],
+#  }
   
-  nagios::service{ 'galera_cluster_node':
-    service_description => 'OwnCloud galera cluster node DB',
-    check_command => 'check_mysql_cmdlinecred!nagios!nagios',
-    contact_groups => 'ail-admins',
-  }
+#  nagios::service{ 'galera_cluster_node':
+#    service_description => 'OwnCloud galera cluster node DB',
+#    check_command => 'check_mysql_cmdlinecred!nagios!nagios',
+#    contact_groups => 'ail-admins',
+#  }
   
-  file { '/etc/mysql/conf.d/cluster.cnf':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
+#  file { '/etc/mysql/conf.d/cluster.cnf':
+#    ensure  => present,
+#    owner   => 'root',
+#    group   => 'root',
+#    mode    => '0644',
+#    content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
 	#before => Class['mysql::server'],
     #notify  => Service[$owncloud::dbnode]
-  }
+#  }
 
-  file { '/etc/mysql/debian.cnf':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    source  => 'puppet:///modules/site/ocgalera/debian.cnf',
+#  file { '/etc/mysql/debian.cnf':
+#    ensure  => present,
+#    owner   => 'root',
+#    group   => 'root',
+#    mode    => '0644',
+#    source  => 'puppet:///modules/site/ocgalera/debian.cnf',
 	#before => Class['mysql::server'],
 	#notify  => Service['mysql'],
-  }
+#  }
 
   file{ '/tmp/sdb.in':
 	  ensure => present,
