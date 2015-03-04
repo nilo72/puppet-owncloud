@@ -45,12 +45,11 @@ class owncloud::dbnode(
 	require => User['mysql'],
   }
 
-  mount {'/ocdbdump': 
- 	device => $nfs_dump_db_source,
+  mounts {'OC DB-Dump-Files': 
+ 	source => $nfs_dump_db_source,
 	dest => '/ocdbdump',
-	fstype => 'nfs',
-	options => 'vers=3,suid',
-	atboot	=> 'true',
+	type => 'nfs',
+	opts => 'vers=3,suid',
   }
 
   file { '/ocdbdump':
@@ -59,7 +58,7 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => 750,
 	require => User['mysql'],
-	#before => Mounts['OC DB-Dump-Files'],
+	before => Mounts['OC DB-Dump-Files'],
   }
   
   case $::operatingsystem {
