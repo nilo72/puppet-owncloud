@@ -58,7 +58,7 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => 750,
 	require => User['mysql'],
-	before => Mounts['OC DB-Dump-Files'],
+	#before => Mounts['OC DB-Dump-Files'],
   }
   
   case $::operatingsystem {
