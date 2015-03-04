@@ -20,11 +20,13 @@ class owncloud::dbnode(
   	command => 'sfdisk /dev/sdb < /tmp/sdb.in',
 	path    => '/sbin',
   	require => File['/tmp/sdb.in'],
+	creates => '/dev/sdb1',
   }
   
   exec{ 'Format disk':
     command => 'mkfs.btrfs /dev/sdb1',
 	path  => '/sbin',
+	creates => '/dev/sdb1',
     require  => [Class['owncloud'],Exec['Disk Partition']], 
   }
 
