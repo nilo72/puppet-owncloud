@@ -47,7 +47,6 @@ class owncloud::dbnode(
 
   mount {'/ocdbdump': 
  	device => $nfs_dump_db_source,
-	dest => '/ocdbdump',
 	fstype => 'nfs',
 	options => 'vers=3,suid',
 	atboot	=> 'true',
