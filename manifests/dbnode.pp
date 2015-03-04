@@ -27,6 +27,7 @@ class owncloud::dbnode(
     command => 'mkfs.btrfs /dev/sdb1',
 	path  => '/sbin',
 	creates => '/dev/sdb1',
+	#onlyif => "test -f /dev/sdb1",
     require  => [Class['owncloud'],Exec['Disk Partition']], 
   }
 
@@ -97,7 +98,7 @@ class owncloud::dbnode(
   class { 'mysql::server':
     root_password => $root_db_password,
     package_name  => 'mariadb-galera-server',
-	service_enabled => false,
+	#service_enabled => false,
     require => [Package['galera'],Mounts['OC DB-Files']],
     #require => [Package['galera'],Mounts['OC DB-Files']],
     override_options => {
