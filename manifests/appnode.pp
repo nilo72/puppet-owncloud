@@ -189,7 +189,7 @@ class owncloud::appnode(
     ensure => present,
     shell => '/bin/false',
 	system => true,
-	home => '/home/batman'
+	home => '/home/batman',
 	managehome => true,
   }
   
