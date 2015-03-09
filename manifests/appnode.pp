@@ -10,13 +10,6 @@ class owncloud::appnode(
 )
 {
   
-  mounts {'Temp in RAM': 
-  	source => 'none', 
-	dest => '/tmp', 
-	type => 'tmpfs,size=6G', 
-	opts => 'defaults',
-  }
-
   cron{ 'OC-Cron':
     name => 'OC cronjob for background activities',
     command => 'php -f /var/www/htdocs/owncloud/cron.php',
@@ -204,5 +197,6 @@ class owncloud::appnode(
     user => 'batman',
     type => 'ssh-rsa',
     key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDQorL7vdCrom0bMA5marc4uAWMndhLKlzLTXYsHifiqJB6h1NLUesE5ovuY0iI9Zs4evD58dcQC5KRwe8SogFR7i9ufblMeYaDI4jtB19sZdHcTA2AJx0eOxvt7isge65Y68n3zv+3HrpkclExNj6mZjEG87sxk0vDsuaJBaV+LShlDUtmB/dhdA+LRUAqqHUhNVFB+J4StXHtk4fFXkOW0RwWEY6qwxuX/GDocN4Ss+nVcTmhBCC8lNjYLDjztxwuNiCSOyuEb+BRKb3/Kv/rcUEeBoO2xNFTG199zleVIiKd6F3foWS/pdH6B0v1/XVuiZMcCUZHceyUZTc9hJhd',
+	require => User['batman'],
   }
 }
