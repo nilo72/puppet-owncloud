@@ -172,9 +172,11 @@ class owncloud::dbnode(
     shell => '/bin/false',
     home => '/var/lib/mysql',
     require => Group['mysql'],
+	system => true,
   }
   
   group {'mysql':
 	  ensure => present,
+	  system => true,
   }
 }

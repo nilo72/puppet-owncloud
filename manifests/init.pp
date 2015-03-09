@@ -17,6 +17,10 @@ class owncloud {
   package { 'btrfs-tools':
     ensure => latest,
   }
+  
+  package {'open-vm-tools':
+	ensure => latest,
+  }
 	
 	
   class { 'site':
