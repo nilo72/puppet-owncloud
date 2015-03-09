@@ -187,9 +187,9 @@ class owncloud::appnode(
   
   user { 'batman':
     ensure => present,
-    comment => 'Backup User',
     shell => '/bin/false',
 	system => true,
+	home => '/home/batman'
 	managehome => true,
   }
   
