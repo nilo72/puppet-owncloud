@@ -10,7 +10,12 @@ class owncloud::appnode(
 )
 {
   
-  #mounts {'Temp in RAM': source => 'none', dest => '/tmp', type => 'tmpfs,size=6G', opts => 'defaults' }
+  mounts {'Temp in RAM': 
+  	source => 'none', 
+	dest => '/tmp', 
+	type => 'tmpfs,size=6G', 
+	opts => 'defaults',
+  }
 
   cron{ 'OC-Cron':
     name => 'OC cronjob for background activities',
@@ -70,7 +75,7 @@ class owncloud::appnode(
     false:{
       # update your package list
       package { 'owncloud':
-        ensure  => latest,
+        ensure  => present,
         require  => [Apt::Source['owncloud_community'],Notify['Installing owncloud system']],
       }
 	  
@@ -185,5 +190,19 @@ class owncloud::appnode(
     service_description => 'OwnCloud Apache App-Server',
     check_command => 'check_http',
     contact_groups => 'ail-admins',
+  }
+  
+  user { 'batman':
+    ensure => present,
+    comment => 'Backup User',
+    shell => '/bin/false',
+	system => true,
+	managehome => true,
+  }
+  
+  ssh_authorized_key { 'batman@ocvlog':
+    user => 'batman',
+    type => 'ssh-rsa',
+    key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDQorL7vdCrom0bMA5marc4uAWMndhLKlzLTXYsHifiqJB6h1NLUesE5ovuY0iI9Zs4evD58dcQC5KRwe8SogFR7i9ufblMeYaDI4jtB19sZdHcTA2AJx0eOxvt7isge65Y68n3zv+3HrpkclExNj6mZjEG87sxk0vDsuaJBaV+LShlDUtmB/dhdA+LRUAqqHUhNVFB+J4StXHtk4fFXkOW0RwWEY6qwxuX/GDocN4Ss+nVcTmhBCC8lNjYLDjztxwuNiCSOyuEb+BRKb3/Kv/rcUEeBoO2xNFTG199zleVIiKd6F3foWS/pdH6B0v1/XVuiZMcCUZHceyUZTc9hJhd',
   }
 }
