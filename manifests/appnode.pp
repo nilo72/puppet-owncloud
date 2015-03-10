@@ -169,13 +169,6 @@ class owncloud::appnode(
 	   docroot_group => 'www-data',
   }
 
-#  class{ 'apache::mod::xsendfile':
-#  options => {
-#      'SetEnv'  => 'MOD_X_SENDFILE_ENABLED 1',
-#      'XSendFile' => 'On',
-#      'XSendFilePath'   => '/tmp/oc-noclean',
-#    },
-#  }
   include apache::mod::php
   include apache::mod::xsendfile
   	
@@ -184,19 +177,27 @@ class owncloud::appnode(
     check_command => 'check_http',
     contact_groups => 'ail-admins',
   }
-  
+
   user { 'batman':
     ensure => present,
     shell => '/bin/false',
 	system => true,
 	home => '/home/batman',
-	managehome => true,
+	groups => 'www-data',
+  }
+  
+  file { '/home/batman/.shh':
+    ensure  => present,
+    owner   => 'batman',
+    group   => 'batman',
+    mode    => '0644',
+	require => User['batman'],
   }
   
   ssh_authorized_key { 'batman@ocvlog':
     user => 'batman',
     type => 'ssh-rsa',
     key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDQorL7vdCrom0bMA5marc4uAWMndhLKlzLTXYsHifiqJB6h1NLUesE5ovuY0iI9Zs4evD58dcQC5KRwe8SogFR7i9ufblMeYaDI4jtB19sZdHcTA2AJx0eOxvt7isge65Y68n3zv+3HrpkclExNj6mZjEG87sxk0vDsuaJBaV+LShlDUtmB/dhdA+LRUAqqHUhNVFB+J4StXHtk4fFXkOW0RwWEY6qwxuX/GDocN4Ss+nVcTmhBCC8lNjYLDjztxwuNiCSOyuEb+BRKb3/Kv/rcUEeBoO2xNFTG199zleVIiKd6F3foWS/pdH6B0v1/XVuiZMcCUZHceyUZTc9hJhd',
-	require => User['batman'],
+	require => [User['batman'],File['/home/batman/.shh']],
   }
 }
