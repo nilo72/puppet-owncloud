@@ -164,14 +164,6 @@ class owncloud::appnode(
     mode    => 750,
   }
   
-  file { '/root/bin/ocvappbackup.bash':
-	  ensure => present,
-	  owner => 'root',
-	  group => 'root',
-	  mode => '750',
-	  source  => 'puppet:///modules/owncloud/root/bin/ocvappbackup.bash',
-  }
-  
   mounts {'OC Data-Files': 
  	source => $nfs_data_source,
 	dest => '/ocdata',
