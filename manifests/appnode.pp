@@ -23,7 +23,7 @@ class owncloud::appnode(
 	  true:{
 		  cron{ 'OC-Backup-cron':
 			name => 'OC-Backup cronjob',
-			command => '/root/bin/ocvappbackup.bash',
+			command => '/root/bin/ocappbackup.bash',
 			user => 'root',
 			minute => '*/10',
 			#hour => '0',
