@@ -7,14 +7,52 @@ class owncloud::appnode(
   $apt_url_community,
   $nfs_data_source,
   $fqd_name,
+  $nfs_dump_db_source,
+  $is_backup_host = false,
 )
 {
   
-  cron{ 'OC-Cron':
+  cron{ 'OC-System-Cron':
     name => 'OC cronjob for background activities',
     command => 'php -f /var/www/htdocs/owncloud/cron.php',
 	user  => 'www-data',
 	minute => '*/15',
+  }
+  
+  case $is_backup_host {
+	  true:{
+		  cron{ 'OC-Backup-cron':
+			name => 'OC-Backup cronjob',
+			command => '/root/bin/ocvappbackup.bash',
+			user => 'root',
+			minute => '*/10',
+			#hour => '0',
+			require => [Mounts['OC App-Dump-Files'],File['/root/bin/ocdbbackup.bash']],
+		  }
+  
+	  	 mounts {'OC App-Dump-Files': 
+		 	source => $nfs_dump_db_source,
+			dest => '/ocappdump',
+			type => 'nfs',
+			opts => 'vers=3,suid',
+  	  	 }
+		 
+	     #file { '/ocappdump':
+	     #   ensure  => 'directory',
+	     #   owner   => 'root',
+	     #   group   => 'root',
+	     #   mode    => 750,
+		 #}
+  	  
+	     file { '/root/bin/ocdbbackup.bash':
+  	        ensure  => present,
+  	        owner   => 'root',
+  	        group   => 'root',
+  	        mode    => '0750',
+  	        source  => 'puppet:///modules/site/ocgalera/root/bin/ocappbackup.bash',
+  	     }
+		
+	 }
   }
 
   apt::key { 'owncloud':
@@ -124,6 +162,14 @@ class owncloud::appnode(
     owner   => 'www-data',
     group   => 'www-data',
     mode    => 750,
+  }
+  
+  file { '/root/bin/ocvappbackup.bash':
+	  ensure => present,
+	  owner => 'root',
+	  group => 'root',
+	  mode => '750',
+	  source  => 'puppet:///modules/owncloud/root/bin/ocvappbackup.bash',
   }
   
   mounts {'OC Data-Files': 
