@@ -13,6 +13,7 @@ class owncloud::dbnode(
   $node_name=$::fqdn,
   $node_ips,
   $nfs_dump_db_source,
+  $is_backup_host = false,
 )
 {
 
@@ -32,12 +33,12 @@ class owncloud::dbnode(
   }
 
   mounts {'OC DB-Files': 
- 	source => '/dev/sdb1',
-	dest => '/ocdbfiles',
-	type => 'btrfs',
-	opts => 'rw,relatime,space_cache',
-	require => Exec['Format disk'],
-	before => File['/ocdbfiles'],
+   source => '/dev/sdb1',
+   dest => '/ocdbfiles',
+   type => 'btrfs',
+   opts => 'rw,relatime,space_cache',
+   require => Exec['Format disk'],
+   before => File['/ocdbfiles'],
   }
 
   file { '/ocdbfiles':
@@ -48,21 +49,52 @@ class owncloud::dbnode(
 	require => User['mysql'],
   }
 
-  mounts {'OC DB-Dump-Files': 
- 	source => $nfs_dump_db_source,
-	dest => '/ocdbdump',
-	type => 'nfs',
-	opts => 'vers=3,suid',
-  }
 
-  file { '/ocdbdump':
-    ensure  => 'directory',
-    owner   => 'mysql',
-    group   => 'root',
-    mode    => 750,
-	require => User['mysql'],
-	#before => Mounts['OC DB-Dump-Files'],
+case $is_backup_host {
+  true:{
+	  cron{ 'OC-Backup-cron':
+		name => 'OC-DB-Backup cronjob',
+		command => '/root/bin/ocdbbackup.bash',
+		user => 'root',
+		minute => '*/10',
+		#hour => '0',
+		require => [Mounts['OC DB-Dump-Files'],File['/root/bin/ocdbbackup.bash']],
+	  }
+	  
+	  mounts {'OC DB-Dump-Files': 
+	 	source => $nfs_dump_db_source,
+		dest => '/ocdbdump',
+		type => 'nfs',
+		opts => 'vers=3,suid',
+	  }
+
+	  file { '/ocdbdump':
+	    ensure  => 'directory',
+	    owner   => 'mysql',
+	    group   => 'root',
+	    mode    => 750,
+		require => User['mysql'],
+	  }
+
+	  file { '/root/bin/':
+	    ensure  => 'directory',
+	    owner   => 'root',
+	    group   => 'root',
+	    mode    => 750,
+	  }
+	  
+	  file { '/root/bin/ocdbbackup.bash':
+	    ensure  => present,
+	    owner   => 'root',
+	    group   => 'root',
+	    mode    => '0750',
+	    source  => 'puppet:///modules/site/ocgalera/root/bin/ocdbbackup.bash',
+		require => File['/root/bin/'],
+	  }
   }
+  false:{
+  }
+}
   
   case $::operatingsystem {
     'ubuntu': {
@@ -89,10 +121,6 @@ class owncloud::dbnode(
     ensure  => latest,
     #require  => [Apt::Source['mariadb'],Package['rsync'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/conf.d/cluster.cnf']],
 	require  => [Apt::Source['mariadb'],Package['rsync']],
-  }
-
-  package { 'rsync':
-    ensure  => latest,
   }
 
   class { 'mysql::server':
