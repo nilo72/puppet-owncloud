@@ -27,7 +27,7 @@ class owncloud::appnode(
 			user => 'root',
 			minute => '*/10',
 			#hour => '0',
-			require => [Mounts['OC App-Dump-Files'],File['/root/bin/ocdbbackup.bash']],
+			require => [Mounts['OC App-Dump-Files'],File['/root/bin/ocappbackup.bash']],
 		  }
   
 	  	 mounts {'OC App-Dump-Files': 
@@ -44,7 +44,7 @@ class owncloud::appnode(
 	     #   mode    => 750,
 		 #}
   	  
-	     file { '/root/bin/ocdbbackup.bash':
+	     file { '/root/bin/ocappbackup.bash':
   	        ensure  => present,
   	        owner   => 'root',
   	        group   => 'root',
