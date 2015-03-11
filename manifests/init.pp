@@ -25,12 +25,18 @@ class owncloud {
   package { 'rsync':
     ensure  => latest,
   }
+
+  include site::staff_keys
+  
+  class{ 'site::staff_ssh':
+  	allowed_groups => [ 'adm', 'root'],
+  }
 	
   class { 'site':
     use_smarthost_mta => false,
     use_nfs => false,
     use_autofs    => false,
-    use_staff_ssh => true,
+    use_staff_ssh => false,
     nagios_contactgroups  => ['Oliver Neumann', 'Michael Brodersen'],
     nagios_hostgroups     => ['Oliver Neumann', 'Michael Brodersen'],
   }
