@@ -25,8 +25,8 @@ class owncloud::appnode(
 			name => 'OC-Backup cronjob',
 			command => '/root/bin/ocappbackup.bash',
 			user => 'root',
-			minute => '*/10',
-			#hour => '0',
+			minute => '10',
+			hour => '0',
 			require => [Mounts['OC App-Dump-Files'],File['/root/bin/ocappbackup.bash']],
 		  }
   
@@ -37,12 +37,6 @@ class owncloud::appnode(
 			opts => 'vers=3,suid',
   	  	 }
 		 
-	     #file { '/ocappdump':
-	     #   ensure  => 'directory',
-	     #   owner   => 'root',
-	     #   group   => 'root',
-	     #   mode    => 750,
-		 #}
    	     file { '/root/bin/':
    	       ensure  => 'directory',
    	       owner   => 'root',
