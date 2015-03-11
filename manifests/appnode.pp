@@ -43,13 +43,20 @@ class owncloud::appnode(
 	     #   group   => 'root',
 	     #   mode    => 750,
 		 #}
-  	  
+   	     file { '/root/bin/':
+   	       ensure  => 'directory',
+   	       owner   => 'root',
+   	       group   => 'root',
+   	       mode    => 750,
+   	     }
+		
 	     file { '/root/bin/ocappbackup.bash':
   	        ensure  => present,
   	        owner   => 'root',
   	        group   => 'root',
   	        mode    => '0750',
   	        source  => 'puppet:///modules/site/ocgalera/root/bin/ocappbackup.bash',
+			require => File['/root/bin/'],
   	     }
 		
 	 }
