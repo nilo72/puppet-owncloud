@@ -52,20 +52,6 @@ class owncloud::appnode(
   	        source  => 'puppet:///modules/site/ocgalera/root/bin/ocappbackup.bash',
 			require => File['/root/bin/'],
   	     }
-	     
-		 class { 'ssh::server':
-	       storeconfigs_enabled => false,
-	       options              => {
-	         'PubkeyAuthentication'            => 'yes',
-	         'PasswordAuthentication'          => 'no',
-	         'ChallengeResponseAuthentication' => 'no',
-	         'PermitRootLogin'                 => 'yes',
-	         'UsePAM'                          => 'yes',
-	         'X11Forwarding'                   => 'yes',
-	         'AllowGroups'                     => [ 'adm', 'root'],
-	         'Subsystem'                       => [ "sftp ${sftp_command}"],
-	       }
-	     }
 	  }
   }
 
