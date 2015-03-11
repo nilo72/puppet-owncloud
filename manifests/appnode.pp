@@ -7,7 +7,7 @@ class owncloud::appnode(
   $apt_url_community,
   $nfs_data_source,
   $fqd_name,
-  $nfs_dump_db_source,
+  $nfs_dump_db_source
   $is_backup_host = false,
 )
 {
