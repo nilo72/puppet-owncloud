@@ -37,6 +37,7 @@ class owncloud {
     use_nfs => false,
     use_autofs    => false,
     use_staff_ssh => false,
+	use_ldap_auth => false,
     nagios_contactgroups  => ['Oliver Neumann', 'Michael Brodersen'],
     nagios_hostgroups     => ['Oliver Neumann', 'Michael Brodersen'],
   }
