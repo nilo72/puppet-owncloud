@@ -228,7 +228,7 @@ class owncloud::appnode(
     shell => '/bin/false',
 	system => true,
 	home => '/home/batman',
-	groups => 'www-data',
+	groups => ['www-data','adm'],
   }
   
   file { '/home/batman/.shh':
