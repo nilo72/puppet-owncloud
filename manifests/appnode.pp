@@ -224,7 +224,7 @@ class owncloud::appnode(
   }
   
   file { '/home/batman/.shh':
-    ensure  => present,
+    ensure  => directory,
     owner   => 'batman',
     group   => 'batman',
     mode    => '0644',
