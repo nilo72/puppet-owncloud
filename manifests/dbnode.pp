@@ -27,7 +27,7 @@ class owncloud::dbnode(
   exec{ 'Format disk':
     command => 'mkfs.btrfs /dev/sdb1',
 	path  => '/sbin',
-	onlyif => "test  ! `blkid -o value -s TYPE /dev/sdb1` = btrfs",
+	onlyif => "/usr/bin/test  ! `blkid -o value -s TYPE /dev/sdb1` = btrfs",
     require  => [Class['owncloud'],Exec['Disk Partition']], 
   }
 
