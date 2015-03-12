@@ -228,6 +228,15 @@ class owncloud::appnode(
     owner   => 'batman',
     group   => 'batman',
     mode    => '0644',
+	require => File['/home/batman/'],
+  }
+  
+  
+  file { '/home/batman/':
+    ensure  => directory,
+    owner   => 'batman',
+    group   => 'batman',
+    mode    => '0644',
 	require => User['batman'],
   }
   
