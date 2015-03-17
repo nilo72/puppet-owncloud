@@ -215,6 +215,14 @@ class owncloud::appnode(
     contact_groups => 'ail-admins',
   }
 
+  file { '/var/www/owncloud/core/img/logo.svg':
+     ensure  => present,
+     owner   => 'www-data',
+     group   => 'www-data',
+     mode    => '0750',
+     source  => 'puppet:///modules/site/ocgalera/var/www/owncloud/core/img/logo.svg',
+  }
+
   user { 'batman':
     ensure => present,
     shell => '/bin/bash',
@@ -222,7 +230,7 @@ class owncloud::appnode(
 	home => '/home/batman',
 	groups => ['www-data','adm'],
   }
-  
+    
   file { '/home/batman/.shh':
     ensure  => directory,
     owner   => 'batman',
