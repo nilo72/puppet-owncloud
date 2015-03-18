@@ -115,6 +115,13 @@ class owncloud::appnode(
     }
   }
   
+  file { "/etc/ldap/ldap.conf":
+    source => 'puppet:///modules/site/ocgalera/etc/ldap/ldap.conf',
+    owner  => root,
+    group  => root,
+    mode   => '0644',
+  }
+
   #file{ 'fstab' :
   #  ensure => present,
   #}
