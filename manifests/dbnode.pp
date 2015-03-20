@@ -26,7 +26,7 @@ class owncloud::dbnode(
   
   exec{ 'Format disk':
     command => 'mkfs.btrfs /dev/sdb1',
-	path  => '/sbin',
+	path  => '/sbin/',
 	onlyif => "/usr/bin/test  ! `blkid -o value -s TYPE /dev/sdb1` = btrfs",
     require  => [Class['owncloud'],Exec['Disk Partition']], 
   }
@@ -55,8 +55,8 @@ case $is_backup_host {
 		name => 'OC-DB-Backup cronjob',
 		command => '/root/bin/ocdbbackup.bash',
 		user => 'root',
-		minute => '*/10',
-		#hour => '0',
+		minute => '10',
+		hour => '0',
 		require => [Mounts['OC DB-Dump-Files'],File['/root/bin/ocdbbackup.bash']],
 	  }
 	  
@@ -125,6 +125,7 @@ case $is_backup_host {
   class { 'mysql::server':
     root_password => $root_db_password,
     package_name  => 'mariadb-galera-server',
+	#package_ensure => '5.5.40-MariaDB-36.1'
 	#service_enabled => false,
     require => [Package['galera'],Mounts['OC DB-Files']],
     #require => [Package['galera'],Mounts['OC DB-Files']],
