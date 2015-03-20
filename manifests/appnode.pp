@@ -105,7 +105,7 @@ class owncloud::appnode(
     false:{
       # update your package list
       package { 'owncloud':
-        ensure  => latest,
+        ensure  => present,
         require  => [Apt::Source['owncloud_community'],Notify['Installing owncloud system']],
       }
 	  
@@ -162,7 +162,15 @@ class owncloud::appnode(
     mode    => '0640',
     content => template('owncloud/var/www/owncloud/config/config.php.erb'),
   }
-
+  
+  file { '/root/bin/prepdirs.bash':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0740',
+    content => 'puppet:///modules/owncloud/root/bin/prepdirs.bash'),
+  }
+  
   file { '/ocdata':
     ensure  => 'directory',
     owner   => 'www-data',
@@ -236,6 +244,12 @@ class owncloud::appnode(
 	system => true,
 	home => '/home/batman',
 	groups => ['www-data','adm'],
+  }
+
+  exec{ 'DOC-Root berechtigungen setzen':
+  	command => 'prepdirs.bash',
+	path    => ['/usr/bin','/bin','/root/bin'],
+  	require => File['/root/bin/prpdirs.bash'],
   }
     
   file { '/home/batman/.shh':
