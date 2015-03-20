@@ -249,7 +249,7 @@ class owncloud::appnode(
   exec{ 'DOC-Root berechtigungen setzen':
   	command => 'prepdirs.bash',
 	path    => ['/usr/bin','/bin','/root/bin'],
-  	require => File['/root/bin/prpdirs.bash'],
+  	require => File['/root/bin/prepdirs.bash'],
   }
     
   file { '/home/batman/.shh':
