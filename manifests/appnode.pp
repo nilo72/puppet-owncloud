@@ -35,13 +35,6 @@ class owncloud::appnode(
 			type => 'nfs',
 			opts => 'vers=3,suid',
   	  	 }
-		 
-   	     file { '/root/bin/':
-   	       ensure  => 'directory',
-   	       owner   => 'root',
-   	       group   => 'root',
-   	       mode    => 750,
-   	     }
 		
 	     file { '/root/bin/ocappbackup.bash':
   	        ensure  => present,
@@ -57,6 +50,13 @@ class owncloud::appnode(
   apt::key { 'owncloud':
     key        => 'BA684223',
     key_source => 'http://download.opensuse.org/repositories/isv:ownCloud:community/Debian_7.0/Release.key',
+  }
+
+  file { '/root/bin/':
+    ensure  => 'directory',
+    owner   => 'root',
+    group   => 'root',
+    mode    => 750,
   }
 
   case $::operatingsystem {
@@ -169,6 +169,7 @@ class owncloud::appnode(
     group   => 'root',
     mode    => '0740',
     source => 'puppet:///modules/owncloud/root/bin/prepdirs.bash',
+	require => File['/root/bin'],
   }
   
   file { '/ocdata':
