@@ -168,7 +168,7 @@ class owncloud::appnode(
     owner   => 'root',
     group   => 'root',
     mode    => '0740',
-    content => 'puppet:///modules/owncloud/root/bin/prepdirs.bash',
+    source => 'puppet:///modules/owncloud/root/bin/prepdirs.bash',
   }
   
   file { '/ocdata':
