@@ -105,7 +105,7 @@ class owncloud::appnode(
     false:{
       # update your package list
       package { 'owncloud':
-        ensure  => present,
+        ensure  => latest,
         require  => [Apt::Source['owncloud_community'],Notify['Installing owncloud system']],
       }
 	  
