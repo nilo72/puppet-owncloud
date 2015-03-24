@@ -223,7 +223,7 @@ class owncloud::appnode(
   }
   
   apache::vhost { "${fqd_name}-SSL":
-       ensure => absent,
+       ensure => present,
        port          => '443',
        docroot => '/var/www/owncloud',
 	   ssl => true,
