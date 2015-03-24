@@ -21,4 +21,6 @@ $CONFIG = array (
   'dbuser' => '<%= scope.lookupvar('owncloud::params::dbuser') %>',
   'dbpassword' => '<%= scope.lookupvar('owncloud::params::owncloud_db_password') %>',
   'installed' => true,
+  'overwriteprotocol' => 'https',
+  'skeletondirectory' => '/ocdata/skeleton',
 );
