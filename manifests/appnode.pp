@@ -210,12 +210,33 @@ class owncloud::appnode(
 				 options => ['Indexes','SymLinksIfOwnerMatch'],
                  allow_override => ['All'],
 				 custom_fragment => '
-				     <IfModule mod_xsendfile.c>
-					 	SetEnv MOD_X_SENDFILE_ENABLED 1
-						XSendFile On
-						XSendFilePath /tmp/oc-noclean
-						XSendFilePath /ocdata
-					 </IfModule>',
+                     <IfModule mod_xsendfile.c>
+                        SetEnv MOD_X_SENDFILE_ENABLED 1
+                        XSendFile On
+                        XSendFilePath /tmp/oc-noclean
+                        XSendFilePath /ocdata
+                     </IfModule>',
+               }, 
+             ],
+	   docroot_owner => 'www-data',
+	   docroot_group => 'www-data',
+  }
+  
+  apache::vhost { "${fqd_name}-SSL":
+       port          => '443',
+       docroot => '/var/www/owncloud',
+	   ssl => true,
+       directories  => [ 
+               { path           => '/var/www/owncloud', 
+				 options => ['Indexes','SymLinksIfOwnerMatch'],
+                 allow_override => ['All'],
+				 custom_fragment => '
+                     <IfModule mod_xsendfile.c>
+                        SetEnv MOD_X_SENDFILE_ENABLED 1
+                        XSendFile On
+                        XSendFilePath /tmp/oc-noclean
+                        XSendFilePath /ocdata
+                     </IfModule>',
                }, 
              ],
 	   docroot_owner => 'www-data',
