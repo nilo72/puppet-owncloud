@@ -13,7 +13,7 @@ class owncloud::appnode(
   
   cron{ 'OC-System-Cron':
     name => 'OC cronjob for background activities',
-    command => 'php -f /var/www/htdocs/owncloud/cron.php',
+    command => 'php -f /var/www/owncloud/cron.php',
 	user  => 'www-data',
 	minute => '*/15',
   }

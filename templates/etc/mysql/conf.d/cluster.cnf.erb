@@ -21,3 +21,7 @@ wsrep_sst_method=rsync
 # Galera Node Configuration
 wsrep_node_address="<%= scope.lookupvar('owncloud::dbnode::node_ip') %>"
 wsrep_node_name="<%= scope.lookupvar('owncloud::dbnode::node_name') %>"
+
+# Galera performance anpassung
+wsrep_slave_threads = 2
+wsrep_retry_autocommit = 10
