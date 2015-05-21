@@ -9,7 +9,7 @@ class owncloud::appnode(
   $fqd_name,
   $nfs_dump_db_source,
   $is_backup_host = false,
-  $is_intergration_host = false,)
+  $is_integration_host = false,)
 {
   
   cron{ 'OC-System-Cron':
