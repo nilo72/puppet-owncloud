@@ -136,7 +136,14 @@ class owncloud::appnode(
   package { 'libapache2-mod-xsendfile':
     ensure  => latest,
   }
+  
+  package { 'php5-imagick':
+    ensure => latest,
+  }
 
+  package { 'libreoffice':
+    ensure => latest,
+  }
 
   class{ 'apache':
     mpm_module => false,
