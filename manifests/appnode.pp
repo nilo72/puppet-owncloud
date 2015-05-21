@@ -147,7 +147,6 @@ class owncloud::appnode(
   }
 
   class{ 'apache':
-    apache_version => '2.2.22',
     mpm_module => false,
     keepalive => 'On',
     keepalive_timeout => '2',
