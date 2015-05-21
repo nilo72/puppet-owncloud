@@ -8,7 +8,8 @@ class owncloud::appnode(
   $nfs_data_source,
   $fqd_name,
   $nfs_dump_db_source,
-  $is_backup_host = false,)
+  $is_backup_host = false,
+  $is_intergration_host = false,)
 {
   
   cron{ 'OC-System-Cron':
@@ -185,11 +186,15 @@ class owncloud::appnode(
     mode    => 750,
   }
   
-  mounts {'OC Data-Files': 
-    source => $nfs_data_source,
-    dest => '/ocdata',
-    type => 'nfs',
-    opts => 'vers=3,suid',
+  case $is_integration_host {
+    false:{
+      mounts {'OC Data-Files': 
+        source => $nfs_data_source,
+        dest => '/ocdata',
+        type => 'nfs',
+        opts => 'vers=3,suid',
+      }
+    }
   }
 
   file { '/etc/sysctl.conf':
