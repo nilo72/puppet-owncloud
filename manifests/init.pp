@@ -6,10 +6,6 @@ class owncloud {
    	always_apt_update => true;
   }
 	
-  notify {"Installing owncloud class":
-   withpath => true,
-  }
-  
   package { 'apt-transport-https':
     ensure  => latest,
   }
