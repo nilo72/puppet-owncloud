@@ -205,12 +205,20 @@ class owncloud::appnode(
     source  => 'puppet:///modules/owncloud/etc/sysctl.conf',
   }
   
+  file { '/etc/php5/conf.d':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
+  
   file { '/etc/php5/conf.d/apc.ini':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/owncloud/etc/php5/conf.d/apc.ini',
+    require => File['/etc/php5/conf.d'],
   }
   
   apache::vhost { $fqd_name:
