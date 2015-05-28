@@ -1,6 +1,8 @@
 # Simple OwnCloud module.
 #
 class owncloud {
+
+  include site::staff_keys
 	
   class{ 'apt':
    	always_apt_update => true;
@@ -11,24 +13,22 @@ class owncloud {
   }
   
   package { 'btrfs-tools':
-    ensure => latest,
+    ensure  => latest,
   }
   
   package {'open-vm-tools':
-	ensure => latest,
+    ensure  => latest,
   }
-	
+
   package { 'rsync':
     ensure  => latest,
   }
 
-  include site::staff_keys
-  
-  class{ 'site::staff_ssh':
-  	allowed_groups => [ 'adm', 'root'],
-    password_auth => 'yes',
-  }
-	
+#  class{ 'site::staff_ssh':
+#  	allowed_groups => [ 'adm', 'root'],
+#    password_auth => 'yes',
+#  }
+
   class { 'site':
     use_smarthost_mta     => false,
     use_nfs               => false,
