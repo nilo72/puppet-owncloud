@@ -4,10 +4,8 @@ class owncloud {
 
   include site::staff_keys
 	
-  class{ 'apt':
-   	always_apt_update => true;
-  }
-	
+  include apt	
+  
   package { 'apt-transport-https':
     ensure  => latest,
   }
