@@ -39,7 +39,7 @@ describe 'owncloud::dbnode', :type => :class do
       :db_monitor_host => 'monitor.example.com',
       :owncloud_db_user => 'frugnul',
       :owncloud_db_name => 'frugnulDB',
-      :node_ips => '192.168.10.1,192.168.10.2'
+      :node_ips => '192.168.10.1,192.168.10.2',
       :nfs_dump_db_source    => 'test-nfs:/nfs-dump/path',
      }}
     it { should contain_mysql__db('frugnulDB').with(
