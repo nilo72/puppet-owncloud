@@ -44,7 +44,7 @@ class owncloud::dbnode(
     ensure  => 'directory',
     owner   => 'mysql',
     group   => 'root',
-    mode    => 750,
+    mode    => '0750',
     require => User['mysql'],
   }
 
@@ -60,17 +60,17 @@ class owncloud::dbnode(
     }
 
     mounts {'OC DB-Dump-Files':
-     source => $nfs_dump_db_source,
-     dest   => '/ocdbdump',
-     type   => 'nfs',
-     opts   => 'vers=3,suid',
+      source => $nfs_dump_db_source,
+      dest   => '/ocdbdump',
+      type   => 'nfs',
+      opts   => 'vers=3,suid',
     }
 
     file { '/ocdbdump':
       ensure  => 'directory',
       owner   => 'mysql',
       group   => 'root',
-      mode    => 750,
+      mode    => '0750',
       require => User['mysql'],
     }
 
@@ -78,7 +78,7 @@ class owncloud::dbnode(
       ensure  => 'directory',
       owner   => 'root',
       group   => 'root',
-      mode    => 750,
+      mode    => '0750',
     }
 
     file { '/root/bin/ocdbbackup.bash':

@@ -58,7 +58,7 @@ class owncloud::appnode(
     ensure  => 'directory',
     owner   => 'root',
     group   => 'root',
-    mode    => 750,
+    mode    => '0750',
   }
 
   case $::operatingsystem {
@@ -82,34 +82,34 @@ class owncloud::appnode(
     }
   }
 
-  case $enterprise_community {
+  if $enterprise_community {
+
     #Options if enterprise is selected
-    true:{
-        package { 'owncloud-enterprise':
-          ensure   => latest,
-          require  => [Apt::Source['owncloud_enterprise']],
-        }
-
-        package { 'owncloud-enterprise-ldaphome':
-          ensure   => latest,
-          require  => [Apt::Source['owncloud_enterprise']],
-        }
-
-        package { 'cifs-utils':
-          ensure  => latest,
-        }
-
-        #file{ 'credentials':
-        #  ensure => present,
-        #  chmod 600,
-        #}
+    package { 'owncloud-enterprise':
+      ensure   => latest,
+      require  => [Apt::Source['owncloud_enterprise']],
     }
-    false:{
-      # update your package list
-      package { 'owncloud':
-        ensure   => present,
-        require  => Apt::Source['owncloud_community'],
-      }
+
+    package { 'owncloud-enterprise-ldaphome':
+      ensure   => latest,
+      require  => [Apt::Source['owncloud_enterprise']],
+    }
+
+    package { 'cifs-utils':
+      ensure  => latest,
+    }
+
+    #file{ 'credentials':
+    #  ensure => present,
+    #  chmod 600,
+    #}
+
+    } else {
+
+    # update your package list
+    package { 'owncloud':
+      ensure   => present,
+      require  => Apt::Source['owncloud_community'],
     }
   }
 
@@ -181,17 +181,15 @@ class owncloud::appnode(
     ensure  => 'directory',
     owner   => 'www-data',
     group   => 'www-data',
-    mode    => 750,
+    mode    => '0750',
   }
 
-  case $is_integration_host {
-    false:{
-      mounts {'OC Data-Files':
-        source => $nfs_data_source,
-        dest   => '/ocdata',
-        type   => 'nfs',
-        opts   => 'vers=3,suid',
-      }
+  if $is_integration_host {
+    mounts {'OC Data-Files':
+      source => $nfs_data_source,
+      dest   => '/ocdata',
+      type   => 'nfs',
+      opts   => 'vers=3,suid',
     }
   }
 
@@ -271,11 +269,11 @@ class owncloud::appnode(
   }
 
   file { '/var/www/owncloud/core/img/logo.svg':
-     ensure  => present,
-     owner   => 'www-data',
-     group   => 'www-data',
-     mode    => '0750',
-     source  => 'puppet:///modules/site/ocgalera/var/www/owncloud/core/img/logo.svg',
+    ensure  => present,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => '0750',
+    source  => 'puppet:///modules/site/ocgalera/var/www/owncloud/core/img/logo.svg',
   }
 
   user { 'batman':
