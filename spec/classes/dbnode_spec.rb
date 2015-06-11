@@ -1,20 +1,25 @@
 require 'spec_helper'
 
-describe 'owncloud::dbnode' do
+describe 'owncloud::dbnode', :type => :class do
   let(:node) { 'testhost.example.org' }
+    
   let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
-  let(:facts) { { :osfamily => 'Debian',
-                   :operatingsystem => 'Debian',
-                   :lsbdistid => 'Debian',
-			  } }
+    
+  let(:facts) { { 
+    :osfamily        => 'Debian',
+    :operatingsystem => 'Debian',
+    :lsbdistid       => 'Debian',
+  } }
   
   context 'with default settings' do
+
     let(:params)  { {
-      :root_db_password    => 'test',
+      :root_db_password      => 'test',
       :owncloud_db_password  => 'test',
-      :db_monitor_host => 'monitor.example.com',
-      :node_ips => '192.168.10.1,192.168.10.2'
-     }}
+      :db_monitor_host       => 'monitor.example.com',
+      :node_ips              => '192.168.10.1,192.168.10.2',
+      :nfs_dump_db_source    => 'test-nfs:/nfs-dump/path',
+     } }
      
     it { should compile }
     it { should contain_package('galera') }

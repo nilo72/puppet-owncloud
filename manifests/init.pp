@@ -2,8 +2,6 @@
 #
 class owncloud {
 
-  include site::staff_keys
-
   include apt
 
   package { 'apt-transport-https':
@@ -27,14 +25,5 @@ class owncloud {
 #    password_auth => 'yes',
 #  }
 
-  class { 'site':
-    use_smarthost_mta     => false,
-    use_nfs               => false,
-    use_autofs            => false,
-    use_staff_ssh         => false,
-    use_ldap_auth         => false,
-    nagios_contactgroups  => ['Oliver Neumann', 'Michael Brodersen'],
-    nagios_hostgroups     => ['Oliver Neumann', 'Michael Brodersen'],
-  }
 }
 

@@ -5,15 +5,15 @@ class owncloud::dbnode(
   $root_db_password,
   $owncloud_db_password,
   $db_monitor_host,
-  $owncloud_db_name='ownclouddb',
-  $owncloud_db_user='owncloud',
-  $db_monitor_user='nagios',
-  $db_monitor_password='nagios',
-  $node_ip=$::ipaddress,
-  $node_name=$::fqdn,
   $node_ips,
   $nfs_dump_db_source,
-  $is_backup_host = false,
+  $owncloud_db_name       = 'ownclouddb',
+  $owncloud_db_user       = 'owncloud',
+  $db_monitor_user        = 'nagios',
+  $db_monitor_password    = 'nagios',
+  $node_ip                = $::ipaddress,
+  $node_name              = $::fqdn,
+  $is_backup_host         = false,
 )
 {
 
