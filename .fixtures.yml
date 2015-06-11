@@ -3,6 +3,8 @@ fixtures:
     apt:
       repo:              "git://github.com/puppetlabs/puppetlabs-apt"
       ref:               "2.0.1"
+    # transitive dependency via mounts
+    fstab:               "git://github.com/haw-hh-ai-lab/puppet-fstab.git"
     mounts:              "git://github.com/haw-hh-ai-lab/puppet-mounts.git"
     mysql:               "git://github.com/puppetlabs/puppetlabs-mysql"
     nagios: 
