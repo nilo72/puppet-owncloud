@@ -111,7 +111,7 @@ class owncloud::appnode(
     }
   }
 
-  file { "/etc/ldap/ldap.conf":
+  file { '/etc/ldap/ldap.conf':
     source => 'puppet:///modules/site/ocgalera/etc/ldap/ldap.conf',
     owner  => root,
     group  => root,
@@ -150,12 +150,12 @@ class owncloud::appnode(
   }
 
   class { 'apache::mod::prefork':
-    startservers    => "100",
-    minspareservers => "100",
-    maxspareservers => "2000",
-    serverlimit     => "6000",
-    maxclients      => "6000",
-    maxrequestsperchild => "4000",
+    startservers    => '100',
+    minspareservers => '100',
+    maxspareservers => '2000',
+    serverlimit     => '6000',
+    maxclients      => '6000',
+    maxrequestsperchild => '4000',
   }
 
   file { '/var/www/owncloud/config/config.php':
