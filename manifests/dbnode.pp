@@ -27,8 +27,11 @@ class owncloud::dbnode(
   exec { 'Format disk':
     command => 'mkfs.btrfs /dev/sdb1',
     path    => '/sbin/',
+    #lint:ignore:quoted_strings-check would be hard to differentiate between ticks and backticks
     onlyif  => "/usr/bin/test  ! `blkid -o value -s TYPE /dev/sdb1` = btrfs",
-    require => [Class['owncloud'],Exec['Disk Partition']],
+    #lint:endignore
+    }
+    require => [Class['owncloud'], Exec['Disk Partition']],
   }
 
   mounts { 'OC DB-Files':
@@ -109,6 +112,9 @@ class owncloud::dbnode(
         key        => '1BB943DB',
         key_server => 'hkp://keyserver.ubuntu.com:80',
       }
+    }
+    default:  {
+      fail ("operating system ${::operatingsystem} not supported by module owncloud")
     }
   }
 

@@ -23,7 +23,7 @@ class owncloud {
   }
 
 #  class{ 'site::staff_ssh':
-#  	allowed_groups => [ 'adm', 'root'],
+#    allowed_groups => [ 'adm', 'root'],
 #    password_auth => 'yes',
 #  }
 
