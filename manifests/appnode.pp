@@ -11,14 +11,14 @@ class owncloud::appnode(
   $is_backup_host = false,
   $is_integration_host = false,)
 {
-  
+
   cron{ 'OC-System-Cron':
     name => 'OC cronjob for background activities',
     command => 'php -f /var/www/owncloud/cron.php',
     user  => 'www-data',
     minute => '*/15',
   }
-  
+
   case $is_backup_host {
     true:{
       cron{ 'OC-Backup-cron':
@@ -29,7 +29,7 @@ class owncloud::appnode(
         hour => '0',
         require => [Mounts['OC App-Dump-Files'],File['/root/bin/ocappbackup.bash']],
       }
-      mounts {'OC App-Dump-Files': 
+      mounts {'OC App-Dump-Files':
       source => $nfs_dump_db_source,
       dest => '/ocappdump',
       type => 'nfs',
@@ -48,8 +48,8 @@ class owncloud::appnode(
   }
 
   apt::key { 'owncloud':
-    key        => 'BA684223',
-    key_source => 'http://download.opensuse.org/repositories/isv:ownCloud:community/Debian_7.0/Release.key',
+    id     => 'BA684223',
+    source => 'http://download.opensuse.org/repositories/isv:ownCloud:community/Debian_7.0/Release.key',
   }
 
   file { '/root/bin/':
@@ -96,7 +96,7 @@ class owncloud::appnode(
         package { 'cifs-utils':
           ensure  => latest,
         }
-  
+
         #file{ 'credentials':
         #  ensure => present,
         #  chmod 600,
@@ -110,7 +110,7 @@ class owncloud::appnode(
       }
     }
   }
-  
+
   file { "/etc/ldap/ldap.conf":
     source => 'puppet:///modules/site/ocgalera/etc/ldap/ldap.conf',
     owner  => root,
@@ -121,7 +121,7 @@ class owncloud::appnode(
   #file{ 'fstab' :
   #  ensure => present,
   #}
-  
+
   package { 'php5-ldap':
     ensure  => latest,
   }
@@ -133,7 +133,7 @@ class owncloud::appnode(
   package { 'libapache2-mod-xsendfile':
     ensure  => latest,
   }
-  
+
   package { 'php5-imagick':
     ensure => latest,
   }
@@ -148,7 +148,7 @@ class owncloud::appnode(
     keepalive_timeout => '2',
     max_keepalive_requests => '4096',
   }
-  
+
   class { 'apache::mod::prefork':
     startservers    => "100",
     minspareservers => "100",
@@ -165,7 +165,7 @@ class owncloud::appnode(
     mode    => '0640',
     content => template('owncloud/var/www/owncloud/config/config.php.erb'),
   }
-  
+
   file { '/root/bin/prepdirs.bash':
     ensure  => present,
     owner   => 'root',
@@ -174,17 +174,17 @@ class owncloud::appnode(
     source => 'puppet:///modules/owncloud/root/bin/prepdirs.bash',
     require => File['/root/bin'],
   }
-  
+
   file { '/ocdata':
     ensure  => 'directory',
     owner   => 'www-data',
     group   => 'www-data',
     mode    => 750,
   }
-  
+
   case $is_integration_host {
     false:{
-      mounts {'OC Data-Files': 
+      mounts {'OC Data-Files':
         source => $nfs_data_source,
         dest => '/ocdata',
         type => 'nfs',
@@ -200,14 +200,14 @@ class owncloud::appnode(
     mode    => '0644',
     source  => 'puppet:///modules/owncloud/etc/sysctl.conf',
   }
-  
+
   file { '/etc/php5/conf.d':
     ensure  => directory,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
   }
-  
+
   file { '/etc/php5/conf.d/apc.ini':
     ensure  => present,
     owner   => 'root',
@@ -216,12 +216,12 @@ class owncloud::appnode(
     source  => 'puppet:///modules/owncloud/etc/php5/conf.d/apc.ini',
     require => File['/etc/php5/conf.d'],
   }
-  
+
   apache::vhost { $fqd_name:
     port          => '80',
     docroot => '/var/www/owncloud',
-    directories  => [ 
-      { path           => '/var/www/owncloud', 
+    directories  => [
+      { path           => '/var/www/owncloud',
         options => ['Indexes','SymLinksIfOwnerMatch'],
         allow_override => ['All'],
         custom_fragment => '
@@ -236,14 +236,14 @@ class owncloud::appnode(
     docroot_owner => 'www-data',
     docroot_group => 'www-data',
   }
-  
+
   apache::vhost { "${fqd_name}-SSL":
     ensure => present,
     port          => '443',
     docroot => '/var/www/owncloud',
     ssl => true,
-    directories  => [ 
-      { path           => '/var/www/owncloud', 
+    directories  => [
+      { path           => '/var/www/owncloud',
         options => ['Indexes','SymLinksIfOwnerMatch'],
         allow_override => ['All'],
         custom_fragment => '
@@ -261,7 +261,7 @@ class owncloud::appnode(
 
   include apache::mod::php
   include apache::mod::xsendfile
-  	
+
   nagios::service{ 'apache_web_node':
     service_description => 'OwnCloud Apache App-Server',
     check_command => 'check_http',
@@ -289,7 +289,7 @@ class owncloud::appnode(
     path    => ['/usr/bin','/bin','/root/bin'],
     require => File['/root/bin/prepdirs.bash'],
   }
-    
+
   file { '/home/batman/.shh':
     ensure  => directory,
     owner   => 'batman',
@@ -297,8 +297,8 @@ class owncloud::appnode(
     mode    => '0644',
     require => File['/home/batman/'],
   }
-  
-  
+
+
   file { '/home/batman/':
     ensure  => directory,
     owner   => 'batman',
@@ -306,7 +306,7 @@ class owncloud::appnode(
     mode    => '0644',
     require => User['batman'],
   }
-  
+
   ssh_authorized_key { 'batman@ocvlog':
     user => 'batman',
     type => 'ssh-rsa',
