@@ -4,13 +4,13 @@ describe 'owncloud::dbnode', :type => :class do
   let(:node) { 'testhost.example.org' }
     
   let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
-    
+
   let(:facts) { { 
     :osfamily        => 'Debian',
     :operatingsystem => 'Debian',
     :lsbdistid       => 'Debian',
   } }
-  
+
   context 'with default settings' do
 
     let(:params)  { {
@@ -31,6 +31,7 @@ describe 'owncloud::dbnode', :type => :class do
     	'user' => 'owncloud'
       ) }
   end
+
   context 'with extra db params' do
     let(:params)  { {
       :root_db_password    => 'test',
@@ -39,6 +40,7 @@ describe 'owncloud::dbnode', :type => :class do
       :owncloud_db_user => 'frugnul',
       :owncloud_db_name => 'frugnulDB',
       :node_ips => '192.168.10.1,192.168.10.2'
+      :nfs_dump_db_source    => 'test-nfs:/nfs-dump/path',
      }}
     it { should contain_mysql__db('frugnulDB').with(
     		'password' => 'test',
