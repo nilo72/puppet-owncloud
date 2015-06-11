@@ -17,27 +17,27 @@ class owncloud::dbnode(
 )
 {
 
-  exec{ 'Disk Partition':
+  exec { 'Disk Partition':
     command => 'sfdisk /dev/sdb < /tmp/sdb.in',
     path    => '/sbin',
     require => File['/tmp/sdb.in'],
     creates => '/dev/sdb1',
   }
 
-  exec{ 'Format disk':
+  exec { 'Format disk':
     command => 'mkfs.btrfs /dev/sdb1',
     path    => '/sbin/',
     onlyif  => "/usr/bin/test  ! `blkid -o value -s TYPE /dev/sdb1` = btrfs",
     require => [Class['owncloud'],Exec['Disk Partition']],
   }
 
-  mounts {'OC DB-Files':
-   source  => '/dev/sdb1',
-   dest    => '/ocdbfiles',
-   type    => 'btrfs',
-   opts    => 'rw,relatime,space_cache',
-   require => Exec['Format disk'],
-   before  => File['/ocdbfiles'],
+  mounts { 'OC DB-Files':
+    source  => '/dev/sdb1',
+    dest    => '/ocdbfiles',
+    type    => 'btrfs',
+    opts    => 'rw,relatime,space_cache',
+    require => Exec['Format disk'],
+    before  => File['/ocdbfiles'],
   }
 
   file { '/ocdbfiles':
@@ -49,8 +49,7 @@ class owncloud::dbnode(
   }
 
 
-case $is_backup_host {
-  true:{
+  if $is_backup_host {
     cron{ 'OC-Backup-cron':
       name    => 'OC-DB-Backup cronjob',
       command => '/root/bin/ocdbbackup.bash',
@@ -91,9 +90,6 @@ case $is_backup_host {
       require => File['/root/bin/'],
     }
   }
-  false:{
-  }
-}
 
   case $::operatingsystem {
     'ubuntu': {
@@ -117,9 +113,9 @@ case $is_backup_host {
   }
 
   package { 'galera':
-    ensure  => latest,
+    ensure   => latest,
     #require  => [Apt::Source['mariadb'],Package['rsync'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/conf.d/cluster.cnf']],
-  require  => [Apt::Source['mariadb'],Package['rsync']],
+    require  => [Apt::Source['mariadb'],Package['rsync']],
   }
 
   class { 'mysql::server':
