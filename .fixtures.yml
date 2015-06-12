@@ -1,5 +1,6 @@
 fixtures:
   repositories:
+    apache:              "git://github.com/puppetlabs/puppetlabs-apache"
     apt:
       repo:              "git://github.com/puppetlabs/puppetlabs-apt"
       ref:               "2.0.1"
