@@ -6,9 +6,15 @@ describe 'owncloud::appnode', :type => :class do
   let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
 
   let(:facts) { { 
-    :osfamily        => 'Debian',
-    :operatingsystem => 'Debian',
-    :lsbdistid       => 'Debian',
+    # the apt and apache combined require the full lsb fact range
+    :osfamily                 => 'Debian',
+    :operatingsystem          => 'Debian',
+    :operatingsystemrelease   => '8.1',
+    :lsbdistcodename          => 'jessie',
+    :lsbdistdescription       => 'Debian 8.1',
+    :lsbdistrelease         => '8.1',
+    :lsbdistid              => 'Debian', 
+    :lsbmajdistrelease      => '8',
   } }
 
   context 'with default settings' do
