@@ -35,7 +35,7 @@ describe 'owncloud::dbnode', :type => :class do
       'user' => 'owncloud'
       ) }
       
-    it { should contain_file('/etc/my.cnf').with_content(/\/ocdbfiles/) }
+    it { should contain_file('/etc/my.cnf').with_content(/ocdbfiles/) }
   end
 
   context 'with extra db params' do
