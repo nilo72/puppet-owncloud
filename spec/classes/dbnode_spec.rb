@@ -35,7 +35,39 @@ describe 'owncloud::dbnode', :type => :class do
       'user' => 'owncloud'
       ) }
       
-    it { should contain_file('/etc/my.cnf').with_content(/ocdbfiles/) }
+    it { should contain_file('/etc/mysql/my.cnf').with_content(/ocdbfiles/) }
+      
+      
+#      Apt::Key[owncloud]
+#      Apt::Source[mariadb]
+#      Apt::Source[owncloud_community]
+#      Class[Owncloud::Appnode]
+#      Class[Owncloud::Dbnode]
+#      Class[Owncloud]
+#      Cron[OC-System-Cron]
+#      Exec[DOC-Root berechtigungen setzen]
+#      Exec[Disk Partition]
+#      Exec[Format disk]
+#      File[/etc/ldap/ldap.conf]
+#      File[/etc/mysql/conf.d/cluster.cnf]
+#      File[/etc/mysql/debian.cnf]
+#      File[/etc/sysctl.conf]
+#      File[/home/batman/.shh]
+#      File[/home/batman/]
+#      File[/ocdbfiles]
+#      File[/root/bin/]
+#      File[/root/bin/prepdirs.bash]
+#      File[/tmp/sdb.in]
+#      Group[mysql]
+#      Mounts[OC DB-Files]
+#      Mysql_user[frugnul@192.168.119.%]
+#      Mysql_user[owncloud@192.168.119.%]
+#      Package[apt-transport-https]
+#      Package[open-vm-tools]
+#      Package[owncloud]
+#      Ssh_authorized_key[batman@ocvlog]
+#      User[batman]
+#      User[mysql]
   end
 
   context 'with extra db params' do
@@ -49,8 +81,8 @@ describe 'owncloud::dbnode', :type => :class do
       :nfs_dump_db_source    => 'test-nfs:/nfs-dump/path',
      }}
     it { should contain_mysql__db('frugnulDB').with(
-    		'password' => 'test',
-    		'user' => 'frugnul'
+        'password' => 'test',
+        'user' => 'frugnul'
        ) }
   end
 end
