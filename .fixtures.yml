@@ -4,6 +4,9 @@ fixtures:
     apt:
       repo:              "git://github.com/puppetlabs/puppetlabs-apt"
       branch:            "2.1.x"
+    concat:
+      repo:     'git://github.com/ripienaar/puppet-concat'
+      ref:      '1.1.2'
     # transitive dependency via mounts
     dirtree:             "git://github.com/haw-hh-ai-lab/puppet-dirtree"
     # transitive dependency via mounts
