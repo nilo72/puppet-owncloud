@@ -128,7 +128,7 @@ class owncloud::dbnode(
   package { 'galera':
     ensure   => present,
     #require  => [Apt::Source['mariadb'],Package['rsync'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/conf.d/cluster.cnf']],
-    require  => [Apt::Source['mariadb'],Package['rsync']],
+    require  => [Apt::Source['mariadb'], Package['rsync']],
   }
 
   class { 'mysql::server':
@@ -136,8 +136,8 @@ class owncloud::dbnode(
     package_name     => 'mariadb-galera-server',
     #package_ensure   => '5.5.40-MariaDB-36.1'
     #service_enabled  => false,
-    require          => [Package['galera'],Mounts['OC DB-Files']],
-    #require          => [Package['galera'],Mounts['OC DB-Files']],
+    require          => [Package['galera'], Mounts['OC DB-Files']],
+    #require          => [Package['galera'], Mounts['OC DB-Files']],
     override_options => {
       'mysqld' => {
         #'bind_address'            => $::ipaddress,
@@ -159,12 +159,13 @@ class owncloud::dbnode(
   }
 
   # Creates a database with a user and assign some privileges
-#  mysql::db { $owncloud_db_name:
-#    user     => $owncloud_db_user,
-#    password => $owncloud_db_password,
-#    host     => '192.168.119.%',
-#    grant    => ['all'],
-#  }
+  mysql::db { $owncloud_db_name:
+    user     => $owncloud_db_user,
+    password => $owncloud_db_password,
+    host     => '192.168.119.%',
+    grant    => ['all'],
+    require  => File[$::mysql::server::config_file],
+  }
 
 #  nagios::service{ 'galera_cluster_node':
 #    service_description => 'OwnCloud galera cluster node DB',
