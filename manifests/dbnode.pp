@@ -24,13 +24,17 @@ class owncloud::dbnode(
     creates => '/dev/sdb1',
   }
 
+  package { 'btrfs-tools':
+    ensure  => latest,
+  }
+
   exec { 'Format disk':
     command => 'mkfs.btrfs /dev/sdb1',
     path    => '/sbin/',
     #lint:ignore:quoted_strings-check would be hard to differentiate between ticks and backticks
     onlyif  => "/usr/bin/test  ! `blkid -o value -s TYPE /dev/sdb1` = btrfs",
     #lint:endignore
-    require => [Class['owncloud'], Exec['Disk Partition']],
+    require => [ Package['btrfs-tools'], Exec['Disk Partition']],
   }
 
   mounts { 'OC DB-Files':

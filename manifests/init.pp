@@ -8,10 +8,6 @@ class owncloud {
     ensure  => latest,
   }
 
-  package { 'btrfs-tools':
-    ensure  => latest,
-  }
-
   package {'open-vm-tools':
     ensure  => latest,
   }

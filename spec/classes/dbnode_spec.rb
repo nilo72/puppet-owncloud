@@ -22,7 +22,10 @@ describe 'owncloud::dbnode', :type => :class do
      } }
      
     it { should compile }
+      
     it { should contain_package('galera') }
+    it { should contain_package('btrfs-tools') }
+      
 #   it { should contain_class('mysql__server')}
 #   it { should contain_class('mysql__server__monitor')}
 #   it { should contain_resource('nagios__service')}
