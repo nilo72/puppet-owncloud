@@ -12,10 +12,6 @@ class owncloud {
     ensure  => latest,
   }
 
-  package { 'rsync':
-    ensure  => latest,
-  }
-
 #  class{ 'site::staff_ssh':
 #    allowed_groups => [ 'adm', 'root'],
 #    password_auth => 'yes',

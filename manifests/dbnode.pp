@@ -121,8 +121,12 @@ class owncloud::dbnode(
     }
   }
 
+  package { 'rsync':
+    ensure  => present,
+  }
+
   package { 'galera':
-    ensure   => latest,
+    ensure   => present,
     #require  => [Apt::Source['mariadb'],Package['rsync'],File['/etc/mysql/debian.cnf'],File['/etc/mysql/conf.d/cluster.cnf']],
     require  => [Apt::Source['mariadb'],Package['rsync']],
   }

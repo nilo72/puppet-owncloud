@@ -113,6 +113,10 @@ class owncloud::appnode(
     }
   }
 
+  package { 'rsync':
+    ensure  => present,
+  }
+
   file { '/etc/ldap/ldap.conf':
     source => 'puppet:///modules/site/ocgalera/etc/ldap/ldap.conf',
     owner  => root,
