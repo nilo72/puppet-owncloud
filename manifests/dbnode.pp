@@ -17,6 +17,8 @@ class owncloud::dbnode(
 )
 {
 
+  include apt
+
   exec { 'Disk Partition':
     command => 'sfdisk /dev/sdb < /tmp/sdb.in',
     path    => '/sbin',

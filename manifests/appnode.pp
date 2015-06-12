@@ -12,6 +12,8 @@ class owncloud::appnode(
   $is_integration_host = false,)
 {
 
+  include apt
+
   cron{ 'OC-System-Cron':
     name    => 'OC cronjob for background activities',
     command => 'php -f /var/www/owncloud/cron.php',
