@@ -154,6 +154,8 @@ class owncloud::dbnode(
       },},
   }
 
+fail("::mysql::server::config_file is ${::mysql::server::config_file}")
+
   class { 'mysql::server::monitor':
     mysql_monitor_username  => $db_monitor_user,
     mysql_monitor_password  => $db_monitor_password,
