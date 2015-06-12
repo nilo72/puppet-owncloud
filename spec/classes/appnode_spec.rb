@@ -6,6 +6,8 @@ describe 'owncloud::appnode', :type => :class do
   let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
 
   let(:facts) { { 
+    # the module concat needs this. Normaly set by concat through pluginsync
+    :concat_basedir         => '/tmp/concatdir',
     # the apt and apache combined require the full lsb fact range
     :osfamily                 => 'Debian',
     :operatingsystem          => 'Debian',
