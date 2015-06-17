@@ -154,7 +154,7 @@ class owncloud::dbnode(
       },},
   }
 
-fail("::mysql::server::config_file is ${::mysql::server::config_file}")
+   notice("::mysql::server::config_file is ${::mysql::server::config_file}")
 
   class { 'mysql::server::monitor':
     mysql_monitor_username  => $db_monitor_user,
@@ -166,6 +166,7 @@ fail("::mysql::server::config_file is ${::mysql::server::config_file}")
   mysql::db { $owncloud_db_name:
     user     => $owncloud_db_user,
     password => $owncloud_db_password,
+    # TODO: Who determined this IP addr?
     host     => '192.168.119.%',
     grant    => ['all'],
     require  => File[$::mysql::server::config_file],

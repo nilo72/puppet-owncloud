@@ -35,9 +35,14 @@ describe 'owncloud::dbnode', :type => :class do
       'user' => 'owncloud'
       ) }
       
+    it { should contain_mysql__user('owncloud') }
+
     it { should contain_file('/etc/mysql/my.cnf') } # .with_content(/ocdbfiles/) }
       
-      
+    it { should contain_apt__source('mariadb') }
+        
+    it { should contain_mysql__user('owncloud@192.168.119.%') }
+
 #      Apt::Key[owncloud]
 #      Apt::Source[mariadb]
 #      Apt::Source[owncloud_community]
@@ -84,5 +89,7 @@ describe 'owncloud::dbnode', :type => :class do
         'password' => 'test',
         'user' => 'frugnul'
        ) }
+       
+    it { should contain_mysql__user('frugnul@192.168.119.%') }
   end
 end
