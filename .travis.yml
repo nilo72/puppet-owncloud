@@ -10,5 +10,6 @@ branches:
 env:
   - PUPPET_VERSION=3.7.4
 notifications:
-  email: false
+  email:
+    - oli@hebbelweg.de
 gemfile: .gemfile
