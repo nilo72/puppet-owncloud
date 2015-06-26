@@ -21,49 +21,54 @@ describe 'owncloud::dbnode', :type => :class do
       :nfs_dump_db_source    => 'test-nfs:/nfs-dump/path',
      } }
      
-    it { should compile }
+    it 'Compile' do
+      should compile
+    end
       
-    it do
-      should contain_package('galera').with({'ensure'  =>  'present',})
+    it 'Packages to be installed' do
+      should contain_package('galera').with_ensure('present')
       should contain_package('btrfs-tools').with({'ensure'  =>  'latest',})
     end
 
-    it do
+    it 'Commands to be executed' do
       should contain_exec('Disk Partition')
       should contain_exec('Format disk')
     end
 
-    it { should contain_mounts('OC DB-Files') }
+    it 'Mount filesystems' do
+       should contain_mounts('OC DB-Files')
+    end
 
-    it do
+    it 'Files to be copied' do
       should contain_file('/ocdbfiles')
       should contain_file('/etc/mysql/conf.d/cluster.cnf')
       should contain_file('/etc/mysql/debian.cnf')
       should contain_file('/tmp/sdb.in')
     end
 
-    it do
+    it 'Users and Groups' do
       should contain_user('mysql')
       should contain_group('mysql')
     end
-#   it { should contain_class('mysql__server')}
-#   it { should contain_class('mysql__server__monitor')}
-#   it { should contain_resource('nagios__service')}
+
+    it 'Nagios services' do
+      should contain_nagios__service('galera_cluster_node')
+    end
       
-    it { should contain_mysql__db('ownclouddb').with(
-      'password' => 'test',
-      'user' => 'owncloud',
-      ) }
+    it 'Database config' do
+      should contain_mysql__db('ownclouddb').with('password' => 'test','user' => 'owncloud','host' => '192.168.119.%',)
+      should contain_mysql__db('ownclouddb').with('password' => 'test','user' => 'owncloud',).with_require('File[/etc/mysql/my.cnf]')
+      should contain_class('mysql::server')
+      should contain_class('mysql::server::monitor')
+      should contain_mysql_user('owncloud@192.168.119.%')
+      should contain_mysql_database('ownclouddb')
+    end
 
-    it { should contain_class('mysql::server') }
 
-    it { should contain_mysql_user('owncloud@192.168.119.%') }
-
-    it { should contain_mysql_database('ownclouddb') }
-
-    #it { should contain_file('/etc/mysql/my.cnf') } # .with_content(/ocdbfiles/) }
+#    it { should contain_file('/etc/mysql/my.cnf') } # .with_content(/ocdbfiles/) }
       
-    it do
+    it 'APT-Sources and keys' do
+      should contain_class('apt')
       should contain_apt__source('mariadb')
     end
   end
@@ -78,15 +83,15 @@ describe 'owncloud::dbnode', :type => :class do
       :node_ips              => '192.168.10.1,192.168.10.2',
       :nfs_dump_db_source    => 'test-nfs:/nfs-dump/path',
      }}
-    it do
+    it 'Database config' do
       should contain_mysql__db('frugnulDB').with(
         'password' => 'test',
         'user' => 'frugnul'
        )
       should contain_mysql__db('frugnulDB').with_require('File[/etc/mysql/my.cnf]')
-    end
-    it { should contain_mysql_database('frugnulDB') }
-
-    it { should contain_mysql_user('frugnul@192.168.119.%')}
+      should contain_mysql__db('frugnulDB').with_user('frugnul')
+      should contain_mysql_database('frugnulDB')
+      should contain_mysql_user('frugnul@192.168.119.%')
   end
-end
+  end
+  end

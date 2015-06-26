@@ -50,7 +50,7 @@ describe 'owncloud::appnode', :type => :class do
     it do
       should contain_file('/var/www/owncloud/config/config.php')
       should contain_file('/var/www/owncloud/core/img/logo.svg')
-      should contain_file('/etc/php5/conf.d')
+      should contain_file('/etc/php5/conf.d').with_ensure('directory')
       should contain_file('/etc/php5/conf.d/apc.ini').with_require('File[/etc/php5/conf.d]')
       should contain_file('/etc/ldap/ldap.conf')
       should contain_file('/etc/sysctl.conf')
@@ -61,14 +61,15 @@ describe 'owncloud::appnode', :type => :class do
       should contain_file('/root/bin/prepdirs.bash')
     end
 
- #  it { should contain_apache__vhost('owncloud.informatik.haw-hamburg.de') }
-
     it { should contain_exec('DOC-Root berechtigungen setzen')}
     it { should contain_Cron('OC-System-Cron')}
 
     it { should contain_apache__vhost('https://owncloud.example.com-SSL').with_port('443') }
     it { should contain_apache__vhost('https://owncloud.example.com').with_port('80') }
 
+    it { should contain_nagios__service('apache_web_node')}
+
+    it { should contain_ssh_authorized_key('batman@ocvlog')}
   end
 
 end

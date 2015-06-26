@@ -172,11 +172,11 @@ class owncloud::dbnode(
     require  => File[$::mysql::server::config_file],
   }
 
-#  nagios::service{ 'galera_cluster_node':
-#    service_description => 'OwnCloud galera cluster node DB',
-#    check_command => 'check_mysql_cmdlinecred!nagios!nagios',
-#    contact_groups => 'ail-admins',
-#  }
+  nagios::service{ 'galera_cluster_node':
+    service_description => 'OwnCloud galera cluster node DB',
+    check_command => 'check_mysql_cmdlinecred!nagios!nagios',
+    contact_groups => 'ail-admins',
+  }
 
   file { '/etc/mysql/conf.d/cluster.cnf':
     ensure  => present,
@@ -184,7 +184,7 @@ class owncloud::dbnode(
     group   => 'root',
     mode    => '0644',
     content => template('owncloud/etc/mysql/conf.d/cluster.cnf.erb'),
-  #before => Class['mysql::server'],
+    #before => Class['mysql::server'],
     #notify  => Service[$owncloud::dbnode]
   }
 
