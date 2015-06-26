@@ -8,31 +8,37 @@ class owncloud::appnode(
   $nfs_data_source,
   $fqd_name,
   $nfs_dump_db_source,
-  $is_backup_host = false,)
+  $is_backup_host = false,
+  $is_integration_host = false,)
 {
 
+  include apt
+
   cron{ 'OC-System-Cron':
-    name => 'OC cronjob for background activities',
+    name    => 'OC cronjob for background activities',
     command => 'php -f /var/www/owncloud/cron.php',
-    user  => 'www-data',
-    minute => '*/15',
+    user    => 'www-data',
+    minute  => '*/15',
   }
 
-  case $is_backup_host {
-    true:{
-      cron{ 'OC-Backup-cron':
-        name => 'OC-Backup cronjob',
-        command => '/root/bin/ocappbackup.bash',
-        user => 'root',
-        minute => '10',
-        hour => '0',
-        require => [Mounts['OC App-Dump-Files'],File['/root/bin/ocappbackup.bash']],
-      }
-      mounts {'OC App-Dump-Files':
+# TODO: validate parameters
+
+  if $is_backup_host {
+
+    cron { 'OC-Backup-cron':
+      name    => 'OC-Backup cronjob',
+      command => '/root/bin/ocappbackup.bash',
+      user    => 'root',
+      minute  => '10',
+      hour    => '0',
+      require => [Mounts['OC App-Dump-Files'],File['/root/bin/ocappbackup.bash']],
+    }
+
+    mounts { 'OC App-Dump-Files':
       source => $nfs_dump_db_source,
-      dest => '/ocappdump',
-      type => 'nfs',
-      opts => 'vers=3,suid',
+      dest   => '/ocappdump',
+      type   => 'nfs',
+      opts   => 'vers=3,suid',
     }
 
     file { '/root/bin/ocappbackup.bash':
@@ -42,7 +48,6 @@ class owncloud::appnode(
       mode    => '0750',
       source  => 'puppet:///modules/site/ocgalera/root/bin/ocappbackup.bash',
       require => File['/root/bin/'],
-    }
     }
   }
 
@@ -55,66 +60,66 @@ class owncloud::appnode(
     ensure  => 'directory',
     owner   => 'root',
     group   => 'root',
-    mode    => 750,
+    mode    => '0750',
   }
 
   case $::operatingsystem {
     'debian': {
-      case $enterprise_community{
-        true:{
+      if $enterprise_community {
           apt::source { 'owncloud_enterprise':
             location   => $apt_url_enterprise,
             release    => '/',
             repos      => '',
           }
-        }
-        false:{
-            apt::source { 'owncloud_community':
+        } else {
+          apt::source { 'owncloud_community':
             location   => $apt_url_community,
             release    => '/',
             repos      => '',
           }
         }
       }
+    default: {
+      fail ("operating system ${::operatingsystem} not supported by module owncloud")
     }
   }
 
-  case $enterprise_community {
+  if $enterprise_community {
+
     #Options if enterprise is selected
-    true:{
-        package { 'owncloud-enterprise':
-          ensure  => latest,
-          require  => [Apt::Source['owncloud_enterprise']],
-        }
-
-        package { 'owncloud-enterprise-ldaphome':
-          ensure  => latest,
-          require  => [Apt::Source['owncloud_enterprise']],
-        }
-
-        package { 'cifs-utils':
-          ensure  => latest,
-        }
-
-        #file{ 'credentials':
-        #  ensure => present,
-        #  chmod 600,
-        #}
+    package { 'owncloud-enterprise':
+      ensure   => latest,
+      require  => [Apt::Source['owncloud_enterprise']],
     }
-    false:{
-      # update your package list
-      package { 'owncloud':
-        ensure  => present,
-        require  => [Apt::Source['owncloud_community'],Notify['Installing owncloud system']],
-      }
 
-      notify {"Installing owncloud system":
-        withpath => true,
-      }
+    package { 'owncloud-enterprise-ldaphome':
+      ensure   => latest,
+      require  => [Apt::Source['owncloud_enterprise']],
+    }
+
+    package { 'cifs-utils':
+      ensure  => latest,
+    }
+
+    #file{ 'credentials':
+    #  ensure => present,
+    #  chmod 600,
+    #}
+
+    } else {
+
+    # update your package list
+    package { 'owncloud':
+      ensure   => present,
+      require  => Apt::Source['owncloud_community'],
     }
   }
 
-  file { "/etc/ldap/ldap.conf":
+  package { 'rsync':
+    ensure  => present,
+  }
+
+  file { '/etc/ldap/ldap.conf':
     source => 'puppet:///modules/site/ocgalera/etc/ldap/ldap.conf',
     owner  => root,
     group  => root,
@@ -137,21 +142,28 @@ class owncloud::appnode(
     ensure  => latest,
   }
 
+  package { 'php5-imagick':
+    ensure => latest,
+  }
+
+  package { 'libreoffice':
+    ensure => latest,
+  }
 
   class{ 'apache':
-    mpm_module => false,
-    keepalive => 'On',
-    keepalive_timeout => '2',
+    mpm_module             => false,
+    keepalive              => 'On',
+    keepalive_timeout      => '2',
     max_keepalive_requests => '4096',
   }
 
   class { 'apache::mod::prefork':
-    startservers    => "100",
-    minspareservers => "100",
-    maxspareservers => "2000",
-    serverlimit     => "6000",
-    maxclients      => "6000",
-    maxrequestsperchild => "4000",
+    startservers        => '100',
+    minspareservers     => '100',
+    maxspareservers     => '2000',
+    serverlimit         => '6000',
+    maxclients          => '6000',
+    maxrequestsperchild => '4000',
   }
 
   file { '/var/www/owncloud/config/config.php':
@@ -167,7 +179,7 @@ class owncloud::appnode(
     owner   => 'root',
     group   => 'root',
     mode    => '0740',
-    source => 'puppet:///modules/owncloud/root/bin/prepdirs.bash',
+    source  => 'puppet:///modules/owncloud/root/bin/prepdirs.bash',
     require => File['/root/bin'],
   }
 
@@ -175,14 +187,16 @@ class owncloud::appnode(
     ensure  => 'directory',
     owner   => 'www-data',
     group   => 'www-data',
-    mode    => 750,
+    mode    => '0750',
   }
 
-  mounts {'OC Data-Files':
-    source => $nfs_data_source,
-    dest => '/ocdata',
-    type => 'nfs',
-    opts => 'vers=3,suid',
+  if $is_integration_host {
+    mounts {'OC Data-Files':
+      source => $nfs_data_source,
+      dest   => '/ocdata',
+      type   => 'nfs',
+      opts   => 'vers=3,suid',
+    }
   }
 
   file { '/etc/sysctl.conf':
@@ -193,21 +207,29 @@ class owncloud::appnode(
     source  => 'puppet:///modules/owncloud/etc/sysctl.conf',
   }
 
+  file { '/etc/php5/conf.d':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
+
   file { '/etc/php5/conf.d/apc.ini':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     source  => 'puppet:///modules/owncloud/etc/php5/conf.d/apc.ini',
+    require => File['/etc/php5/conf.d'],
   }
 
   apache::vhost { $fqd_name:
     port          => '80',
-    docroot => '/var/www/owncloud',
-    directories  => [
-      { path           => '/var/www/owncloud',
-        options => ['Indexes','SymLinksIfOwnerMatch'],
-        allow_override => ['All'],
+    docroot       => '/var/www/owncloud',
+    directories   => [
+      { path            => '/var/www/owncloud',
+        options         => ['Indexes','SymLinksIfOwnerMatch'],
+        allow_override  => ['All'],
         custom_fragment => '
           <IfModule mod_xsendfile.c>
             SetEnv MOD_X_SENDFILE_ENABLED 1
@@ -222,14 +244,14 @@ class owncloud::appnode(
   }
 
   apache::vhost { "${fqd_name}-SSL":
-    ensure => present,
+    ensure        => present,
     port          => '443',
-    docroot => '/var/www/owncloud',
-    ssl => true,
-    directories  => [
-      { path           => '/var/www/owncloud',
-        options => ['Indexes','SymLinksIfOwnerMatch'],
-        allow_override => ['All'],
+    docroot       => '/var/www/owncloud',
+    ssl           => true,
+    directories   => [
+      { path            => '/var/www/owncloud',
+        options         => ['Indexes','SymLinksIfOwnerMatch'],
+        allow_override  => ['All'],
         custom_fragment => '
         <IfModule mod_xsendfile.c>
           SetEnv MOD_X_SENDFILE_ENABLED 1
@@ -248,23 +270,23 @@ class owncloud::appnode(
 
   nagios::service{ 'apache_web_node':
     service_description => 'OwnCloud Apache App-Server',
-    check_command => 'check_http',
-    contact_groups => 'ail-admins',
+    check_command       => 'check_http',
+    contact_groups      => 'ail-admins',
   }
 
   file { '/var/www/owncloud/core/img/logo.svg':
-     ensure  => present,
-     owner   => 'www-data',
-     group   => 'www-data',
-     mode    => '0750',
-     source  => 'puppet:///modules/site/ocgalera/var/www/owncloud/core/img/logo.svg',
+    ensure  => present,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => '0750',
+    source  => 'puppet:///modules/site/ocgalera/var/www/owncloud/core/img/logo.svg',
   }
 
   user { 'batman':
     ensure => present,
-    shell => '/bin/bash',
+    shell  => '/bin/bash',
     system => true,
-    home => '/home/batman',
+    home   => '/home/batman',
     groups => ['www-data','adm'],
   }
 
@@ -292,9 +314,9 @@ class owncloud::appnode(
   }
 
   ssh_authorized_key { 'batman@ocvlog':
-    user => 'batman',
-    type => 'ssh-rsa',
-    key  => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDQorL7vdCrom0bMA5marc4uAWMndhLKlzLTXYsHifiqJB6h1NLUesE5ovuY0iI9Zs4evD58dcQC5KRwe8SogFR7i9ufblMeYaDI4jtB19sZdHcTA2AJx0eOxvt7isge65Y68n3zv+3HrpkclExNj6mZjEG87sxk0vDsuaJBaV+LShlDUtmB/dhdA+LRUAqqHUhNVFB+J4StXHtk4fFXkOW0RwWEY6qwxuX/GDocN4Ss+nVcTmhBCC8lNjYLDjztxwuNiCSOyuEb+BRKb3/Kv/rcUEeBoO2xNFTG199zleVIiKd6F3foWS/pdH6B0v1/XVuiZMcCUZHceyUZTc9hJhd',
+    user    => 'batman',
+    type    => 'ssh-rsa',
+    key     => 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDQorL7vdCrom0bMA5marc4uAWMndhLKlzLTXYsHifiqJB6h1NLUesE5ovuY0iI9Zs4evD58dcQC5KRwe8SogFR7i9ufblMeYaDI4jtB19sZdHcTA2AJx0eOxvt7isge65Y68n3zv+3HrpkclExNj6mZjEG87sxk0vDsuaJBaV+LShlDUtmB/dhdA+LRUAqqHUhNVFB+J4StXHtk4fFXkOW0RwWEY6qwxuX/GDocN4Ss+nVcTmhBCC8lNjYLDjztxwuNiCSOyuEb+BRKb3/Kv/rcUEeBoO2xNFTG199zleVIiKd6F3foWS/pdH6B0v1/XVuiZMcCUZHceyUZTc9hJhd',
     require => File['/home/batman/.shh'],
   }
 }

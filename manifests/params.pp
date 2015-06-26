@@ -1,3 +1,6 @@
+#
+# Global parameters for owncloud installations
+#
 class owncloud::params(
   $owncloud_db_password = undef,
   $owncloud_node_ips    = undef,
