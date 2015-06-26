@@ -30,44 +30,45 @@ describe 'owncloud::appnode', :type => :class do
      } }
      
     it { should compile }
-      
-    it { should contain_package('rsync') }
+
+    it { should contain_user('batman') }
+    it do
+      should contain_apt__key('owncloud')
+      should contain_apt__source('owncloud_community')
+    end
+
+    it do
+      should contain_package('rsync')
+      should contain_package('php-apc')
+      should contain_package('php5-imagick')
+      should contain_package('php5-ldap')
+      should contain_package('libapache2-mod-xsendfile')
+      should contain_package('libreoffice')
+      should contain_package('owncloud')
+    end
+
+    it do
+      should contain_file('/var/www/owncloud/config/config.php')
+      should contain_file('/var/www/owncloud/core/img/logo.svg')
+      should contain_file('/etc/php5/conf.d')
+      should contain_file('/etc/php5/conf.d/apc.ini').with_require('File[/etc/php5/conf.d]')
+      should contain_file('/etc/ldap/ldap.conf')
+      should contain_file('/etc/sysctl.conf')
+      should contain_file('/home/batman/')
+      should contain_file('/home/batman/.shh')
+      should contain_file('/ocdata')
+      should contain_file('/root/bin/')
+      should contain_file('/root/bin/prepdirs.bash')
+    end
+
+ #  it { should contain_apache__vhost('owncloud.informatik.haw-hamburg.de') }
+
+    it { should contain_exec('DOC-Root berechtigungen setzen')}
+    it { should contain_Cron('OC-System-Cron')}
 
     it { should contain_apache__vhost('https://owncloud.example.com-SSL').with_port('443') }
     it { should contain_apache__vhost('https://owncloud.example.com').with_port('80') }
-      
-#      Apt::Key[owncloud]
-#      Apt::Source[owncloud_community]
-#      Cron[OC-System-Cron]
-#      Exec[DOC-Root berechtigungen setzen]
-#      Exec[Disk Partition]
-#      Exec[Format disk]
-#      File[/etc/ldap/ldap.conf]
-#      File[/etc/mysql/conf.d/cluster.cnf]
-#      File[/etc/mysql/debian.cnf]
-#      File[/etc/php5/conf.d/apc.ini]
-#      File[/etc/php5/conf.d]
-#      File[/etc/sysctl.conf]
-#      File[/home/batman/.shh]
-#      File[/home/batman/]
-#      File[/ocdata]
-#      File[/root/bin/]
-#      File[/root/bin/prepdirs.bash]
-#      File[/tmp/sdb.in]
-#      File[/var/www/owncloud/config/config.php]
-#      File[/var/www/owncloud/core/img/logo.svg]
-#      Group[mysql]
-#      Nagios::Service[apache_web_node]
-#      Package[apt-transport-https]
-#      Package[libapache2-mod-xsendfile]
-#      Package[libreoffice]
-#      Package[open-vm-tools]
-#      Package[owncloud]
-#      Package[php-apc]
-#      Package[php5-imagick]
-#      Package[php5-ldap]
-#      Ssh_authorized_key[batman@ocvlog]
-#      User[batman]
+
   end
 
 end

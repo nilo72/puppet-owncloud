@@ -14,6 +14,11 @@ describe 'owncloud' do
   context 'with default settngs' do
     it do
       should compile
-     end
+    end
+
+    it do
+      should contain_package('open-vm-tools')
+      should contain_package('apt-transport-https')
+    end
   end
 end

@@ -318,3 +318,6 @@ DEPENDENCIES
   simplecov
   travis
   travis-lint
+
+BUNDLED WITH
+   1.10.4
