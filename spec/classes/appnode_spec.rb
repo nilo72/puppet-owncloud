@@ -29,15 +29,20 @@ describe 'owncloud::appnode', :type => :class do
       :nfs_dump_db_source   => 'test-nfs:/some/other/path',
      } }
      
-    it { should compile }
+    it 'Compile' do
+      should compile
+    end
 
-    it { should contain_user('batman') }
-    it do
+    it 'Users and Groups' do
+      should contain_user('batman')
+    end
+
+    it 'APT-Sources and keys' do
       should contain_apt__key('owncloud')
       should contain_apt__source('owncloud_community')
     end
 
-    it do
+    it 'Packages to be installed' do
       should contain_package('rsync')
       should contain_package('php-apc')
       should contain_package('php5-imagick')
@@ -47,7 +52,7 @@ describe 'owncloud::appnode', :type => :class do
       should contain_package('owncloud')
     end
 
-    it do
+    it 'Files to be copied' do
       should contain_file('/var/www/owncloud/config/config.php')
       should contain_file('/var/www/owncloud/core/img/logo.svg')
       should contain_file('/etc/php5/conf.d').with_ensure('directory')
@@ -61,15 +66,27 @@ describe 'owncloud::appnode', :type => :class do
       should contain_file('/root/bin/prepdirs.bash')
     end
 
-    it { should contain_exec('DOC-Root berechtigungen setzen')}
-    it { should contain_Cron('OC-System-Cron')}
+    it 'Commands to be executed' do
+      should contain_exec('DOC-Root berechtigungen setzen')
+    end
 
-    it { should contain_apache__vhost('https://owncloud.example.com-SSL').with_port('443') }
-    it { should contain_apache__vhost('https://owncloud.example.com').with_port('80') }
 
-    it { should contain_nagios__service('apache_web_node')}
+    it 'Cronjobs to be initialized' do
+      should contain_Cron('OC-System-Cron')
+    end
 
-    it { should contain_ssh_authorized_key('batman@ocvlog')}
+    it 'Apache vhosts to be setup' do
+      should contain_apache__vhost('https://owncloud.example.com-SSL').with_port('443')
+      should contain_apache__vhost('https://owncloud.example.com').with_port('80')
+    end
+
+    it 'Nagios checks to be implemented' do
+      should contain_nagios__service('apache_web_node')
+    end
+
+    it 'SSH-Key to be installed' do
+      should contain_ssh_authorized_key('batman@ocvlog')
+    end
   end
 
 end

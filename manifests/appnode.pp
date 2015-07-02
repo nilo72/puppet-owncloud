@@ -52,8 +52,9 @@ class owncloud::appnode(
   }
 
   apt::key { 'owncloud':
-    id     => 'BA684223',
-    source => 'http://download.opensuse.org/repositories/isv:ownCloud:community/Debian_7.0/Release.key',
+    #id     => 'BA684223',
+    id     => 'F9EA4996747310AE79474F44977C43A8BA684223',
+    source => 'http://download.opensuse.org/repositories/isv:/ownCloud:/community/Debian_8.0/Release.key',
   }
 
   file { '/root/bin/':
