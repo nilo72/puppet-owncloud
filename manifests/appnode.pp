@@ -58,7 +58,7 @@ class owncloud::appnode(
   }
 
   file { '/root/bin/':
-    ensure  => 'directory',
+    ensure  => directory,
     owner   => 'root',
     group   => 'root',
     mode    => '0750',
@@ -295,6 +295,7 @@ class owncloud::appnode(
     command => 'prepdirs.bash',
     path    => ['/usr/bin','/bin','/root/bin'],
     require => File['/root/bin/prepdirs.bash'],
+    onlyif  => "test `ls -l /var/www/owncloud/.htaccess | cut -d ' ' -f 1 -s` != '-rw-r--r--'"
   }
 
   file { '/home/batman/.shh':
