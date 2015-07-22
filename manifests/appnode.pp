@@ -185,7 +185,7 @@ class owncloud::appnode(
   }
 
   file { '/ocdata':
-    ensure  => 'directory',
+    ensure  => directory,
     owner   => 'www-data',
     group   => 'www-data',
     mode    => '0750',
@@ -240,7 +240,7 @@ class owncloud::appnode(
             </IfModule>',
       },
     ],
-    docroot_owner => 'www-data',
+    docroot_owner => 'root',
     docroot_group => 'www-data',
   }
 
@@ -277,9 +277,9 @@ class owncloud::appnode(
 
   file { '/var/www/owncloud/core/img/logo.svg':
     ensure  => present,
-    owner   => 'www-data',
+    owner   => 'root',
     group   => 'www-data',
-    mode    => '0750',
+    mode    => '0640',
     source  => 'puppet:///modules/site/ocgalera/var/www/owncloud/core/img/logo.svg',
   }
 
