@@ -105,8 +105,11 @@ class owncloud::dbnode(
         location   => 'http://mirror.netcologne.de/mariadb/repo/5.5/ubuntu',
         release    => 'saucy',
         repos      => 'main',
-        key        => '1BB943DB',
-        key_server => 'hkp://keyserver.ubuntu.com:80',
+        #key        => '1BB943DB',
+        key        => {
+          id         => '199369E5404BD5FC7D2FE43BCBCB082A1BB943DB',
+          key_server => 'hkp://keyserver.ubuntu.com:80',
+        }
       }
     }
     'debian': {
@@ -114,8 +117,11 @@ class owncloud::dbnode(
         location   => 'http://mirror2.hs-esslingen.de/mariadb/repo/5.5/debian',
         release    => 'wheezy',
         repos      => 'main',
-        key        => '1BB943DB',
-        key_server => 'hkp://keyserver.ubuntu.com:80',
+        #key       => '1BB943DB',
+        key        => {
+          id         => '199369E5404BD5FC7D2FE43BCBCB082A1BB943DB',
+          key_server => 'hkp://keyserver.ubuntu.com:80',
+        }
       }
     }
     default:  {
