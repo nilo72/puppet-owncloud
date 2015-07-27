@@ -17,6 +17,7 @@ class owncloud::params(
   $dbtableprefix        = 'oc_',
   $is_backup_host       = false,
   $dbuser               = undef,
-  $nfs_host_ip          = undef
+  $nfs_host_ip          = undef,
+  $maintenance          = undef,
 ){
 }
