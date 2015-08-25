@@ -98,7 +98,7 @@ describe 'owncloud::appnode', :type => :class do
     end
   end
 
-  
+
   context 'Doing an update' do
 
     let(:params)  { {
