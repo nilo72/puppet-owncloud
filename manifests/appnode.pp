@@ -135,7 +135,11 @@ class owncloud::appnode(
     ensure  => latest,
   }
 
-  package { 'php-apc':
+  package { 'php5-apcu':
+    ensure  => latest,
+  }
+
+  package { 'php5-memcached':
     ensure  => latest,
   }
 
@@ -259,7 +263,9 @@ class owncloud::appnode(
           XSendFile On
           XSendFilePath /tmp/oc-noclean
           XSendFilePath /ocdata
-        </IfModule>',
+        </IfModule>
+
+        Header always add Strict-Transport-Security "max-age=15768000"',
       },
     ],
     docroot_owner => 'www-data',
@@ -268,6 +274,7 @@ class owncloud::appnode(
 
   include apache::mod::php
   include apache::mod::xsendfile
+  include apache::mod::headers
 
   nagios::service{ 'apache_web_node':
     service_description => 'OwnCloud Apache App-Server',
@@ -276,7 +283,7 @@ class owncloud::appnode(
   }
 
   file { '/var/www/owncloud/core/img/logo.svg':
-    ensure  => present,
+    ensure  => absent,
     owner   => 'root',
     group   => 'www-data',
     mode    => '0640',

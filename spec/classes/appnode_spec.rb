@@ -44,13 +44,21 @@ describe 'owncloud::appnode', :type => :class do
 
     it 'Packages to be installed' do
       should contain_package('rsync')
-      should contain_package('php-apc')
+      should contain_package('php5-apcu')
       should contain_package('php5-imagick')
       should contain_package('php5-ldap')
+      should contain_package('php5-memcached')
       should contain_package('libapache2-mod-xsendfile')
       should contain_package('libreoffice')
       should contain_package('owncloud')
     end
+
+    it 'Classes to be included' do
+      should contain_class('apache::mod::php')
+      should contain_class('apache::mod::xsendfile')
+      should contain_class('apache::mod::headers')
+    end
+
 
     it 'Files to be copied' do
       should contain_file('/var/www/owncloud/config/config.php')

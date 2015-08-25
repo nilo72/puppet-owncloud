@@ -18,6 +18,6 @@ class owncloud::params(
   $is_backup_host       = false,
   $dbuser               = undef,
   $nfs_host_ip          = undef,
-  $maintenance          = undef,
+  $maintenance          = false,
 ){
 }
