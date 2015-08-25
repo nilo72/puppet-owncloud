@@ -9,7 +9,8 @@ class owncloud::appnode(
   $fqd_name,
   $nfs_dump_db_source,
   $is_backup_host = false,
-  $is_integration_host = false,)
+  $is_integration_host = false,
+  $do_Update = false,)
 {
 
   include apt
@@ -110,9 +111,16 @@ class owncloud::appnode(
     } else {
 
     # update your package list
-    package { 'owncloud':
-      ensure   => present,
-      require  => Apt::Source['owncloud_community'],
+    if $do_Update {
+      package { 'owncloud':
+        ensure   => latest,
+        require  => Apt::Source['owncloud_community'],
+      }
+    } else {
+      package { 'owncloud':
+        ensure   => present,
+        require  => Apt::Source['owncloud_community'],
+      }
     }
   }
 

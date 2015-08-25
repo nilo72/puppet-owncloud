@@ -51,6 +51,7 @@ describe 'owncloud::appnode', :type => :class do
       should contain_package('libapache2-mod-xsendfile')
       should contain_package('libreoffice')
       should contain_package('owncloud')
+      should contain_package('owncloud').with_ensure('present')
     end
 
     it 'Classes to be included' do
@@ -97,4 +98,21 @@ describe 'owncloud::appnode', :type => :class do
     end
   end
 
+  
+  context 'Doing an update' do
+
+    let(:params)  { {
+        :apt_url_enterprise   => 'http://example.com',
+        :apt_url_community    => 'http://example.com',
+        :nfs_data_source      => 'test-nfs:/some/path',
+        :fqd_name             => 'https://owncloud.example.com',
+        :nfs_dump_db_source   => 'test-nfs:/some/other/path',
+        :do_Update            => true,
+    } }
+
+    it 'Packages to be installed' do
+      should contain_package('owncloud').with_ensure('latest')
+    end
+
+  end
 end
