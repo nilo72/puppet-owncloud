@@ -112,7 +112,7 @@ class owncloud::appnode(
       package { 'owncloud':
         ensure   => latest,
         require  => Apt::Source['owncloud_community'],
-       }
+      }
     } else {
       package { 'owncloud':
         ensure   => present,
@@ -182,6 +182,7 @@ class owncloud::appnode(
     group   => 'www-data',
     mode    => '0640',
     content => template('owncloud/var/www/owncloud/config/config.php.erb'),
+    require => Package['owncloud'],
   }
 
   file { '/root/bin/prepdirs.bash':
