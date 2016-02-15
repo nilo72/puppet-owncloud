@@ -73,6 +73,7 @@ class owncloud::appnode(
             release    => '/',
             repos      => '',
             key      => {
+              id     => 'F9EA4996747310AE79474F44977C43A8BA684223',
               source  => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
             },
           }
