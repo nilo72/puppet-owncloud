@@ -52,12 +52,6 @@ class owncloud::appnode(
     }
   }
 
-  apt::key { 'owncloud':
-    #id     => 'BA684223',
-    id     => 'F9EA4996747310AE79474F44977C43A8BA684223',
-    source => 'http://download.opensuse.org/repositories/isv:/ownCloud:/community/Debian_8.0/Release.key',
-  }
-
   file { '/root/bin/':
     ensure  => directory,
     owner   => 'root',
@@ -78,6 +72,9 @@ class owncloud::appnode(
             location   => $apt_url_community,
             release    => '/',
             repos      => '',
+            key      => {
+              source  => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
+            },
           }
         }
       }
@@ -115,7 +112,7 @@ class owncloud::appnode(
       package { 'owncloud':
         ensure   => latest,
         require  => Apt::Source['owncloud_community'],
-      }
+       }
     } else {
       package { 'owncloud':
         ensure   => present,
