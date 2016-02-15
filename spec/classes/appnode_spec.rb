@@ -37,11 +37,6 @@ describe 'owncloud::appnode', :type => :class do
       should contain_user('batman')
     end
 
-    it 'APT-Sources and keys' do
-      should contain_apt__key('owncloud')
-      should contain_apt__source('owncloud_community')
-    end
-
     it 'Packages to be installed' do
       should contain_package('rsync')
       should contain_package('php5-apcu')
@@ -51,6 +46,11 @@ describe 'owncloud::appnode', :type => :class do
       should contain_package('libapache2-mod-xsendfile')
       should contain_package('libreoffice')
       should contain_package('owncloud')
+      #should contain_package('owncloud').with({:key => {
+      #                                          :id     => 'F9EA4996747310AE79474F44977C43A8BA684223',
+      #                                          :source  => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
+      #},
+      #}),
       should contain_package('owncloud').with_ensure('present')
     end
 

@@ -15,10 +15,5 @@ describe 'owncloud' do
     it 'Compile' do
       should compile
     end
-
-    it 'Packages to be installed' do
-      should contain_package('open-vm-tools')
-      should contain_package('apt-transport-https')
-    end
   end
 end
