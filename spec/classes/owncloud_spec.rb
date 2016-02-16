@@ -6,9 +6,10 @@ describe 'owncloud' do
   let(:hiera_config) { 'spec/fixtures/hiera/hiera.yaml' }
 
   let(:facts) { {
-    :osfamily        => 'Debian',
-    :operatingsystem => 'Debian',
-    :lsbdistid       => 'Debian',
+    :osfamily                   => 'Debian',
+    :operatingsystem            => 'Debian',
+    :lsbdistid                  => 'Debian',
+    :operatingsystemrelease     => '8'
   }}
 
   context 'with default settngs' do

@@ -64,8 +64,8 @@ class owncloud::params {
   $cron_log                                   = true
   $cron_lockfile_location                     = ''
   $log_rotate_size                            = false
-  $3rdpartyroot                               = ''
-  $3rdpartyurl                                = ''
+  $thirdpartyroot                             = ''
+  $thirdpartyurl                              = ''
   $customclient_desktop                       =	'http://owncloud.org/sync-clients/'
   $customclient_android                       = 'https://play.google.com/store/apps/details?id=com.owncloud.android'
   $customclient_ios                           = 'https://itunes.apple.com/us/app/owncloud/id543672169?mt=8'
@@ -119,8 +119,8 @@ class owncloud::params {
   $memcache_locking                           = '\\OC\\Memcache\\Redis'
   $debug                                      = false
   $copied_sample_config                       = true
-  $service_enable                             = true,
-  $service_ensure                             = 'running',
-  $service_manage                             = true,
-  $service_name                               = 'apache2',
+  $service_enable                             = true
+  $service_ensure                             = 'running'
+  $service_manage                             = true
+  $service_name                               = 'apache2'
 }

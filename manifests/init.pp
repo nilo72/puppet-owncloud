@@ -64,8 +64,8 @@ class owncloud (
   $cron_log                                   = $owncloud::params::cron_log,
   $cron_lockfile_location                     = $owncloud::params::log_rotate_size,
   $log_rotate_size                            = $owncloud::params::false,
-  $3rdpartyroot                               = $owncloud::params::3rdpartyroot,
-  $3rdpartyurl                                = $owncloud::params::3rdpartyurl,
+  $thirdpartyroot                             = $owncloud::params::thirdpartyroot,
+  $thirdpartyurl                              = $owncloud::params::thirdpartyurl,
   $customclient_desktop                       = $owncloud::params::customclient_desktop,
   $customclient_android                       = $owncloud::params::customclient_android,
   $customclient_ios                           = $owncloud::params::customclient_ios,
@@ -126,6 +126,7 @@ class owncloud (
 ) inherits owncloud::params{
 
   # TODO: validate parameters
+  validate_string($service_ensure)
 
   anchor { 'owncloud::begin': } ->
   class { '::owncloud::install': } ->

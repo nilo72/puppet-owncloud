@@ -6,7 +6,7 @@ class owncloud::config inherits owncloud{
     group   => 'www-data',
     mode    => '0640',
     content => template('owncloud/var/www/owncloud/config/config.php.erb'),
-    //require => Package['owncloud'],
+    #require => Package['owncloud'],
   }
 
 
