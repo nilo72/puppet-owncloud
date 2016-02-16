@@ -119,8 +119,18 @@ class owncloud (
   $memcache_locking                           = $owncloud::params::memcache_locking,
   $debug                                      = $owncloud::params::debug,
   $copied_sample_config                       = $owncloud::params::copied_sample_config,
+  $service_enable                             = $ntp::params::service_enable,
+  $service_ensure                             = $ntp::params::service_ensure,
+  $service_manage                             = $ntp::params::service_manage,
+  $service_name                               = $ntp::params::service_name,
 ) inherits owncloud::params{
 
   # TODO: validate parameters
+
+  anchor { 'owncloud::begin': } ->
+  class { '::owncloud::install': } ->
+  class { '::owncloud::config': } ~>
+  class { '::owncloud::service': } ->
+  anchor { 'owncloud::end': }
 }
 

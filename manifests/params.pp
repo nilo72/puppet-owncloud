@@ -119,4 +119,8 @@ class owncloud::params {
   $memcache_locking                           = '\\OC\\Memcache\\Redis'
   $debug                                      = false
   $copied_sample_config                       = true
+  $service_enable                             = true,
+  $service_ensure                             = 'running',
+  $service_manage                             = true,
+  $service_name                               = 'apache2',
 }
