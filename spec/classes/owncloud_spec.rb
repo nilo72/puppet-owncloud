@@ -9,7 +9,7 @@ describe 'owncloud' do
     :osfamily        => 'Debian',
     :operatingsystem => 'Debian',
     :lsbdistid       => 'Debian',
-  } }
+  }}
 
   context 'with default settngs' do
     it 'Compile' do
