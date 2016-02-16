@@ -1,6 +1,6 @@
 class owncloud::install inherits owncloud {
 
-
+  include apt
   package { 'php5-ldap':
     ensure  => latest,
   }
@@ -25,13 +25,13 @@ class owncloud::install inherits owncloud {
     'debian': {
       if $enterprise_community {
         apt::source { 'owncloud_enterprise':
-          location   => $apt_url_enterprise,
+          location   => $owncloud::apt_url_enterprise,
           release    => '/',
           repos      => '',
         }
       } else {
         apt::source { 'owncloud_community':
-          location   => $apt_url_community,
+          location   => $owncloud::apt_url_community,
           release    => '/',
           repos      => '',
           key      => {
@@ -107,5 +107,4 @@ class owncloud::install inherits owncloud {
     require => File['/root/bin/prepdirs.bash'],
     onlyif  => "test `ls -l /var/www/owncloud/.htaccess | cut -d ' ' -f 1 -s` != '-rw-r--r--'"
   }
-
 }

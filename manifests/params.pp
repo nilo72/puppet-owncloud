@@ -123,4 +123,6 @@ class owncloud::params {
   $service_ensure                             = 'running'
   $service_manage                             = true
   $service_name                               = 'apache2'
+  $apt_url_community                          = 'community'
+  $apt_url_enterprise                         = 'enterprise'
 }
