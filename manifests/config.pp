@@ -1,15 +1,5 @@
 class owncloud::config inherits owncloud{
 
-  file { '/var/www/owncloud/config/config.php':
-    ensure  => present,
-    owner   => 'www-data',
-    group   => 'www-data',
-     mode    => '0640',
-    content => template('owncloud/var/www/owncloud/config/config.php.erb'),
-    #require => Package['owncloud'],
-  }
-
-
   class{ 'apache':
     mpm_module             => false,
     keepalive              => 'On',
@@ -26,7 +16,13 @@ class owncloud::config inherits owncloud{
     maxrequestsperchild => '4000',
   }
 
-
+  file { '/var/www/owncloud/config/config.php':
+    ensure  => present,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => '0640',
+    content => template('owncloud/var/www/owncloud/config/config.php.erb'),
+  }
 
   file { '/etc/sysctl.conf':
     ensure  => present,
@@ -52,7 +48,7 @@ class owncloud::config inherits owncloud{
     require => File['/etc/php5/conf.d'],
   }
 
-  apache::vhost { $fqd_name:
+  apache::vhost { $fqdn:
     port          => '80',
     docroot       => '/var/www/owncloud',
     directories   => [
@@ -72,7 +68,7 @@ class owncloud::config inherits owncloud{
     docroot_group => 'www-data',
   }
 
-  apache::vhost { "${fqd_name}-SSL":
+  apache::vhost { "${fqdn}-SSL":
     ensure        => present,
     port          => '443',
     docroot       => '/var/www/owncloud',
@@ -99,5 +95,4 @@ class owncloud::config inherits owncloud{
   include apache::mod::php
   include apache::mod::xsendfile
   include apache::mod::headers
-
 }

@@ -1,19 +1,14 @@
 fixtures:
   repositories:
-    apache:              "git://github.com/puppetlabs/puppetlabs-apache"
+    apache:              'git://github.com/puppetlabs/puppetlabs-apache'
     apt:
-      repo:              "git://github.com/puppetlabs/puppetlabs-apt"
-      branch:            "2.1.x"
+      repo:              'git://github.com/puppetlabs/puppetlabs-apt'
+      branch:            '2.1.x'
     concat:
-      repo:     'git://github.com/ripienaar/puppet-concat'
-      ref:      '1.1.2'
-    # transitive dependency via mounts
-    dirtree:             "git://github.com/haw-hh-ai-lab/puppet-dirtree"
-    # transitive dependency via mounts
-    fstab:               "git://github.com/haw-hh-ai-lab/puppet-fstab.git"
-    mounts:              "git://github.com/haw-hh-ai-lab/puppet-mounts.git"
+      repo:              'git://github.com/ripienaar/puppet-concat'
+      ref:               '1.1.2'
     stdlib:
-      repo:              "git://github.com/puppetlabs/puppetlabs-stdlib"
-      ref:               "4.1.0"
+      repo:              'git://github.com/puppetlabs/puppetlabs-stdlib'
+      ref:               '4.1.0'
   symlinks:
-    owncloud: "#{source_dir}"
+    owncloud:            '#{source_dir}'

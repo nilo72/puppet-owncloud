@@ -1,7 +1,6 @@
 # Simple OwnCloud module.
 #
 class owncloud (
-  $enterprise_community                       = $owncloue::params::enterprise_community,
   $instanceid                                 = $owncloud::params::instanceid,
   $passwordsalt                               = $owncloud::params::passwordsalt,
   $trusted_domains                            = $owncloud::params::trusted_domains,
@@ -125,13 +124,16 @@ class owncloud (
   $service_name                               = $owncloud::params::service_name,
   $apt_url_community                          = $owncloud::params::apt_url_community,
   $apt_url_enterprise                         = $owncloud::params::apt_url_enterprise,
-
+  $do_Update                                  = $owncloud::params::do_Update,
+  $enterprise_community                       = $owncloud::params::enterprise_community,
+  $fqdn                                       = $owncloud::params::fqdn,
 ) inherits owncloud::params{
 
   # TODO: validate parameters
   validate_string($service_ensure)
   validate_string($apt_url_community)
   validate_string($apt_url_enterprise)
+  validate_bool($do_Update)
 
   anchor { 'owncloud::begin': } ->
   class { '::owncloud::install': } ->

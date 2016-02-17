@@ -1,6 +1,7 @@
 class owncloud::install inherits owncloud {
 
   include apt
+
   package { 'php5-ldap':
     ensure  => latest,
   }
@@ -22,8 +23,8 @@ class owncloud::install inherits owncloud {
   }
 
   case $::operatingsystem {
-    'debian': {
-      if $enterprise_community {
+    'Debian': {
+      if $owncloud::enterprise_community {
         apt::source { 'owncloud_enterprise':
           location   => $owncloud::apt_url_enterprise,
           release    => '/',
@@ -46,7 +47,7 @@ class owncloud::install inherits owncloud {
     }
   }
 
-  if $enterprise_community {
+  if $owncloud::enterprise_community {
 
     #Options if enterprise is selected
     package { 'owncloud-enterprise':

@@ -1,7 +1,7 @@
 # OwnCloue Parameters
 
 class owncloud::params {
-  $enterprise_community                       = false
+  # parameters of owncloud config fils
   $instanceid                                 = undef
   $passwordsalt                               = undef
   $trusted_domains                            = 'array (\'demo.example.org\',\'otherdomain.example.org\')'
@@ -119,10 +119,14 @@ class owncloud::params {
   $memcache_locking                           = '\\OC\\Memcache\\Redis'
   $debug                                      = false
   $copied_sample_config                       = true
+# control parameters
   $service_enable                             = true
   $service_ensure                             = 'running'
   $service_manage                             = true
   $service_name                               = 'apache2'
   $apt_url_community                          = 'community'
   $apt_url_enterprise                         = 'enterprise'
+  $do_Update                                  = false
+  $enterprise_community                       = false
+  $fqdn                                       = undef
 }
