@@ -1,3 +1,4 @@
+# owncloud configuration
 class owncloud::config inherits owncloud{
 
   class{ 'apache':
@@ -48,7 +49,7 @@ class owncloud::config inherits owncloud{
     require => File['/etc/php5/conf.d'],
   }
 
-  apache::vhost { $fqdn:
+  apache::vhost { $owncloud::fqdn:
     port          => '80',
     docroot       => '/var/www/owncloud',
     directories   => [
@@ -68,7 +69,7 @@ class owncloud::config inherits owncloud{
     docroot_group => 'www-data',
   }
 
-  apache::vhost { "${fqdn}-SSL":
+  apache::vhost { "${owncloud::fqdn}-SSL":
     ensure        => present,
     port          => '443',
     docroot       => '/var/www/owncloud',

@@ -1,3 +1,5 @@
+# owncloud installation
+
 class owncloud::install inherits owncloud {
 
   include apt
@@ -35,8 +37,8 @@ class owncloud::install inherits owncloud {
           location   => $owncloud::apt_url_community,
           release    => '/',
           repos      => '',
-          key      => {
-            id     => 'F9EA4996747310AE79474F44977C43A8BA684223',
+          key        => {
+            id      => 'F9EA4996747310AE79474F44977C43A8BA684223',
             source  => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
           },
         }
@@ -72,7 +74,7 @@ class owncloud::install inherits owncloud {
   } else {
 
     # update your package list
-    if $do_Update {
+    if $owncloud::do_Update {
       package { 'owncloud':
         ensure   => latest,
         require  => Apt::Source['owncloud_community'],
@@ -106,6 +108,6 @@ class owncloud::install inherits owncloud {
     command => 'prepdirs.bash',
     path    => ['/usr/bin','/bin','/root/bin'],
     require => File['/root/bin/prepdirs.bash'],
-    onlyif  => "test `ls -l /var/www/owncloud/.htaccess | cut -d ' ' -f 1 -s` != '-rw-r--r--'"
+    onlyif  => 'test `ls -l /var/www/owncloud/.htaccess | cut -d \' \' -f 1 -s` != \'-rw-r--r--\''
   }
 }
