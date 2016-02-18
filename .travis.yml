@@ -1,9 +1,9 @@
 language: ruby
 rvm:
   - 2.0.0
-script: 
-  - rake lint
-  - rake spec
+script: rake spec
+#  - rake lint
+#  - rake spec
 branches:
   only:
     - master
