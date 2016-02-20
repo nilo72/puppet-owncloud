@@ -34,25 +34,25 @@ class owncloud::config inherits owncloud{
   }
 
   file { '/etc/php5/conf.d':
-    ensure                 => directory,
-    owner                  => 'root',
-    group                  => 'root',
-    mode                   => '0644',
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
   file { '/etc/php5/conf.d/apc.ini':
-    ensure                 => present,
-    owner                  => 'root',
-    group                  => 'root',
-    mode                   => '0644',
-    source                 => 'puppet:///modules/owncloud/etc/php5/conf.d/apc.ini',
-    require                => File['/etc/php5/conf.d'],
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/owncloud/etc/php5/conf.d/apc.ini',
+    require => File['/etc/php5/conf.d'],
   }
 
   apache::vhost { $owncloud::fqdn:
-    port                   => '80',
-    docroot                => '/var/www/owncloud',
-    directories            => [
+    port          => '80',
+    docroot       => '/var/www/owncloud',
+    directories   => [
       { path            => '/var/www/owncloud',
         options         => ['Indexes','SymLinksIfOwnerMatch'],
         allow_override  => ['All'],
@@ -65,16 +65,16 @@ class owncloud::config inherits owncloud{
             </IfModule>',
       },
     ],
-    docroot_owner          => 'root',
-    docroot_group          => 'www-data',
+    docroot_owner => 'root',
+    docroot_group => 'www-data',
   }
 
   apache::vhost { "${owncloud::fqdn}-SSL":
-    ensure                 => present,
-    port                   => '443',
-    docroot                => '/var/www/owncloud',
-    ssl                    => true,
-    directories            => [
+    ensure        => present,
+    port          => '443',
+    docroot       => '/var/www/owncloud',
+    ssl           => true,
+    directories   => [
       { path            => '/var/www/owncloud',
         options         => ['Indexes','SymLinksIfOwnerMatch'],
         allow_override  => ['All'],
@@ -89,8 +89,8 @@ class owncloud::config inherits owncloud{
         Header always add Strict-Transport-Security "max-age=15768000"',
       },
     ],
-    docroot_owner          => 'www-data',
-    docroot_group          => 'www-data',
+    docroot_owner => 'www-data',
+    docroot_group => 'www-data',
   }
 
   include apache::mod::php

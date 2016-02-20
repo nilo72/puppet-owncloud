@@ -5,19 +5,19 @@ class owncloud::install inherits owncloud {
   include apt
 
   package { 'php5-ldap':
-    ensure  => latest,
+    ensure => latest,
   }
 
   package { 'php5-apcu':
-    ensure  => latest,
+    ensure => latest,
   }
 
   package { 'php5-memcached':
-    ensure  => latest,
+    ensure => latest,
   }
 
   package { 'libapache2-mod-xsendfile':
-    ensure  => latest,
+    ensure => latest,
   }
 
   package { 'php5-imagick':
@@ -28,18 +28,18 @@ class owncloud::install inherits owncloud {
     'Debian': {
       if $owncloud::enterprise_community {
         apt::source { 'owncloud_enterprise':
-          location   => $owncloud::apt_url_enterprise,
-          release    => '/',
-          repos      => '',
+          location => $owncloud::apt_url_enterprise,
+          release  => '/',
+          repos    => '',
         }
       } else {
         apt::source { 'owncloud_community':
-          location   => $owncloud::apt_url_community,
-          release    => '/',
-          repos      => '',
-          key        => {
-            id      => 'F9EA4996747310AE79474F44977C43A8BA684223',
-            source  => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
+          location => $owncloud::apt_url_community,
+          release  => '/',
+          repos    => '',
+          key      => {
+            id     => 'F9EA4996747310AE79474F44977C43A8BA684223',
+            source => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
           },
         }
       }
@@ -53,17 +53,17 @@ class owncloud::install inherits owncloud {
 
     #Options if enterprise is selected
     package { 'owncloud-enterprise':
-      ensure   => latest,
-      require  => [Apt::Source['owncloud_enterprise']],
+      ensure  => latest,
+      require => [Apt::Source['owncloud_enterprise']],
     }
 
     package { 'owncloud-enterprise-ldaphome':
-      ensure   => latest,
-      require  => [Apt::Source['owncloud_enterprise']],
+      ensure  => latest,
+      require => [Apt::Source['owncloud_enterprise']],
     }
 
     package { 'cifs-utils':
-      ensure  => latest,
+      ensure => latest,
     }
 
     #file{ 'credentials':
@@ -76,23 +76,23 @@ class owncloud::install inherits owncloud {
     # update your package list
     if $owncloud::do_Update {
       package { 'owncloud':
-        ensure   => latest,
-        require  => Apt::Source['owncloud_community'],
+        ensure  => latest,
+        require => Apt::Source['owncloud_community'],
       }
     } else {
       package { 'owncloud':
-        ensure   => present,
-        require  => Apt::Source['owncloud_community'],
+        ensure  => present,
+        require => Apt::Source['owncloud_community'],
       }
     }
   }
 
 
   file { '/root/bin/':
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0750',
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0750',
   }
 
   file { '/root/bin/prepdirs.bash':
