@@ -9,28 +9,28 @@ class owncloud::config inherits owncloud{
   }
 
   class { 'apache::mod::prefork':
-    startservers           => '100',
-    minspareservers        => '100',
-    maxspareservers        => '2000',
-    serverlimit            => '6000',
-    maxclients             => '6000',
-    maxrequestsperchild    => '4000',
+    startservers        => '100',
+    minspareservers     => '100',
+    maxspareservers     => '2000',
+    serverlimit         => '6000',
+    maxclients          => '6000',
+    maxrequestsperchild => '4000',
   }
 
   file { '/var/www/owncloud/config/config.php':
-    ensure                 => present,
-    owner                  => 'www-data',
-    group                  => 'www-data',
-    mode                   => '0640',
-    content                => template('owncloud/var/www/owncloud/config/config.php.erb'),
+    ensure  => present,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => '0640',
+    content => template('owncloud/var/www/owncloud/config/config.php.erb'),
   }
 
   file { '/etc/sysctl.conf':
-    ensure                 => present,
-    owner                  => 'root',
-    group                  => 'root',
-    mode                   => '0644',
-    source                 => 'puppet:///modules/owncloud/etc/sysctl.conf',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/owncloud/etc/sysctl.conf',
   }
 
   file { '/etc/php5/conf.d':
