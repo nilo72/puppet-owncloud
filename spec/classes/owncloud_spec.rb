@@ -11,9 +11,13 @@ describe 'owncloud' do
       :osfamily                   => 'Debian',
       :operatingsystem            => 'Debian',
       :lsbdistid                  => 'Debian',
-      :operatingsystemrelease     => '8'
+      :operatingsystemrelease     => '8',
+      :fqdn                       => 'testhost.example.org',
   }}
 
+  let(:params) { {
+
+  }}
 
   context 'with default settings' do
     it 'Compile' do
@@ -66,8 +70,8 @@ describe 'owncloud' do
       it 'apache components' do
         should contain_apache__listen('443')
         should contain_apache__listen('80')
-        should contain_apache__vhost('-SSL')
-        should contain_apache__vhost('undef')
+        should contain_apache__vhost('testhost.example.org-SSL')
+        should contain_apache__vhost('testhost.example.org')
       end
     end
 
@@ -140,27 +144,5 @@ describe 'owncloud' do
       end
     end
   end #context 'use enterprise edition'
-
-  context 'set fqdn' do
-    let(:facts) { {
-        :concat_basedir             => '/tmp',
-        :osfamily                   => 'Debian',
-        :operatingsystem            => 'Debian',
-        :lsbdistid                  => 'Debian',
-        :operatingsystemrelease     => '8'
-    }}
-
-    let(:params) { {
-        :fqdn       => 'owncloud.example.com',
-    }}
-
-    describe 'owncloud::config' do
-      it 'apache components' do
-        should contain_apache__vhost('owncloud.example.com-SSL')
-        should contain_apache__vhost('owncloud.example.com')
-      end
-    end
-  end #context 'use enterprise edition'
-
 end #describe 'owncloud'
 

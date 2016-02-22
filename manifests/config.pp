@@ -26,10 +26,10 @@ class owncloud::config inherits owncloud{
   }
 
   file { '/var/www/owncloud/config/config.php':
-    ensure  => present,
-    owner   => 'www-data',
-    group   => 'www-data',
-    mode    => '0640',
+    ensure => present,
+    owner  => 'www-data',
+    group  => 'www-data',
+    mode   => '0640',
   }
 
 
@@ -57,7 +57,7 @@ class owncloud::config inherits owncloud{
     require => File['/etc/php5/conf.d'],
   }
 
-  apache::vhost { $::owncloud::fqdn:
+  apache::vhost { $::owncloud::fqdn :
     port          => '80',
     docroot       => '/var/www/owncloud',
     directories   => [

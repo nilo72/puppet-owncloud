@@ -128,5 +128,5 @@ class owncloud::params {
   $apt_url_enterprise                         = 'enterprise'
   $do_Update                                  = false
   $enterprise_community                       = false
-  $fqdn                                       = undef
+  $fqdn                                       = $::fqdn
 }
