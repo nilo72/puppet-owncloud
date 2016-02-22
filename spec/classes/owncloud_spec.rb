@@ -77,6 +77,7 @@ describe 'owncloud' do
         should contain_file('/etc/php5/conf.d').with_ensure('directory')
         should contain_file('/etc/sysctl.conf')
         should contain_file('/var/www/owncloud/config/config.php')
+        should contain_file('/var/www/owncloud/config/puppet.config.php')
       end
 
       it 'configures apache2 server' do

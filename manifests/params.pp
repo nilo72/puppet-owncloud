@@ -2,18 +2,18 @@
 
 class owncloud::params {
   # parameters of owncloud config fils
-  $instanceid                                 = undef
-  $passwordsalt                               = undef
+  $instanceid                                 = ''
+  $passwordsalt                               = ''
+  $version                                    = ''
+  $installed                                  = ''
   $trusted_domains                            = 'array (\'demo.example.org\',\'otherdomain.example.org\')'
   $datadirectory                              = '/var/www/owncloud/data'
-  $version                                    = undef
   $dbtype                                     = 'sqlite'
   $dbhost                                     = ''
   $dbname                                     = 'owncloud'
   $dbuser                                     = ''
   $dbpassword                                 = ''
   $dbtableprefix                              = ''
-  $installed                                  = undef
   $default_language                           = 'en'
   $defaultapp                                 = 'files'
   $knowledgebaseenabled                       = true

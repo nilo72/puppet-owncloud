@@ -17,13 +17,21 @@ class owncloud::config inherits owncloud{
     maxrequestsperchild => '4000',
   }
 
-  file { '/var/www/owncloud/config/config.php':
+  file { '/var/www/owncloud/config/puppet.config.php':
     ensure  => present,
     owner   => 'www-data',
     group   => 'www-data',
     mode    => '0640',
     content => template('owncloud/var/www/owncloud/config/config.php.erb'),
   }
+
+  file { '/var/www/owncloud/config/config.php':
+    ensure  => present,
+    owner   => 'www-data',
+    group   => 'www-data',
+    mode    => '0640',
+  }
+
 
   file { '/etc/sysctl.conf':
     ensure => present,
