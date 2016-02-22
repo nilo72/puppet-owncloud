@@ -26,18 +26,18 @@ class owncloud::config inherits owncloud{
   }
 
   file { '/etc/sysctl.conf':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    source  => 'puppet:///modules/owncloud/etc/sysctl.conf',
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/owncloud/etc/sysctl.conf',
   }
 
   file { '/etc/php5/conf.d':
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
   file { '/etc/php5/conf.d/apc.ini':
