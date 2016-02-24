@@ -124,7 +124,7 @@ class owncloud::params {
   $service_ensure                             = 'running'
   $service_manage                             = true
   $service_name                               = 'apache2'
-  $apt_url_community                          = 'community'
+  $apt_url_community                          = 'http://download.owncloud.org/download/repositories/stable/Debian_8.0/'
   $apt_url_enterprise                         = 'enterprise'
   $do_Update                                  = false
   $enterprise_community                       = false
