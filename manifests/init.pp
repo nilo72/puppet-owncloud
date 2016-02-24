@@ -126,7 +126,7 @@ class owncloud (
   $apt_url_enterprise                         = $owncloud::params::apt_url_enterprise,
   $do_Update                                  = $owncloud::params::do_Update,
   $enterprise_community                       = $owncloud::params::enterprise_community,
-  $fqdn                                       = $owncloud::params::fqdn,
+  $fqdn                                       = $::fqdn,
 ) inherits owncloud::params{
 
   # TODO: validate parameters
