@@ -167,7 +167,7 @@ $CONFIG = array(
  * copied to the data directory of new users. Leave empty to not copy any
  * skeleton files.
  */
-'skeletondirectory' => <%= scope.lookupvar('::owncloud::skeletondirectory') %>,
+'skeletondirectory' => '<%= scope.lookupvar('::owncloud::skeletondirectory') %>',
 /**
  * The ``user_backends`` app (which needs to be enabled first) allows you to
  * configure alternate authentication backends. Supported backends are:
@@ -180,7 +180,7 @@ $CONFIG = array(
  * user is redirected to, when clicking the "reset password" link after a failed
  * login-attempt.
  */
-'lost_password_link' => <%= scope.lookupvar('::owncloud::lost_password_link') %>,
+'lost_password_link' => '<%= scope.lookupvar('::owncloud::lost_password_link') %>',
 /**
  * Mail Parameters
  *
@@ -218,44 +218,44 @@ $CONFIG = array(
  * For ``qmail`` the binary is /var/qmail/bin/sendmail, and it must be installed
  * on your Unix system.
  */
-'mail_smtpmode' => <%= scope.lookupvar('::owncloud::user_smtpmode') %>,
+'mail_smtpmode' => '<%= scope.lookupvar('::owncloud::user_smtpmode') %>',
 /**
  * This depends on ``mail_smtpmode``. Specify the IP address of your mail
  * server host. This may contain multiple hosts separated by a semi-colon. If
  * you need to specify the port number append it to the IP address separated by
  * a colon, like this: ``127.0.0.1:24``.
  */
-'mail_smtphost' => <%= scope.lookupvar('::owncloud::mail_smtphost') %>,
+'mail_smtphost' => '<%= scope.lookupvar('::owncloud::mail_smtphost') %>',
 /**
  * This depends on ``mail_smtpmode``. Specify the port for sending mail.
  */
-'mail_smtpport' => <%= scope.lookupvar('::owncloud::mail_smtpport') %>,
+'mail_smtpport' => '<%= scope.lookupvar('::owncloud::mail_smtpport') %>',
 /**
  * This depends on ``mail_smtpmode``. This sets the SMTP server timeout, in
  * seconds. You may need to increase this if you are running an anti-malware or
  * spam scanner.
  */
-'mail_smtptimeout' => <%= scope.lookupvar('::owncloud::mail_smtptimeout') %>,
+'mail_smtptimeout' => '<%= scope.lookupvar('::owncloud::mail_smtptimeout') %>',
 /**
  * This depends on ``mail_smtpmode``. Specify when you are using ``ssl`` or
  * ``tls``, or leave empty for no encryption.
  */
-'mail_smtpsecure' => <%= scope.lookupvar('::owncloud::mail_smtpsecure') %>,
+'mail_smtpsecure' => '<%= scope.lookupvar('::owncloud::mail_smtpsecure') %>',
 /**
  * This depends on ``mail_smtpmode``. Change this to ``true`` if your mail
  * server requires authentication.
  */
-'mail_smtpauth' => <%= scope.lookupvar('::owncloud::mail_smtpauth') %>,
+'mail_smtpauth' => '<%= scope.lookupvar('::owncloud::mail_smtpauth') %>',
 /**
  * This depends on ``mail_smtpmode``. If SMTP authentication is required, choose
  * the authentication type as ``LOGIN`` (default) or ``PLAIN``.
  */
-'mail_smtpauthtype' => <%= scope.lookupvar('::owncloud::mail_smtpauthtype') %>,
+'mail_smtpauthtype' => '<%= scope.lookupvar('::owncloud::mail_smtpauthtype') %>',
 /**
  * This depends on ``mail_smtpauth``. Specify the username for authenticating to
  * the SMTP server.
  */
-'mail_smtpname' => <%= scope.lookupvar('::owncloud::mail_smtpname') %>,
+'mail_smtpname' => '<%= scope.lookupvar('::owncloud::mail_smtpname') %>',
 /**
  * This depends on ``mail_smtpauth``. Specify the password for authenticating to
  * the SMTP server.
@@ -270,7 +270,7 @@ $CONFIG = array(
  * the automatic detection; for example ``www.example.com``, or specify the port
  * ``www.example.com:8080``.
  */
-'overwritehost' => <%= scope.lookupvar('::owncloud::overwritehost') %>,
+'overwritehost' => '<%= scope.lookupvar('::owncloud::overwritehost') %>',
 /**
  * When generating URLs, ownCloud attempts to detect whether the server is
  * accessed via ``https`` or ``http``. However, if ownCloud is behind a proxy
@@ -278,7 +278,7 @@ $CONFIG = array(
  * ``ssl`` is in use, which would result in incorrect URLs being generated.
  * Valid values are ``http`` and ``https``.
  */
-'overwriteprotocol' => <%= scope.lookupvar('::owncloud::overwriteprotocol') %>,
+'overwriteprotocol' => '<%= scope.lookupvar('::owncloud::overwriteprotocol') %>',
 /**
  * ownCloud attempts to detect the webroot for generating URLs automatically.
  * For example, if ``www.example.com/owncloud`` is the URL pointing to the
@@ -286,14 +286,14 @@ $CONFIG = array(
  * may be difficult for ownCloud to detect this parameter, resulting in invalid
  * URLs.
  */
-'overwritewebroot' => <%= scope.lookupvar('::owncloud::overwritewebroot') %>,
+'overwritewebroot' => '<%= scope.lookupvar('::owncloud::overwritewebroot') %>',
 /**
  * This option allows you to define a manual override condition as a regular
  * expression for the remote IP address. For example, defining a range of IP
  * addresses starting with ``10.0.0.`` and ending with 1 to 3:
  * ``^10\.0\.0\.[1-3]$``
  */
-'overwritecondaddr' => <%= scope.lookupvar('::owncloud::overwriteconaddr') %>,
+'overwritecondaddr' => '<%= scope.lookupvar('::owncloud::overwriteconaddr') %>',
 /**
  * Use this configuration parameter to specify the base URL for any URLs which
  * are generated within ownCloud using any kind of command line tools (cron or
@@ -304,12 +304,12 @@ $CONFIG = array(
 /**
  * The URL of your proxy server, for example ``proxy.example.com:8081``.
  */
-'proxy' => <%= scope.lookupvar('::owncloud::proxy') %>,
+'proxy' => '<%= scope.lookupvar('::owncloud::proxy') %>',
 /**
  * The optional authentication for the proxy to use to connect to the internet.
  * The format is: ``username:password``.
  */
-'proxyuserpwd' => <%= scope.lookupvar('::owncloud::proxyuserpwd') %>,
+'proxyuserpwd' => '<%= scope.lookupvar('::owncloud::proxyuserpwd') %>',
 /**
  * Deleted Items (trash bin)
  *
@@ -346,7 +346,7 @@ $CONFIG = array(
  * * ``disabled``
  *     trash bin auto clean disabled, files and folders will be kept forever
  */
-'trashbin_retention_obligation' => <%= scope.lookupvar('::owncloud::trashbin_retention_obligation') %>,
+'trashbin_retention_obligation' => '<%= scope.lookupvar('::owncloud::trashbin_retention_obligation') %>',
 /**
  * If the versions app is enabled (default), this setting defines the policy
  * for when versions will be permanently deleted.
@@ -377,7 +377,7 @@ $CONFIG = array(
  * * ``disabled``
  *     versions auto clean disabled, versions will be kept forever
  */
-'versions_retention_obligation' => <%= scope.lookupvar('::owncloud::version_retention_obligation') %>,
+'versions_retention_obligation' => '<%= scope.lookupvar('::owncloud::version_retention_obligation') %>',
 /**
  * ownCloud Verifications
  *
@@ -437,7 +437,7 @@ $CONFIG = array(
  * Setting this parameter to ``errorlog`` will use the PHP error_log function
  * for logging.
  */
-'log_type' => <%= scope.lookupvar('::owncloud::log_type') %>,
+'log_type' => '<%= scope.lookupvar('::owncloud::log_type') %>',
 /**
  * Log file path for the ownCloud logging type.
  * Defaults to ``[datadirectory]/owncloud.log``
@@ -447,14 +447,14 @@ $CONFIG = array(
  * Loglevel to start logging at. Valid values are: 0 = Debug, 1 = Info, 2 =
  * Warning, 3 = Error, and 4 = Fatal. The default value is Warning.
  */
-'loglevel' => <%= scope.lookupvar('::owncloud::oc_loglevel') %>,
+'loglevel' => '<%= scope.lookupvar('::owncloud::oc_loglevel') %>',
 /**
  * If you maintain different instances and aggregate the logs, you may want
  * to distinguish between them. ``syslog_tag`` can be set per instance
  * with a unique id. Only available if ``log_type`` is set to ``syslog``.
  * The default value is ``ownCloud``.
  */
-'syslog_tag' => <%= scope.lookupvar('::owncloud::syslog_tag') %>,
+'syslog_tag' => '<%= scope.lookupvar('::owncloud::syslog_tag') %>',
 /**
  * Log condition for log level increase based on conditions. Once one of these
  * conditions is met, the required log level is set to debug. This allows to
@@ -470,25 +470,25 @@ $CONFIG = array(
  *
  * Defaults to an empty array.
  */
-'log.condition' => <%= scope.lookupvar('::owncloud::log_condition') %>,
+'log.condition' => '<%= scope.lookupvar('::owncloud::log_condition') %>',
 /**
  * This uses PHP.date formatting; see http://php.net/manual/en/function.date.php
  */
-'logdateformat' => <%= scope.lookupvar('::owncloud::logdateformat') %>,
+'logdateformat' => '<%= scope.lookupvar('::owncloud::logdateformat') %>',
 /**
  * The default timezone for logfiles is UTC. You may change this; see
  * http://php.net/manual/en/timezones.php
  */
-'logtimezone' => <%= scope.lookupvar('::owncloud::logtimezone') %>,
+'logtimezone' => '<%= scope.lookupvar('::owncloud::logtimezone') %>',
 /**
  * Append all database queries and parameters to the log file. Use this only for
  * debugging, as your logfile will become huge.
  */
-'log_query' => <%= scope.lookupvar('::owncloud::log_query') %>,
+'log_query' => '<%= scope.lookupvar('::owncloud::log_query') %>',
 /**
  * Log successful cron runs.
  */
-'cron_log' => <%= scope.lookupvar('::owncloud::cron_log') %>,
+'cron_log' => '<%= scope.lookupvar('::owncloud::cron_log') %>',
 /**
  * Location of the lock file for cron executions can be specified here.
  * Default is within the tmp directory. The file is named in the following way:
@@ -498,7 +498,7 @@ $CONFIG = array(
  * enabled disk drives from spinning down. A different location for this file
  * can solve such issues.
  */
-'cron.lockfile.location' => <%= scope.lookupvar('::owncloud::cron_lockfile_location') %>,
+'cron.lockfile.location' => '<%= scope.lookupvar('::owncloud::cron_lockfile_location') %>',
 /**
  * Enables log rotation and limits the total size of logfiles. The default is 0,
  * or no rotation. Specify a size in bytes, for example 104857600 (100 megabytes
@@ -506,7 +506,7 @@ $CONFIG = array(
  * old logfile reaches your limit. If a rotated log file is already present, it
  * will be overwritten.
  */
-'log_rotate_size' => <%= scope.lookupvar('::owncloud::log_rotate_size') %>,
+'log_rotate_size' => '<%= scope.lookupvar('::owncloud::log_rotate_size') %>',
 /**
  * Alternate Code Locations
  *
@@ -519,19 +519,19 @@ $CONFIG = array(
  * For example, if your location is /var/www/owncloud/foo/3rdparty, then the
  * correct configuration is '3rdpartyroot' => '/var/www/owncloud/foo/',
  */
-'3rdpartyroot' => <%= scope.lookupvar('::owncloud::3rdpartyroot') %>,
+'3rdpartyroot' => '<%= scope.lookupvar('::owncloud::3rdpartyroot') %>',
 /**
  * If you have an alternate ``3rdpartyroot``, you must also configure the URL as
  * seen by a Web browser.
  */
-'3rdpartyurl' => <%= scope.lookupvar('::owncloud::3rdpartyurl') %>,
+'3rdpartyurl' => '<%= scope.lookupvar('::owncloud::3rdpartyurl') %>',
 /**
  * This section is for configuring the download links for ownCloud clients, as
  * seen in the first-run wizard and on Personal pages.
  */
-'customclient_desktop' =>	<%= scope.lookupvar('::owncloud::customclient_desktop') %>,
-'customclient_android' =>	<%= scope.lookupvar('::owncloud::customclient_android') %>,
-'customclient_ios' =>	<%= scope.lookupvar('::owncloud::custom') %>,
+'customclient_desktop' =>	'<%= scope.lookupvar('::owncloud::customclient_desktop') %>',
+'customclient_android' =>	'<%= scope.lookupvar('::owncloud::customclient_android') %>',
+'customclient_ios' =>	'<%= scope.lookupvar('::owncloud::custom') %>',
 /**
  * Apps
  *
@@ -544,7 +544,7 @@ $CONFIG = array(
 /**
  * The URL of the appstore to use.
  */
-'appstoreurl' => <%= scope.lookupvar('::owncloud::appstoreurl') %>,
+'appstoreurl' => '<%= scope.lookupvar('::owncloud::appstoreurl') %>',
 /**
  * Whether to show experimental apps in the appstore interface
  *
@@ -561,7 +561,7 @@ $CONFIG = array(
  * to that folder, starting from the ownCloud webroot. The key ``writable``
  * indicates if a Web server can write files to that folder.
  */
-'apps_paths' => <%= scope.lookupvar('::owncloud::apps_paths') %>,
+'apps_paths' => '<%= scope.lookupvar('::owncloud::apps_paths') %>',
 /**
  * @see appcodechecker
  */
