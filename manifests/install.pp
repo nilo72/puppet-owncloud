@@ -38,7 +38,7 @@ class owncloud::install inherits owncloud {
           release  => '/',
           repos    => '',
           key      => {
-            id     => 'F9EA4996747310AE79474F44977C43A8BA684223',
+            id     => 'BCECA90325B072AB1245F739AB7C32C35180350A',
             source => 'https://download.owncloud.org/download/repositories/stable/Debian_8.0/Release.key',
           },
         }
