@@ -730,7 +730,7 @@ $CONFIG = array(
  * to require a password. See http://redis.io/topics/security
  * for more information.
  */
-'redis' => '<%= scope.lookupvar('::owncloud::redis') %>',
+'redis' => <%= scope.lookupvar('::owncloud::redis') %>,
 /**
  * Server details for one or more memcached servers to use for memory caching.
  */
@@ -762,7 +762,7 @@ $CONFIG = array(
  *
  * One way to test is applying for a trystack account at http://trystack.org/
  */
-'objectstore' => '<%= scope.lookupvar('::owncloud::objectstore') %>',
+'objectstore' => <%= scope.lookupvar('::owncloud::objectstore') %>,
 /**
  * Sharing
  *
@@ -816,7 +816,7 @@ $CONFIG = array(
  * with this name. ``.htaccess`` is blocked by default.
  * WARNING: USE THIS ONLY IF YOU KNOW WHAT YOU ARE DOING.
  */
-'blacklisted_files' => '<%= scope.lookupvar('::owncloud::blacklisted_files') %>',
+'blacklisted_files' => <%= scope.lookupvar('::owncloud::blacklisted_files') %>,
 /**
  * Define a default folder for shared files and folders other than root.
  */
@@ -931,7 +931,7 @@ $CONFIG = array(
  * Because most memcache backends can clean values without warning using redis
  * is highly recommended to *avoid data loss*.
  */
-'memcache.locking' => <%= scope.lookupvar('::owncloud::memcache_locking') %>,
+'memcache.locking' => '<%= scope.lookupvar('::owncloud::memcache_locking') %>',
 /**
  * Set this ownCloud instance to debugging mode
  *

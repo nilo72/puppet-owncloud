@@ -57,7 +57,7 @@ class owncloud::params {
   $logfile                                    = '/var/log/owncloud.log'
   $oc_loglevel                                = 2
   $syslog_tag                                 = 'ownCloud'
-  $log_condition                              = 'array(\'shared_secret\' => \'57b58edb6637fe3059b3595cf9c41b9\',\'users\' => array(\'sample-user\'),\'apps\' => array(\'files\'),),'
+  $log_condition                              = 'array(\'shared_secret\' => \'57b58edb6637fe3059b3595cf9c41b9\',\'users\' => array(\'sample-user\'),\'apps\' => array(\'files\'),)'
   $logdateformat                              = 'F d, Y H:i:s'
   $logtimezone                                = 'Europe/Berlin'
   $log_query                                  = false
@@ -86,7 +86,7 @@ class owncloud::params {
   $systemtags_managerFactory                  = '\OC\SystemTag\ManagerFactory'
   $maintenance                                = false
   $singleuser                                 = false
-  $openssl                                    = 'array(\'config\' = \'/absolute/location/of/openssl.cnf\',)'
+  $openssl                                    = 'array(\'config\' => \'/absolute/location/of/openssl.cnf\',)'
   $enable_certificate_management              = false
   $memcache_local                             = '\OC\Memcache\APCu'
   $memcache_distributed                       = '\OC\Memcache\Memcached'
