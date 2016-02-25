@@ -438,7 +438,7 @@ $CONFIG = array(
  *
  * Defaults to an empty array.
  */
-'log.condition' => '<%= scope.lookupvar('::owncloud::log_condition') %>',
+'log.condition' => <%= scope.lookupvar('::owncloud::log_condition') %>,
 /**
  * This uses PHP.date formatting; see http://php.net/manual/en/function.date.php
  */
@@ -529,7 +529,7 @@ $CONFIG = array(
  * to that folder, starting from the ownCloud webroot. The key ``writable``
  * indicates if a Web server can write files to that folder.
  */
-'apps_paths' => '<%= scope.lookupvar('::owncloud::apps_paths') %>',
+'apps_paths' => <%= scope.lookupvar('::owncloud::apps_paths') %>,
 /**
  * @see appcodechecker
  */
@@ -581,11 +581,11 @@ $CONFIG = array(
 /**
  * custom path for LibreOffice/OpenOffice binary
  */
-'preview_libreoffice_path' => <%= scope.lookupvar('::owncloud::preview_libreoffice_path') %>,
+'preview_libreoffice_path' => '<%= scope.lookupvar('::owncloud::preview_libreoffice_path') %>',
 /**
  * Use this if LibreOffice/OpenOffice requires additional arguments.
  */
-'preview_office_cl_parameters' =>	<%= scope.lookupvar('::owncloud::preview_office_cl_parameters') %>,
+'preview_office_cl_parameters' =>	'<%= scope.lookupvar('::owncloud::preview_office_cl_parameters') %>',
 /**
  * Only register providers that have been explicitly enabled
  *
@@ -653,13 +653,13 @@ $CONFIG = array(
  * own or 3rdParty CommentsManager should be used that – for instance – uses the
  * filesystem instead of the database to keep the comments.
  */
-'comments.managerFactory' => <%= scope.lookupvar('::owncloud::comments_managerFactory') %>,
+'comments.managerFactory' => '<%= scope.lookupvar('::owncloud::comments_managerFactory') %>',
 /**
  * Replaces the default System Tags Manager Factory. This can be utilized if an
  * own or 3rdParty SystemTagsManager should be used that – for instance – uses the
  * filesystem instead of the database to keep the comments.
  */
-'systemtags.managerFactory' => <%= scope.lookupvar('::owncloud::systemtags_managerFactory') %>,
+'systemtags.managerFactory' => '<%= scope.lookupvar('::owncloud::systemtags_managerFactory') %>',
 /**
  * Maintenance
  *
@@ -674,7 +674,7 @@ $CONFIG = array(
  * parameter to true. Please keep in mind that users who are already logged-in
  * are kicked out of ownCloud instantly.
  */
-'maintenance' => <%= scope.lookupvar('::owncloud::maintenance') %>,
+'maintenance' => '<%= scope.lookupvar('::owncloud::maintenance') %>',
 /**
  * When set to ``true``, the ownCloud instance will be unavailable for all users
  * who are not in the ``admin`` group.
@@ -715,14 +715,14 @@ $CONFIG = array(
  *
  * * Used for host-specific data, e.g. file paths
  */
-'memcache.local' => <%= scope.lookupvar('::owncloud::memcache_local') %>,
+'memcache.local' => '<%= scope.lookupvar('::owncloud::memcache_local') %>',
 /**
  * Memory caching backend for distributed data
  *
  * * Used for installation-specific data, e.g. database caching
  * * If unset, defaults to the value of memcache.local
  */
-'memcache.distributed' => <%= scope.lookupvar('::owncloud::memcache_distributed') %>,
+'memcache.distributed' => '<%= scope.lookupvar('::owncloud::memcache_distributed') %>',
 /**
  * Connection details for redis to use for memory caching.
  *
@@ -730,7 +730,7 @@ $CONFIG = array(
  * to require a password. See http://redis.io/topics/security
  * for more information.
  */
-'redis' => <%= scope.lookupvar('::owncloud::redis') %>,
+'redis' => '<%= scope.lookupvar('::owncloud::redis') %>',
 /**
  * Server details for one or more memcached servers to use for memory caching.
  */
@@ -741,7 +741,7 @@ $CONFIG = array(
  * ``$cache_path/$user`` where ``$cache_path`` is the configured cache directory
  * and ``$user`` is the user.
  */
-'cache_path' => <%= scope.lookupvar('::owncloud::cache_path') %>,
+'cache_path' => '<%= scope.lookupvar('::owncloud::cache_path') %>',
 /**
  * Using Object Store with ownCloud
  */
@@ -762,7 +762,7 @@ $CONFIG = array(
  *
  * One way to test is applying for a trystack account at http://trystack.org/
  */
-'objectstore' => <%= scope.lookupvar('::owncloud::objectstore') %>,
+'objectstore' => '<%= scope.lookupvar('::owncloud::objectstore') %>',
 /**
  * Sharing
  *
@@ -773,7 +773,7 @@ $CONFIG = array(
  * own or 3rdParty Share Providers be used that – for instance – uses the
  * filesystem instead of the database to keep the share information.
  */
-'sharing.managerFactory' => <%= scope.lookupvar('::owncloud::sharing_managerFactory') %>,
+'sharing.managerFactory' => '<%= scope.lookupvar('::owncloud::sharing_managerFactory') %>',
 /**
  * All other configuration options
  */
@@ -786,7 +786,7 @@ $CONFIG = array(
  * sqlite3 journal mode can be specified using this configuration parameter -
  * can be 'WAL' or 'DELETE' see for more details https://www.sqlite.org/wal.html
  */
-'sqlite.journal_mode' => <%= scope.lookupvar('::owncloud::sqlite.journal_mode') %>,
+'sqlite.journal_mode' => '<%= scope.lookupvar('::owncloud::sqlite.journal_mode') %>',
 /**
  * Database types that are supported for installation.
  *
@@ -805,7 +805,7 @@ $CONFIG = array(
  *
  * The Web server user must have write access to this directory.
  */
-'tempdirectory' => <%= scope.lookupvar('::owncloud::tempdirectory') %>,
+'tempdirectory' => '<%= scope.lookupvar('::owncloud::tempdirectory') %>',
 /**
  * The hashing cost used by hashes generated by ownCloud
  * Using a higher value requires more time and CPU power to calculate the hashes
@@ -816,21 +816,21 @@ $CONFIG = array(
  * with this name. ``.htaccess`` is blocked by default.
  * WARNING: USE THIS ONLY IF YOU KNOW WHAT YOU ARE DOING.
  */
-'blacklisted_files' => <%= scope.lookupvar('::owncloud::blacklisted_files') %>,
+'blacklisted_files' => '<%= scope.lookupvar('::owncloud::blacklisted_files') %>',
 /**
  * Define a default folder for shared files and folders other than root.
  */
-'share_folder' => <%= scope.lookupvar('::owncloud::share_folder') %>,
+'share_folder' => '<%= scope.lookupvar('::owncloud::share_folder') %>',
 /**
  * If you are applying a theme to ownCloud, enter the name of the theme here.
  * The default location for themes is ``owncloud/themes/``.
  */
-'theme' => <%= scope.lookupvar('::owncloud::theme') %>,
+'theme' => '<%= scope.lookupvar('::owncloud::theme') %>',
 /**
  * The default cipher for encrypting files. Currently AES-128-CFB and
  * AES-256-CFB are supported.
  */
-'cipher' => <%= scope.lookupvar('::owncloud::cipher') %>,
+'cipher' => '<%= scope.lookupvar('::owncloud::cipher') %>',
 /**
  * The minimum ownCloud desktop client version that will be allowed to sync with
  * this server instance. All connections made from earlier clients will be denied
@@ -841,7 +841,7 @@ $CONFIG = array(
  * client may not function as expected, and could lead to permanent data loss for
  * clients or other unexpected results.
  */
-'minimum.supported.desktop.version' => <%= scope.lookupvar('::owncloud::minimum_supported_desktop_version') %>,
+'minimum.supported.desktop.version' => '<%= scope.lookupvar('::owncloud::minimum_supported_desktop_version') %>',
 /**
  * EXPERIMENTAL: option whether to include external storage in quota
  * calculation, defaults to false.
@@ -858,7 +858,7 @@ $CONFIG = array(
  * 1 -> Check each file or folder at most once per request, recommended for
  * general use if outside changes might happen.
  */
-'filesystem_check_changes' => <%= scope.lookupvar('::owncloud::filesystem_check_changes') %>,
+'filesystem_check_changes' => '<%= scope.lookupvar('::owncloud::filesystem_check_changes') %>',
 /**
  * All css and js files will be served by the Web server statically in one js
  * file and one css file if this is set to ``true``. This improves performance.
@@ -872,12 +872,12 @@ $CONFIG = array(
  * You will only likely need to change this if the main ownCloud directory
  * is not writeable by the Web server in your configuration.
  */
-'assetdirectory' => <%= scope.lookupvar('::owncloud::assetdirectory') %>,
+'assetdirectory' => '<%= scope.lookupvar('::owncloud::assetdirectory') %>',
 /**
  * Where ``mount.json`` file should be stored, defaults to ``data/mount.json``
  * in the ownCloud directory.
  */
-'mount_file' => <%= scope.lookupvar('::owncloud::mount_file') %>,
+'mount_file' => '<%= scope.lookupvar('::owncloud::mount_file') %>',
 /**
  * When ``true``, prevent ownCloud from changing the cache due to changes in the
  * filesystem for all storage.
