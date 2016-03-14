@@ -65,6 +65,7 @@ describe 'owncloud' do
 
       it 'execs commands' do
         should contain_exec('DOC-Root berechtigungen setzen')
+        should contain_exec('DOC-Root berechtigungen setzen').with_command('prepdirs.bash')
       end
 
       it 'apache components' do
