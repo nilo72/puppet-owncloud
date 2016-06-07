@@ -159,16 +159,16 @@ $CONFIG = array(
  * server, for example ``oc-admin@example.com``, substituting your own domain,
  * of course.
  */
-'mail_domain' => <%= scope.lookupvar('::owncloud::mail_domain') %>,
+'mail_domain' => '<%= scope.lookupvar('::owncloud::mail_domain') %>',
 /**
  * FROM address that overrides the built-in ``sharing-noreply`` and
  * ``lostpassword-noreply`` FROM addresses.
  */
-'mail_from_address' => <%= scope.lookupvar('::owncloud::mail_from_address') %>,
+'mail_from_address' => '<%= scope.lookupvar('::owncloud::mail_from_address') %>',
 /**
  * Enable SMTP class debugging.
  */
-'mail_smtpdebug' => <%= scope.lookupvar('::owncloud::mail_smtpdebug') %>,
+'mail_smtpdebug' => '<%= scope.lookupvar('::owncloud::mail_smtpdebug') %>',
 /**
  * Which mode to use for sending mail: ``sendmail``, ``smtp``, ``qmail`` or
  * ``php``.
@@ -946,4 +946,4 @@ $CONFIG = array(
  * modify *ANY* settings in this file without reading the documentation.
  */
 'copied_sample_config' => <%= scope.lookupvar('::owncloud::copied_sample_config') %>,
-));
+);
