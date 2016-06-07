@@ -9,6 +9,6 @@ fixtures:
       ref:               '1.1.2'
     stdlib:
       repo:              'git://github.com/puppetlabs/puppetlabs-stdlib'
-      ref:               '4.1.0'
+      ref:               '4.12.0'
   symlinks:
     owncloud:            '#{source_dir}'
