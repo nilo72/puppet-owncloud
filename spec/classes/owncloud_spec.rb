@@ -16,7 +16,7 @@ describe 'owncloud' do
   }}
 
   let(:params) { {
-
+      :trusted_domains  => ['hallo','welt'],
   }}
 
   context 'with default settings' do
@@ -83,6 +83,8 @@ describe 'owncloud' do
         should contain_file('/etc/sysctl.conf')
         should contain_file('/var/www/owncloud/config/config.php')
         should contain_file('/var/www/owncloud/config/puppet.config.php')
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*hallo*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*welt*/)
       end
 
       it 'configures apache2 server' do
@@ -108,6 +110,7 @@ describe 'owncloud' do
 
     let(:params) { {
         :do_Update                  => true,
+        :trusted_domains  => ['hallo','welt'],
     }}
 
     describe 'owncloud::install' do
@@ -131,6 +134,7 @@ describe 'owncloud' do
 
     let(:params) { {
         :enterprise_community       => true,
+        :trusted_domains  => ['hallo','welt'],
     }}
 
     describe 'owncloud::install' do
@@ -145,5 +149,28 @@ describe 'owncloud' do
       end
     end
   end #context 'use enterprise edition'
+
+  context 'use different trusted domains' do
+    let(:facts) { {
+        :concat_basedir             => '/tmp',
+        :osfamily                   => 'Debian',
+        :operatingsystem            => 'Debian',
+        :lsbdistid                  => 'Debian',
+        :operatingsystemrelease     => '8'
+    }}
+
+    let(:params) { {
+        :trusted_domains  => ['owncloud.example.com','192.168.10.3'],
+    }}
+
+    describe 'owncloud::config' do
+      it 'contain files' do
+        should contain_file('/var/www/owncloud/config/puppet.config.php')
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*0 => 'owncloud.example.com',*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*1 => '192.168.10.3',*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'trusted_domains' => array \( 0 => 'owncloud.example.com',1 => '192.168.10.3',\),*/)
+      end
+    end
+  end #context 'use different trusted domains'
 end #describe 'owncloud'
 

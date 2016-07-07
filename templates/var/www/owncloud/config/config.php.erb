@@ -30,7 +30,7 @@ $CONFIG = array(
  * domains prevents host header poisoning. Do not remove this, as it performs
  * necessary security checks.
  */
-'trusted_domains' => <%= scope.lookupvar('::owncloud::trusted_domains')%>,
+'trusted_domains' => array ( <% @trusted_domains.each_with_index do |domain, idx| -%><%= "#{idx} => '#{domain}'," %><% end -%>),
 /**
  * Where user files are stored; this defaults to ``data/`` in the ownCloud
  * directory. The SQLite database is also stored here, when you use SQLite.
