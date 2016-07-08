@@ -409,7 +409,7 @@ $CONFIG = array(
  * Log file path for the ownCloud logging type.
  * Defaults to ``[datadirectory]/owncloud.log``
  */
-'logfile' => '/var/log/<%= scope.lookupvar('::ipaddress')%>.owncloud.log',
+'logfile' => '<%= scope.lookupvar('::owncloud::logfile') %>',
 /**
  * Loglevel to start logging at. Valid values are: 0 = Debug, 1 = Info, 2 =
  * Warning, 3 = Error, and 4 = Fatal. The default value is Warning.
