@@ -23,7 +23,7 @@ class owncloud::params {
   $session_lifetime                           = 60 * 60 * 24
   $session_keepalive                          = true
   $skeletondirectory                          = '/path/to/owncloud/core/skeleton'
-  $user_backends                              = 'array(array(\'class\' => \'OC_User_IMAP\',\'arguments\' => array(\'\
+  $user_backends                              = 'array(array(\'class\' => \'OC_User_IMAP\',\'arguments\' => array(\'
                                                 {imap.gmail.com:993/imap/ssl}INBOX\')))'
   $lost_password_link                         = 'https://example.org/link/to/password/reset'
   $mail_domain                                = 'example.com'
@@ -58,7 +58,7 @@ class owncloud::params {
   $logfile                                    = '/var/log/owncloud.log'
   $oc_loglevel                                = 2
   $syslog_tag                                 = 'ownCloud'
-  $log_condition                              = 'array(\'shared_secret\' => \'57b58edb6637fe3059b3595cf9c41b9\', \
+  $log_condition                              = 'array(\'shared_secret\' => \'57b58edb6637fe3059b3595cf9c41b9\',
                                                  \'users\' => array(\'sample-user\'),\'apps\' => array(\'files\'),)'
   $logdateformat                              = 'F d, Y H:i:s'
   $logtimezone                                = 'Europe/Berlin'
@@ -74,7 +74,7 @@ class owncloud::params {
   $appstoreenabled                            = true
   $appstoreurl                                = 'https://api.owncloud.com/v1'
   $appstore_experimental_enabled              = false
-  $apps_paths                                 = 'array(array(\'path\'=> \'/var/www/owncloud/apps\',\'url\' => \'/apps\'\
+  $apps_paths                                 = 'array(array(\'path\'=> \'/var/www/owncloud/apps\',\'url\' => \'/apps\'
                                                 ,\'writable\' => true,),)'
   $enable_previews                            = true
   $preview_max_x                              = 2048
@@ -82,10 +82,10 @@ class owncloud::params {
   $preview_max_scale_factor                   = 10
   $preview_max_filesize_image                 = 50
   $preview_libreoffice_path                   = '/usr/bin/libreoffice'
-  $preview_office_cl_parameters               = ' --headless --nologo --nofirststartwizard --invisible --norestore \
+  $preview_office_cl_parameters               = ' --headless --nologo --nofirststartwizard --invisible --norestore
                                                 -convert-to pdf -outdir '
-  $enabledPreviewProviders                    = 'array(\'OC\Preview\PNG\',\'OC\Preview\JPEG\',\'OC\Preview\GIF\', \
-                                                \'OC\Preview\BMP\',\'OC\Preview\XBitmap\',\'OC\Preview\MP3\', \
+  $enabledPreviewProviders                    = 'array(\'OC\Preview\PNG\',\'OC\Preview\JPEG\',\'OC\Preview\GIF\',
+                                                \'OC\Preview\BMP\',\'OC\Preview\XBitmap\',\'OC\Preview\MP3\',
                                                 \'OC\Preview\TXT\',\'OC\Preview\MarkDown\')'
   $ldapUserCleanupInterval                    = 51
   $comments_managerFactory                    = '\OC\Comments\ManagerFactory'
@@ -96,16 +96,16 @@ class owncloud::params {
   $enable_certificate_management              = false
   $memcache_local                             = '\OC\Memcache\APCu'
   $memcache_distributed                       = '\OC\Memcache\Memcached'
-  $redis                                      = 'array(\'host\' => \'localhost\' , \'port\' => 6379,\'timeout\' => 0.0,\
+  $redis                                      = 'array(\'host\' => \'localhost\' , \'port\' => 6379,\'timeout\' => 0.0,
                                                 \'password\' => \'\', \'dbindex\' => 0,)'
   $memcached_servers                          = 'array(array(\'localhost\', 11211),)'
   $cache_path                                 = ''
-  $objectstore                                = 'array(\'class\' => \'OC\\Files\\ObjectStore\\Swift\',\'arguments\' => \
-                                                 array(\'username\' => \'facebook100000123456789\',\'password\' => \
-                                                 \'Secr3tPaSSWoRdt7\',\'container\' => \'owncloud\',\'autocreate\' \
-                                                 => true,\'region\' => \'RegionOne\',\'url\' => \
-                                                 \'http://8.21.28.222:5000/v2.0\',\'tenantName\' => \
-                                                 \'facebook100000123456789\',\'serviceName\' => \'swift\',\
+  $objectstore                                = 'array(\'class\' => \'OC\\Files\\ObjectStore\\Swift\',\'arguments\' =>
+                                                 array(\'username\' => \'facebook100000123456789\',\'password\' =>
+                                                 \'Secr3tPaSSWoRdt7\',\'container\' => \'owncloud\',\'autocreate\'
+                                                 => true,\'region\' => \'RegionOne\',\'url\' =>
+                                                 \'http://8.21.28.222:5000/v2.0\',\'tenantName\' =>
+                                                 \'facebook100000123456789\',\'serviceName\' => \'swift\',
                                                  \'urlType\' => \'internal\'),)'
   $sharing_managerFactory                     = '\OC\Share20\ProviderFactory'
   $dbdriveroptions                            = 'array(PDO::MYSQL_ATTR_SSL_CA => \'/file/path/to/ca_cert.pem\',)'
@@ -141,5 +141,4 @@ class owncloud::params {
   $apt_url_enterprise                         = 'enterprise'
   $do_Update                                  = false
   $enterprise_community                       = false
-#  $fqdn                                       = $::fqdn
 }
