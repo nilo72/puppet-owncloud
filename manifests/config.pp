@@ -57,6 +57,15 @@ class owncloud::config inherits owncloud{
     require => File['/etc/php5/conf.d'],
   }
 
+  file { '/etc/php5/apache2/php.ini':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    source  => 'puppet:///modules/owncloud/etc/php5/apache2/php.ini',
+    require => File['/etc/php5/conf.d'],
+  }
+
   apache::vhost { $::fqdn :
     port          => '80',
     docroot       => '/var/www/owncloud',
