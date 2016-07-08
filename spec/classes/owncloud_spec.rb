@@ -161,6 +161,7 @@ describe 'owncloud' do
 
     let(:params) { {
         :trusted_domains  => ['owncloud.example.com','192.168.10.3'],
+        :dbpassword       => 'dirtyPassword',
     }}
 
     describe 'owncloud::config' do
@@ -169,6 +170,7 @@ describe 'owncloud' do
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*0 => 'owncloud.example.com',*/)
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*1 => '192.168.10.3',*/)
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'trusted_domains' => array \( 0 => 'owncloud.example.com',1 => '192.168.10.3',\),*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'dbpassword' => 'dirtyPassword',*/)
       end
     end
   end #context 'use different trusted domains'
