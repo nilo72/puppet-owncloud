@@ -4,9 +4,9 @@ class owncloud::params {
   # parameters of owncloud config fils
   $instanceid                                 = ''
   $passwordsalt                               = ''
-  $version                                    = ''
-  $installed                                  = ''
-  $trusted_domains                            = 'array (\'demo.example.org\',\'otherdomain.example.org\')'
+  $version                                    = 'x.x.x.x'
+  $installed                                  = 'false'
+  $trusted_domains                            = ['demo.example.org','otherdomain.example.org']
   $datadirectory                              = '/var/www/owncloud/data'
   $dbtype                                     = 'sqlite'
   $dbhost                                     = ''
@@ -108,7 +108,7 @@ class owncloud::params {
                                                  \'facebook100000123456789\',\'serviceName\' => \'swift\',
                                                  \'urlType\' => \'internal\'),)'
   $sharing_managerFactory                     = '\OC\Share20\ProviderFactory'
-  $dbdriveroptions                            = 'array(PDO::MYSQL_ATTR_SSL_CA => \'/file/path/to/ca_cert.pem\',)'
+  $dbdriveroptions                            = ''
   $sqlite_journal_mode                        = 'DELETE'
   $supportedDatabases                         = 'array(\'sqlite\',\'mysql\',\'pgsql\',\'oci\',)'
   $tempdirectory                              = '/tmp/owncloudtemp'
@@ -132,7 +132,11 @@ class owncloud::params {
   $memcache_locking                           = '\\OC\\Memcache\\Redis'
   $debug                                      = false
   $copied_sample_config                       = true
-# control parameters
+  $adminlogin                                 = 'admin'
+  $adminpass                                  = 'owncloud'
+
+  # control parameters
+  $clusternode                                = false
   $service_enable                             = true
   $service_ensure                             = 'running'
   $service_manage                             = true
@@ -141,4 +145,5 @@ class owncloud::params {
   $apt_url_enterprise                         = 'enterprise'
   $do_Update                                  = false
   $enterprise_community                       = false
+
 }

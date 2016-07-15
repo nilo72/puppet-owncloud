@@ -1,0 +1,12 @@
+<?php
+$AUTOCONFIG = array(
+  "dbtype"        => "<%= scope.lookupvar('::owncloud::dbtype')%>",
+  "dbname"        => "<%= scope.lookupvar('::owncloud::dbname')%>",
+  "dbuser"        => "<%= scope.lookupvar('::owncloud::dbname')%>",
+  "dbpass"        => "<%= scope.lookupvar('::owncloud::dbpassword')%>",
+  "dbhost"        => "<%= scope.lookupvar('::owncloud::dbhost')%>",
+  "dbtableprefix" => "<%= scope.lookupvar('::owncloud::dbtableprefix')%>",
+  "adminlogin"    => "<%= scope.lookupvar('::owncloud::adminlogin')%>",
+  "adminpass"     => "<%= scope.lookupvar('::owncloud::adminpass')%>",
+  "directory"     => "<%= scope.lookupvar('::owncloud::datadirectory')%>",
+);

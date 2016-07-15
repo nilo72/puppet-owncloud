@@ -65,7 +65,7 @@ $CONFIG = array(
  * across ownCloud instances using the same SQL database. This is set up during
  * installation, so you shouldn't need to change it.
  */
-'dbuser' => '<%= scope.lookupvar('::owncloud::dbuser') %>',
+'dbuser' => '<%= scope.lookupvar('::owncloud::dbname') %>',
 /**
  * The password for the database user. This is set up during installation, so
  * you shouldn't need to change it.
@@ -946,4 +946,6 @@ $CONFIG = array(
  * modify *ANY* settings in this file without reading the documentation.
  */
 'copied_sample_config' => <%= scope.lookupvar('::owncloud::copied_sample_config') %>,
+'installed' => '<%= scope.lookupvar('::owncloud::installed') %>',
+'version' => '<%= scope.lookupvar('::owncloud::version') %>',
 );

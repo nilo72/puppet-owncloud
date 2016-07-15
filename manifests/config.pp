@@ -17,13 +17,31 @@ class owncloud::config inherits owncloud{
     maxrequestsperchild => '4000',
   }
 
-  file { '/var/www/owncloud/config/puppet.config.php':
-    ensure  => present,
-    owner   => 'www-data',
-    group   => 'www-data',
-    mode    => '0640',
-    content => template('owncloud/var/www/owncloud/config/config.php.erb'),
+  if($::owncloud::clusternode == true)
+  {
+    file { '/var/www/owncloud/config/autoconfig.php':
+      ensure  => present,
+      owner   => 'www-data',
+      group   => 'www-data',
+      mode    => '0640',
+      content => template('owncloud/var/www/owncloud/config/autoconfig.php.erb'),
+    }
   }
+  elsif ($::owncloud::clusternode == false)
+  {
+    file { '/var/www/owncloud/config/puppet.config.php':
+      ensure  => present,
+      owner   => 'www-data',
+      group   => 'www-data',
+      mode    => '0640',
+      content => template('owncloud/var/www/owncloud/config/config.php.erb'),
+    }
+  }
+  else
+  {
+      warning("Parameter 'clusternode' must be specified")
+  }
+
 
   file { '/var/www/owncloud/config/config.php':
     ensure => present,

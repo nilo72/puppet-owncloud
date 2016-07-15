@@ -15,10 +15,6 @@ describe 'owncloud' do
       :fqdn                       => 'testhost.example.org',
   }}
 
-  let(:params) { {
-      :trusted_domains  => ['hallo','welt'],
-  }}
-
   context 'with default settings' do
     it 'Compile' do
       should compile
@@ -84,8 +80,8 @@ describe 'owncloud' do
         should contain_file('/etc/php5/apache2/php.ini')
         should contain_file('/var/www/owncloud/config/config.php')
         should contain_file('/var/www/owncloud/config/puppet.config.php')
-        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*hallo*/)
-        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*welt*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*0 => 'demo.example.org',*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*1 => 'otherdomain.example.org',*/)
       end
 
       it 'configures apache2 server' do
@@ -174,6 +170,27 @@ describe 'owncloud' do
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'trusted_domains' => array \( 0 => 'owncloud.example.com',1 => '192.168.10.3',\),*/)
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'dbpassword' => 'dirtyPassword',*/)
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'logfile' => '\/var\/log\/192.168.10.1.owncloud.log',*/)
+      end
+    end
+  end #context 'use different trusted domains'
+
+  context 'setup a clusternode' do
+    let(:facts) { {
+        :concat_basedir             => '/tmp',
+        :osfamily                   => 'Debian',
+        :operatingsystem            => 'Debian',
+        :lsbdistid                  => 'Debian',
+        :operatingsystemrelease     => '8'
+    }}
+
+    let(:params) { {
+        :clusternode      => true,
+    }}
+
+    describe 'owncloud::config' do
+      it 'contain files' do
+        should contain_file('/var/www/owncloud/config/autoconfig.php')
+        is_expected.not_to contain_file('/var/www/owncloud/config/puppet.config.php')
       end
     end
   end #context 'use different trusted domains'
