@@ -62,7 +62,7 @@ class owncloud (
   $log_query                                  = $owncloud::params::log_query,
   $cron_log                                   = $owncloud::params::cron_log,
   $cron_lockfile_location                     = $owncloud::params::log_rotate_size,
-  $log_rotate_size                            = $owncloud::params::false,
+  $log_rotate_size                            = $owncloud::params::log_rotate_size,
   $thirdpartyroot                             = $owncloud::params::thirdpartyroot,
   $thirdpartyurl                              = $owncloud::params::thirdpartyurl,
   $customclient_desktop                       = $owncloud::params::customclient_desktop,
