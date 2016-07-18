@@ -59,7 +59,7 @@ class owncloud::params {
   $oc_loglevel                                = undef # 2
   $syslog_tag                                 = undef # 'ownCloud'
   $log_condition                              = undef # 'array(\'shared_secret\' => \'57b58edb6637fe3059b3595cf9c41b9\',
-                                                 #\'users\' => array(\'sample-user\'),\'apps\' => array(\'files\'),)'
+                                                      #\'users\' => array(\'sample-user\'),\'apps\' => array(\'files\'),)'
   $logdateformat                              = undef # 'F d, Y H:i:s'
   $logtimezone                                = undef # 'Europe/Berlin'
   $log_query                                  = undef # false
@@ -75,7 +75,7 @@ class owncloud::params {
   $appstoreurl                                = undef # 'https://api.owncloud.com/v1'
   $appstore_experimental_enabled              = undef # false
   $apps_paths                                 = undef # 'array(array(\'path\'=> \'/var/www/owncloud/apps\',\'url\' => \'/apps\'
-                                                #,\'writable\' => true,),)'
+                                                      #,\'writable\' => true,),)'
   $enable_previews                            = undef # true
   $preview_max_x                              = undef # 2048
   $preview_max_y                              = undef # 2048
@@ -83,10 +83,10 @@ class owncloud::params {
   $preview_max_filesize_image                 = undef # 50
   $preview_libreoffice_path                   = undef # '/usr/bin/libreoffice'
   $preview_office_cl_parameters               = undef # ' --headless --nologo --nofirststartwizard --invisible --norestore
-                                                #-convert-to pdf -outdir '
+                                                      #-convert-to pdf -outdir '
   $enabledPreviewProviders                    = undef # 'array(\'OC\Preview\PNG\',\'OC\Preview\JPEG\',\'OC\Preview\GIF\',
-                                                #\'OC\Preview\BMP\',\'OC\Preview\XBitmap\',\'OC\Preview\MP3\',
-                                                #\'OC\Preview\TXT\',\'OC\Preview\MarkDown\')'
+                                                      #\'OC\Preview\BMP\',\'OC\Preview\XBitmap\',\'OC\Preview\MP3\',
+                                                      #\'OC\Preview\TXT\',\'OC\Preview\MarkDown\')'
   $ldapUserCleanupInterval                    = undef # 51
   $comments_managerFactory                    = undef # '\OC\Comments\ManagerFactory'
   $systemtags_managerFactory                  = undef # '\OC\SystemTag\ManagerFactory'
@@ -97,16 +97,16 @@ class owncloud::params {
   $memcache_local                             = undef # '\OC\Memcache\APCu'
   $memcache_distributed                       = undef # '\OC\Memcache\Memcached'
   $redis                                      = undef # 'array(\'host\' => \'localhost\' , \'port\' => 6379,\'timeout\' => 0.0,
-                                                #\'password\' => \'\', \'dbindex\' => 0,)'
+                                                      #\'password\' => \'\', \'dbindex\' => 0,)'
   $memcached_servers                          = undef # 'array(array(\'localhost\', 11211),)'
   $cache_path                                 = undef # ''
   $objectstore                                = undef # 'array(\'class\' => \'OC\\Files\\ObjectStore\\Swift\',\'arguments\' =>
-                                                 #array(\'username\' => \'facebook100000123456789\',\'password\' =>
-                                                 #\'Secr3tPaSSWoRdt7\',\'container\' => \'owncloud\',\'autocreate\'
-                                                 #=> true,\'region\' => \'RegionOne\',\'url\' =>
-                                                 #\'http://8.21.28.222:5000/v2.0\',\'tenantName\' =>
-                                                 #\'facebook100000123456789\',\'serviceName\' => \'swift\',
-                                                 #\'urlType\' => \'internal\'),)'
+                                                      #array(\'username\' => \'facebook100000123456789\',\'password\' =>
+                                                      #\'Secr3tPaSSWoRdt7\',\'container\' => \'owncloud\',\'autocreate\'
+                                                      #=> true,\'region\' => \'RegionOne\',\'url\' =>
+                                                      #\'http://8.21.28.222:5000/v2.0\',\'tenantName\' =>
+                                                      #\'facebook100000123456789\',\'serviceName\' => \'swift\',
+                                                      #\'urlType\' => \'internal\'),)'
   $sharing_managerFactory                     = undef # '\OC\Share20\ProviderFactory'
   $dbdriveroptions                            = undef # ''
   $sqlite_journal_mode                        = undef # 'DELETE'
