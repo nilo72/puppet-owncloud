@@ -5,7 +5,7 @@ class owncloud::params {
   $instanceid                                 = ''
   $passwordsalt                               = ''
   $version                                    = 'x.x.x.x'
-  $installed                                  = 'false'
+  $installed                                  = false
   $trusted_domains                            = ['demo.example.org','otherdomain.example.org']
   $datadirectory                              = '/var/www/owncloud/data'
   $dbtype                                     = 'sqlite'
