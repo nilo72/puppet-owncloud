@@ -127,12 +127,11 @@ class owncloud (
   $do_Update                                  = $owncloud::params::do_Update,
   $enterprise_community                       = $owncloud::params::enterprise_community,
   $fqdn                                       = $::fqdn,
-  $installed                                  = $owncloud::params::installed,
-  $version                                    = $owncloud::params::version,
   $adminlogin                                 = $owncloud::params::apdminlogin,
   $adminpass                                  = $owncloud::params::adminpass,
   $clusternode                                = $owncloud::params::clusternode,
-) inherits owncloud::params{
+) inherits owncloud::params
+{
 
   # TODO: validate parameters
   validate_string($service_ensure)
