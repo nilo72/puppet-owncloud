@@ -15,10 +15,6 @@ describe 'owncloud' do
       :fqdn                       => 'testhost.example.org',
   }}
 
-  let(:params) { {
-
-  }}
-
   context 'with default settings' do
     it 'Compile' do
       should compile
@@ -81,8 +77,11 @@ describe 'owncloud' do
         should contain_file('/etc/php5/conf.d/apc.ini')
         should contain_file('/etc/php5/conf.d').with_ensure('directory')
         should contain_file('/etc/sysctl.conf')
+        should contain_file('/etc/php5/apache2/php.ini')
         should contain_file('/var/www/owncloud/config/config.php')
         should contain_file('/var/www/owncloud/config/puppet.config.php')
+        #should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*0 => 'demo.example.org',*/)
+        #should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*1 => 'otherdomain.example.org',*/)
       end
 
       it 'configures apache2 server' do
@@ -108,6 +107,7 @@ describe 'owncloud' do
 
     let(:params) { {
         :do_Update                  => true,
+        :trusted_domains  => ['hallo','welt'],
     }}
 
     describe 'owncloud::install' do
@@ -131,6 +131,7 @@ describe 'owncloud' do
 
     let(:params) { {
         :enterprise_community       => true,
+        :trusted_domains  => ['hallo','welt'],
     }}
 
     describe 'owncloud::install' do
@@ -145,5 +146,53 @@ describe 'owncloud' do
       end
     end
   end #context 'use enterprise edition'
+
+  context 'use different trusted domains' do
+    let(:facts) { {
+        :concat_basedir             => '/tmp',
+        :osfamily                   => 'Debian',
+        :operatingsystem            => 'Debian',
+        :lsbdistid                  => 'Debian',
+        :operatingsystemrelease     => '8'
+    }}
+
+    let(:params) { {
+        :trusted_domains  => ['owncloud.example.com','192.168.10.3'],
+        :dbpassword       => 'dirtyPassword',
+        :logfile          => '/var/log/192.168.10.1.owncloud.log',
+    }}
+
+    describe 'owncloud::config' do
+      it 'contain files' do
+        should contain_file('/var/www/owncloud/config/puppet.config.php')
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*0 => 'owncloud.example.com',*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*1 => '192.168.10.3',*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'trusted_domains' => array \( 0 => 'owncloud.example.com',1 => '192.168.10.3',\),*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'dbpassword' => 'dirtyPassword',*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'logfile' => '\/var\/log\/192.168.10.1.owncloud.log',*/)
+      end
+    end
+  end #context 'use different trusted domains'
+
+  context 'setup a clusternode' do
+    let(:facts) { {
+        :concat_basedir             => '/tmp',
+        :osfamily                   => 'Debian',
+        :operatingsystem            => 'Debian',
+        :lsbdistid                  => 'Debian',
+        :operatingsystemrelease     => '8'
+    }}
+
+    let(:params) { {
+        :clusternode      => true,
+    }}
+
+    describe 'owncloud::config' do
+      it 'contain files' do
+        should contain_file('/var/www/owncloud/config/autoconfig.php')
+        is_expected.not_to contain_file('/var/www/owncloud/config/puppet.config.php')
+      end
+    end
+  end #context 'use different trusted domains'
 end #describe 'owncloud'
 
