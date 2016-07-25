@@ -386,7 +386,7 @@ $CONFIG = array(
  * Loglevel to start logging at. Valid values are: 0 = Debug, 1 = Info, 2 =
  * Warning, 3 = Error, and 4 = Fatal. The default value is Warning.
  */
-'loglevel' => '<%= scope.lookupvar('::owncloud::oc_loglevel') %>',<% end %><% if defined?(@syslog_tag) %>
+'loglevel' => <%= scope.lookupvar('::owncloud::oc_loglevel') %>,<% end %><% if defined?(@syslog_tag) %>
 /**
  * If you maintain different instances and aggregate the logs, you may want
  * to distinguish between them. ``syslog_tag`` can be set per instance
@@ -637,7 +637,8 @@ $CONFIG = array(
  * These options are for halting user activity when you are performing server
  * maintenance.
  */
-<% if defined?(@maintenance) %>/**
+<% if defined?(@maintenance) %>
+/**
  * Enable maintenance mode to disable ownCloud
  *
  * If you want to prevent users from logging in to ownCloud before you start
@@ -645,7 +646,7 @@ $CONFIG = array(
  * parameter to true. Please keep in mind that users who are already logged-in
  * are kicked out of ownCloud instantly.
  */
-'maintenance' => '<%= scope.lookupvar('::owncloud::maintenance') %>',<% end %><% if defined?(@singleuser) %>
+'maintenance' => <%= scope.lookupvar('::owncloud::maintenance') %>,<% end %><% if defined?(@singleuser) %>
 /**
  * When set to ``true``, the ownCloud instance will be unavailable for all users
  * who are not in the ``admin`` group.
@@ -681,7 +682,8 @@ $CONFIG = array(
  * * Use Redis or Memcached for distributed environments.
  *   For the local cache (you can configure two) take APCu.
  */
-<% if defined?(@memcache_local) %>/**
+<% if defined?(@memcache_local) %>
+/**
  * Memory caching backend for locally stored data
  *
  * * Used for host-specific data, e.g. file paths
@@ -918,7 +920,7 @@ $CONFIG = array(
  * modify *ANY* settings in this file without reading the documentation.
  */
 <% if defined?(@copied_sample_config) %>'copied_sample_config' => <%= scope.lookupvar('::owncloud::copied_sample_config') %>,<% end %><% if defined?(@installed) %>
-'installed' => '<%= scope.lookupvar('::owncloud::installed') %>',<% end %><% if defined?(@version) %>
+'installed' => <%= scope.lookupvar('::owncloud::installed') %>,<% end %><% if defined?(@version) %>
 'version' => '<%= scope.lookupvar('::owncloud::version') %>',<% end %>
 
 );

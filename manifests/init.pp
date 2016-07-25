@@ -138,6 +138,8 @@ class owncloud (
   validate_string($apt_url_community)
   validate_string($apt_url_enterprise)
   validate_bool($do_Update)
+  validate_bool($maintenance)
+  validate_bool($installed)
 
   anchor { 'owncloud::begin': } ->
   class { '::owncloud::install': } ->
