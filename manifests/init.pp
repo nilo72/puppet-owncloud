@@ -130,16 +130,16 @@ class owncloud (
   $adminlogin                                 = $owncloud::params::apdminlogin,
   $adminpass                                  = $owncloud::params::adminpass,
   $clusternode                                = $owncloud::params::clusternode,
+  $site_name                                  = $owncloud::params::site_name,
 ) inherits owncloud::params
 {
 
   # TODO: validate parameters
   validate_string($service_ensure)
+  validate_string($site_name)
   validate_string($apt_url_community)
   validate_string($apt_url_enterprise)
   validate_bool($do_Update)
-  validate_bool($maintenance)
-  validate_bool($installed)
 
   anchor { 'owncloud::begin': } ->
   class { '::owncloud::install': } ->

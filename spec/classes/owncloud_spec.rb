@@ -15,6 +15,10 @@ describe 'owncloud' do
       :fqdn                       => 'testhost.example.org',
   }}
 
+  let(:params) { {
+      :site_name                  => 'owncloud.example.com',
+  } }
+
   context 'with default settings' do
     it 'Compile' do
       should compile
@@ -67,8 +71,8 @@ describe 'owncloud' do
       it 'apache components' do
         should contain_apache__listen('443')
         should contain_apache__listen('80')
-        should contain_apache__vhost('testhost.example.org-SSL')
-        should contain_apache__vhost('testhost.example.org')
+        should contain_apache__vhost('owncloud.example.com-SSL')
+        should contain_apache__vhost('owncloud.example.com')
       end
     end
 
@@ -107,7 +111,8 @@ describe 'owncloud' do
 
     let(:params) { {
         :do_Update                  => true,
-        :trusted_domains  => ['hallo','welt'],
+        :trusted_domains            => ['hallo','welt'],
+        :site_name                  => 'owncloud.example.com',
     }}
 
     describe 'owncloud::install' do
@@ -131,7 +136,8 @@ describe 'owncloud' do
 
     let(:params) { {
         :enterprise_community       => true,
-        :trusted_domains  => ['hallo','welt'],
+        :trusted_domains            => ['hallo','welt'],
+        :site_name                  => 'owncloud.example.com',
     }}
 
     describe 'owncloud::install' do
@@ -159,6 +165,7 @@ describe 'owncloud' do
     let(:params) { {
         :trusted_domains  => ['owncloud.example.com','192.168.10.3'],
         :dbpassword       => 'dirtyPassword',
+        :site_name        => 'owncloud.example.com',
         :logfile          => '/var/log/192.168.10.1.owncloud.log',
     }}
 
@@ -185,6 +192,7 @@ describe 'owncloud' do
 
     let(:params) { {
         :clusternode      => true,
+        :site_name        => 'owncloud.example.com',
     }}
 
     describe 'owncloud::config' do

@@ -5,7 +5,7 @@ class owncloud::params {
   $instanceid                                 = undef # ''
   $passwordsalt                               = undef # ''
   $version                                    = undef # 'x.x.x.x'
-  $installed                                  = undef # false
+  $installed                                  = false # false
   $trusted_domains                            = undef # ['demo.example.org','otherdomain.example.org']
   $datadirectory                              = undef # '/var/www/owncloud/data'
   $dbtype                                     = undef # 'sqlite'
@@ -90,7 +90,7 @@ class owncloud::params {
   $ldapUserCleanupInterval                    = undef # 51
   $comments_managerFactory                    = undef # '\OC\Comments\ManagerFactory'
   $systemtags_managerFactory                  = undef # '\OC\SystemTag\ManagerFactory'
-  $maintenance                                = undef # false
+  $maintenance                                = true # false
   $singleuser                                 = undef # false
   $openssl                                    = undef # 'array(\'config\' => \'/absolute/location/of/openssl.cnf\',)'
   $enable_certificate_management              = undef # false
@@ -145,5 +145,6 @@ class owncloud::params {
   $apt_url_enterprise                         = 'enterprise'
   $do_Update                                  = false
   $enterprise_community                       = false
+  $site_name                                  = ''
 
 }
