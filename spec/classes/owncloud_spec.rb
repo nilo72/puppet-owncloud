@@ -179,7 +179,7 @@ describe 'owncloud' do
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'trusted_domains' => array \( 0 => 'owncloud.example.com',1 => '192.168.10.3',\),*/)
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'dbpassword' => 'dirtyPassword',*/)
         should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'logfile' => '\/var\/log\/192.168.10.1.owncloud.log',*/)
-        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'redis' => array ( 'host' => localhost, 'port' => 4711 )*/)
+        should contain_file('/var/www/owncloud/config/puppet.config.php').with_content(/^*'redis' => array ( 'host' => 'localhost', 'port' => 4711 )*/)
       end
     end
   end #context 'check configuration settings'
