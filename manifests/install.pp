@@ -12,6 +12,10 @@ class owncloud::install inherits owncloud {
     ensure => latest,
   }
 
+  package { 'php5-redis':
+    ensure => latest,
+  }
+
   package { 'php5-memcached':
     ensure => latest,
   }

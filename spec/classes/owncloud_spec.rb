@@ -48,11 +48,11 @@ describe 'owncloud' do
       end
 
       it 'installs packages' do
-        #should contain_include('apt')
         should contain_package('owncloud')
         should contain_package('owncloud').with_ensure('present')
         should contain_package('php5-ldap')
         should contain_package('php5-apcu')
+        should contain_package('php5-redis')
         should contain_package('php5-memcached')
         should contain_package('libapache2-mod-xsendfile')
         should contain_package('php5-imagick')
@@ -91,6 +91,9 @@ describe 'owncloud' do
       it 'configures apache2 server' do
         should contain_class('apache')
         should contain_class('apache::mod::prefork')
+        should contain_class('apache::mod::php')
+        should contain_class('apache::mod::xsendfile')
+        should contain_class('apache::mod::headers')
       end
     end
 
