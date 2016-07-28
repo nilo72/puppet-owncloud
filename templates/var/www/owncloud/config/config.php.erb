@@ -703,7 +703,7 @@ $CONFIG = array(
  * to require a password. See http://redis.io/topics/security
  * for more information.
  */
-'redis' => <%= scope.lookupvar('::owncloud::redis') %>,<% end %><% if defined?(@memcached_servers) %>
+'redis' => array (  <% @redis.each do |key, value| -%><%= "''#{key}'' => #{value}," %><% end -%>  ),<% end %><% if defined?(@memcached_servers) %>
 /**
  * Server details for one or more memcached servers to use for memory caching.
  */
