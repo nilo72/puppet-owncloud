@@ -78,7 +78,7 @@ class owncloud::install inherits owncloud {
   } else {
 
     # update your package list
-    if $owncloud::do_Update {
+    if $owncloud::do_update {
       package { 'owncloud':
         ensure  => latest,
         require => Apt::Source['owncloud_community'],

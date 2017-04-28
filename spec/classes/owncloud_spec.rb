@@ -111,7 +111,7 @@ describe 'owncloud' do
     }}
 
     let(:params) { {
-        :do_Update                  => true,
+        :do_update                  => true,
         :trusted_domains            => ['hallo','welt'],
         :site_name                  => 'owncloud.example.com',
     }}

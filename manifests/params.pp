@@ -84,12 +84,12 @@ class owncloud::params {
   $preview_libreoffice_path                   = undef # '/usr/bin/libreoffice'
   $preview_office_cl_parameters               = undef # ' --headless --nologo --nofirststartwizard --invisible --norestore
                                                       #-convert-to pdf -outdir '
-  $enabledPreviewProviders                    = undef # 'array(\'OC\Preview\PNG\',\'OC\Preview\JPEG\',\'OC\Preview\GIF\',
+  $enabled_preview_providers                    = undef # 'array(\'OC\Preview\PNG\',\'OC\Preview\JPEG\',\'OC\Preview\GIF\',
                                                       #\'OC\Preview\BMP\',\'OC\Preview\XBitmap\',\'OC\Preview\MP3\',
                                                       #\'OC\Preview\TXT\',\'OC\Preview\MarkDown\')'
-  $ldapUserCleanupInterval                    = undef # 51
-  $comments_managerFactory                    = undef # '\OC\Comments\ManagerFactory'
-  $systemtags_managerFactory                  = undef # '\OC\SystemTag\ManagerFactory'
+  $ldap_user_cleanup_interval                    = undef # 51
+  $comments_manager_factory                    = undef # '\OC\Comments\ManagerFactory'
+  $systemtags_manager_factory                  = undef # '\OC\SystemTag\ManagerFactory'
   $maintenance                                = true # false
   $singleuser                                 = undef # false
   $openssl                                    = undef # 'array(\'config\' => \'/absolute/location/of/openssl.cnf\',)'
@@ -107,12 +107,12 @@ class owncloud::params {
                                                       #\'http://8.21.28.222:5000/v2.0\',\'tenantName\' =>
                                                       #\'facebook100000123456789\',\'serviceName\' => \'swift\',
                                                       #\'urlType\' => \'internal\'),)'
-  $sharing_managerFactory                     = undef # '\OC\Share20\ProviderFactory'
+  $sharing_manager_factory                     = undef # '\OC\Share20\ProviderFactory'
   $dbdriveroptions                            = undef # ''
   $sqlite_journal_mode                        = undef # 'DELETE'
-  $supportedDatabases                         = undef # 'array(\'sqlite\',\'mysql\',\'pgsql\',\'oci\',)'
+  $supported_databases                         = undef # 'array(\'sqlite\',\'mysql\',\'pgsql\',\'oci\',)'
   $tempdirectory                              = undef # '/tmp/owncloudtemp'
-  $hashingCost                                = undef # 10
+  $hashing_cost                                = undef # 10
   $blacklisted_files                          = undef # 'array(\'.htaccess\')'
   $share_folder                               = undef # '/'
   $theme                                      = undef # ''
@@ -143,7 +143,7 @@ class owncloud::params {
   $service_name                               = 'apache2'
   $apt_url_community                          = 'http://download.owncloud.org/download/repositories/stable/Debian_8.0/'
   $apt_url_enterprise                         = 'enterprise'
-  $do_Update                                  = false
+  $do_update                                  = false
   $enterprise_community                       = false
   $site_name                                  = ''
 

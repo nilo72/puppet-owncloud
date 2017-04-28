@@ -79,10 +79,10 @@ class owncloud (
   $preview_max_filesize_image                 = $owncloud::params::preview_max_filesize_image,
   $preview_libreoffice_path                   = $owncloud::params::preview_libreoffice_path,
   $preview_office_cl_parameters               = $owncloud::params::preview_office_cl_parameters,
-  $enabledPreviewProviders                    = $owncloud::params::enabledPreviewProviders,
-  $ldapUserCleanupInterval                    = $owncloud::params::ldapUserCleanupInterval,
-  $comments_managerFactory                    = $owncloud::params::comments_managerFactory,
-  $systemtags_managerFactory                  = $owncloud::params::systemtags_managerFactory,
+  $enabled_preview_providers                  = $owncloud::params::enabled_preview_providers,
+  $ldap_user_cleanup_interval                 = $owncloud::params::ldap_user_cleanup_interval,
+  $comments_manager_factory                   = $owncloud::params::comments_manager_factory,
+  $systemtags_manager_factory                 = $owncloud::params::systemtags_manager_factory,
   $maintenance                                = $owncloud::params::maintenance,
   $singleuser                                 = $owncloud::params::singleuser,
   $openssl                                    = $owncloud::params::openssl,
@@ -93,12 +93,12 @@ class owncloud (
   $memcached_servers                          = $owncloud::params::memcached_servers,
   $cache_path                                 = $owncloud::params::cache_path,
   $objectstore                                = $owncloud::params::objectstore,
-  $sharing_managerFactory                     = $owncloud::params::sharing_managerFactory,
+  $sharing_manager_factory                    = $owncloud::params::sharing_manager_factory,
   $dbdriveroptions                            = $owncloud::params::dbdriveroptions,
   $sqlite_journal_mode                        = $owncloud::params::sqlite_journal_mode,
-  $supportedDatabases                         = $owncloud::params::supportedDatabases,
+  $supported_databases                        = $owncloud::params::supported_databases,
   $tempdirectory                              = $owncloud::params::tempdirectory,
-  $hashingCost                                = $owncloud::params::hashingCost,
+  $hashing_cost                               = $owncloud::params::hashing_cost,
   $blacklisted_files                          = $owncloud::params::blacklisted_files,
   $share_folder                               = $owncloud::params::share_folder,
   $theme                                      = $owncloud::params::theme,
@@ -124,7 +124,7 @@ class owncloud (
   $service_name                               = $owncloud::params::service_name,
   $apt_url_community                          = $owncloud::params::apt_url_community,
   $apt_url_enterprise                         = $owncloud::params::apt_url_enterprise,
-  $do_Update                                  = $owncloud::params::do_Update,
+  $do_update                                  = $owncloud::params::do_update,
   $enterprise_community                       = $owncloud::params::enterprise_community,
   $fqdn                                       = $::fqdn,
   $adminlogin                                 = $owncloud::params::apdminlogin,
@@ -139,7 +139,7 @@ class owncloud (
   validate_string($site_name)
   validate_string($apt_url_community)
   validate_string($apt_url_enterprise)
-  validate_bool($do_Update)
+  validate_bool($do_update)
 
   anchor { 'owncloud::begin': } ->
   class { '::owncloud::install': } ->
